@@ -1,11 +1,9 @@
 <template>
-  <div>
-      <body>
+  <div :style="{'background-image': 'url(' + require('@/assets/landingPage-bg.jpg') + ')'}">
         <p id="welcome">Welcome!</p>
         <p id="content1">Are you having trouble finding tutors to assist your studies?</p>
         <p id="content2"> Are you looking to tutor some students?</p>
-        <button>Join Us</button>
-      </body>  
+        <button @click="$router.push('/register')">Join Us</button> 
   </div>
 </template>
 
@@ -19,11 +17,11 @@ export default {
 }
 </script>
 
-<style>
-body {
+<style scoped>
+div {
     background-image: url('../assets/landingPage-bg.jpg');
     background-repeat: no-repeat;
-    background-size: 2000px 1000px;
+    background-size: 100% 100%;
 }
 
 #welcome {
