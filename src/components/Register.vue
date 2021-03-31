@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import firebase from "firebase"
-import db from "../firebase"
+import firebase from "../firebase"
+var db = firebase.firestore();
 
 export default {
   name: 'SignUpPage',
