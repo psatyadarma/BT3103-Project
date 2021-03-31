@@ -9,7 +9,9 @@ var firebaseConfig = {
     appId: "1:420175747456:web:30dab30706dc8167c78965",
     measurementId: "G-K2PNQBX9ZC"
 };
-
-firebase.initializeApp(firebaseConfig);
-var database = firebase.firestore();
-export default database;
+//if (!firebase.apps.length) {
+//    firebase.initializeApp(firebaseConfig);
+//} else {
+//    firebase.app();
+//}
+export default !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
