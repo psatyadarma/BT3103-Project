@@ -37,6 +37,11 @@
         type="number"
         placeholder="Hourly Rate"
       /><br><br>
+      <label for="qualifications" style="font-size:16pt">Your Available Days</label><br>
+      <textarea 
+        v-model="availability" 
+        placeholder="Your available days"
+      ></textarea><br><br>
       <label for="email" style="font-size:16pt">Email Address</label><br>
       <input
         type="email"
@@ -69,7 +74,8 @@ export default {
       qualifications:'',
       subject:'',
       rates:'',
-      phone:''
+      phone:'',
+      availability:''
     }
   },
   methods: {
@@ -78,7 +84,8 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
-          console.log(user.user.uid)
+          var tutorid = user.user.uid;
+          console.log(tutorid);
           db.collection("profiles").doc(user.user.uid).set({
             first_name: this.first,
             last_name: this.last,
@@ -86,7 +93,10 @@ export default {
             qualifications: this.qualifications,
             subject: this.subject,
             rates: this.rates,
-            phone:this.phone
+            phone:this.phone,
+            rate:0,
+            tutid:tutorid,
+            availability:this.availability
           })
           .then(function() {
             console.log("Document successfully written!");
