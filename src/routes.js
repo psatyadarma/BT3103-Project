@@ -1,9 +1,11 @@
 import LandingPage from './components/LandingPage.vue'
 import LoginPage from './components/Login.vue'
-import RegisterPage from './components/Register.vue'
+import RegisterStudent from './components/RegisterStudent.vue'
+import RegisterTutor from './components/RegisterTutor.vue'
 
 export default [
     { path: '/', component: LandingPage },
     { path: '/login', component: LoginPage },
-    { path: '/register', component: RegisterPage },
+    { path: '/registerStudent', component: RegisterStudent },
+    { path: '/registerTutor', component: RegisterTutor }
 ]

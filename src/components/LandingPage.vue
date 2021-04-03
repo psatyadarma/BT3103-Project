@@ -3,7 +3,8 @@
         <p id="welcome">Welcome!</p>
         <p id="content1">Are you having trouble finding tutors to assist your studies?</p>
         <p id="content2"> Are you looking to tutor some students?</p>
-        <button @click="$router.push('/register')">Join Us</button> 
+        <button @click="$router.push('/registerStudent')" id="button1">Join As Student</button>
+        <button @click="$router.push('/registerTutor')" id="button2">Join As Tutor</button> 
   </div>
 </template>
 
@@ -80,9 +81,9 @@ div {
     color: #414141;
 }
 
-button {
+#button1 {
     position: absolute;
-    width: 130px;
+    width: 180 px;
     height: 61px;
     left: 96px;
     top: 650px;
@@ -90,7 +91,27 @@ button {
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 33px;
+    font-size: 20px;
+    line-height: 100px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    background: #48B9B2;
+    border-radius: 50px;
+}
+
+#button2 {
+    position: absolute;
+    width: 140px;
+    height: 61px;
+    left: 300px;
+    top: 650px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
     line-height: 100px;
     display: flex;
     align-items: center;

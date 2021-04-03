@@ -1,17 +1,18 @@
 <template>
-  <div>   
-  <form @submit.prevent="login">     
-    <h2>Login</h2>     
+  <div style="text-align:center">   
+  <h1>Login</h1> 
+  <form @submit.prevent="login" style="background-color:#E6E6FA">     
+        
     <input       
       type="email"       
-      placeholder="Email address..."       
+      placeholder="Email address"       
       v-model="email"     
-    />     
+    /><br><br>      
     <input       
       type="password"       
-      placeholder="password..."       
+      placeholder="Password"       
       v-model="password"     
-    />     
+    /><br><br>      
     <button type="submit" value="login">
        Login
     </button>   
@@ -47,5 +48,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+h1 {
+  font-size:24pt
+}
+input, select {
+  height:40px;
+  width:200 px;
+  font-size: 14pt;
+  margin:5px 0;
+  padding:8px;
+  border-radius:10px;
+  box-shadow: 2px 1px
+}
+
+button {
+  height:40px;
+  width:100px;
+  font-size: 14pt;
+  background-color:aquamarine
+}
 </style>
