@@ -11,16 +11,23 @@
         
         <div id='dropdowns'>
             <label for="sortBy"><strong>Sort By:</strong></label>
-            <select name="sortBy" id="sortBy">
+            <select name="sortBy" id="sortBy" v-model='sortingKey' v-on:change='sortTutors()'>
                 <option value="select">Select...</option>
+                <option value="ratesAsc">Rates (Low to High)</option>
+                <option value="ratesDesc">Rates (High to Low)</option>
                 <option value="rating">Rating</option>
-                <option value="rates">Rates</option>
+                <option value="experience">Years of Experience</option>
             </select>
             <label for="filterBy"><strong>Filter By:</strong></label>
             <select name="filterBy" id="filterBy">
                 <option value="select">Select...</option>
-                <option value="subject">Subject</option>
-                <option value="experience">Years of Experience</option>
+                <optgroup label='Subject'>
+                    <option value="english">English</option>
+                    <option value="mathematics">Mathematics</option>
+                    <option value="physics">Physics</option>
+                    <option value="chemistry">Chemistry</option>
+                    <option value="biology">Biology</option>
+                </optgroup>
             </select>
         </div>
         
@@ -55,6 +62,7 @@ export default {
       return {
           tutors: [],
           searchQuery: '',
+          sortingKey: '',
       };
   },
   methods: {
@@ -69,6 +77,21 @@ export default {
                   this.tutors.push(tutor)
               })
           })
+      },
+
+      sortTutors: function() {
+          var key = this.sortingKey;
+          if (key == 'select') {
+              this.tutors = this.tutors.sort((a,b) => (a.id > b.id) ? 1 : -1);
+          } else if (key == 'ratesAsc') {
+              this.tutors = this.tutors.sort((a,b) => (a.rates > b.rates) ? 1 : -1);
+          } else if (key == 'ratesDesc') {
+              this.tutors = this.tutors.sort((a,b) => (a.rates > b.rates) ? 1 : -1);
+              this.tutors = this.tutors.reverse();
+          } else {
+              this.tutors = this.tutors.sort((a,b) => (a[key] > b[key]) ? 1 : -1);
+              this.tutors = this.tutors.reverse();
+          }
       },
 
   },
@@ -107,7 +130,23 @@ li {
     text-align: center;
     padding: 10px;
     border: 1px solid #222;
-    margin: 10px;
+    margin: 0 40px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 46px;
+}
+
+#tutorName {
+    font-family: Montserrat;
+    font-weight: bold;
+    color: black;
+    font-size: 28px;
+}
+
+#tutorDescription {
+    font-family: Montserrat;
+    color: grey;
+    font-size: 20px;
 }
 
 #searching {
