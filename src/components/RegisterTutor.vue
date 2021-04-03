@@ -68,7 +68,8 @@ export default {
       password: '',
       qualifications:'',
       subject:'',
-      rates:''
+      rates:'',
+      phone:''
     }
   },
   methods: {
@@ -84,7 +85,8 @@ export default {
             email: this.email,
             qualifications: this.qualifications,
             subject: this.subject,
-            rates: this.rates
+            rates: this.rates,
+            phone:this.phone
           })
           .then(function() {
             console.log("Document successfully written!");
