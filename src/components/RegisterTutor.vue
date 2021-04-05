@@ -24,19 +24,35 @@
       <textarea 
         v-model="qualifications" 
         placeholder="Your qualifications"
-      ></textarea><br><br>
+      ></textarea><br>
+      <p style="font-size:16pt">Teaching Level</p>
+      <input type="checkbox" id="primary" value="primary" v-model="level" class="check">
+      <label for="primary">Primary</label>
+      <input type="checkbox" id="secondary" value="secondary" v-model="level" class="check">
+      <label for="secondary">Secondary</label>
+      <input type="checkbox" id="jc" value="jc" v-model="level" class="check">
+      <label for="jc">JC</label>
+      <input type="checkbox" id="university" value="university" v-model="level" class="check">
+      <label for="university">University</label>
+      <br><br><br>
       <label for="experience" style="font-size:16pt">Year of Experience</label><br>
       <input 
         v-model.number="experience" 
         type="number"
         placeholder="Year of Experience"
       /><br><br>
-      <label for="subjects" style="font-size:16pt">Subjects</label><br>
-      <input
-        type="text"
-        placeholder="Subjects"
-        v-model="subject"
-      /><br><br>
+      <p style="font-size:16pt">Teaching Subjects</p>
+      <input type="checkbox" id="mathematics" value="mathematics" v-model="subject" class="check">
+      <label for="mathematics">Mathematics</label>
+      <input type="checkbox" id="english" value="english" v-model="subject" class="check">
+      <label for="english">English</label>
+      <input type="checkbox" id="physics" value="physics" v-model="subject" class="check">
+      <label for="physics">Physics</label>
+      <input type="checkbox" id="chemistry" value="chemistry" v-model="subject" class="check">
+      <label for="chemistry">Chemistry</label>
+      <input type="checkbox" id="biology" value="biology" v-model="subject" class="check">
+      <label for="biology">Biology</label>
+      <br><br><br>
       <label for="rates" style="font-size:16pt">Rates</label><br>
       <input 
         v-model.number="rates" 
@@ -78,12 +94,13 @@ export default {
       email: '',
       password: '',
       qualifications:'',
-      subject:'',
+      subject:[],
       rates:'',
       phone:'',
       availability:'',
       experience:'',
-      image:''
+      image:'',
+      level:[]
     }
   },
   methods: {
@@ -106,7 +123,8 @@ export default {
             tutid:tutorid,
             availability:this.availability,
             experience:this.experience,
-            image:this.image
+            image:this.image,
+            level:this.level
           })
           .then(function() {
             console.log("Document successfully written!");
@@ -131,7 +149,28 @@ h1 {
   font-size: 24pt
 }
 
-input, select {
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+  padding: 10px;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+/* Might want to wrap a span around your checkbox text */
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size: 16pt;
+  display: inline;
+}
+
+input:not(.check), select {
   height:40px;
   width:200 px;
   font-size: 14pt;

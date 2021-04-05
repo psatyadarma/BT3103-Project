@@ -37,6 +37,7 @@
         <option>Primary</option>
         <option>Secondary</option>
         <option>Junior College</option>
+        <option>University</option>
       </select><br><br>
       <button type="submit" value="register">Register</button>
     </form>
