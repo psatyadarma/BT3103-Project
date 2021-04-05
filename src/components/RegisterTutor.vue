@@ -26,11 +26,11 @@
         placeholder="Your qualifications"
       ></textarea><br><br>
       <label for="experience" style="font-size:16pt">Year of Experience</label><br>
-      <textarea 
+      <input 
         v-model.number="experience" 
         type="number"
         placeholder="Year of Experience"
-      ></textarea><br><br>
+      /><br><br>
       <label for="subjects" style="font-size:16pt">Subjects</label><br>
       <input
         type="text"
