@@ -57,6 +57,7 @@ export default {
       password: '',
       phone:'',
       education:'',
+      image:''
     }
   },
   methods: {
@@ -71,7 +72,8 @@ export default {
             last_name: this.last,
             email: this.email,
             phone: this.phone,
-            education: this.education
+            education: this.education,
+            image: this.image
           })
           .then(function() {
             console.log("Document successfully written!");

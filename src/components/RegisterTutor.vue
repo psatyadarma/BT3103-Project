@@ -28,6 +28,7 @@
       <label for="experience" style="font-size:16pt">Year of Experience</label><br>
       <textarea 
         v-model.number="experience" 
+        type="number"
         placeholder="Year of Experience"
       ></textarea><br><br>
       <label for="subjects" style="font-size:16pt">Subjects</label><br>
