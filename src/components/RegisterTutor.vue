@@ -25,6 +25,11 @@
         v-model="qualifications" 
         placeholder="Your qualifications"
       ></textarea><br><br>
+      <label for="experience" style="font-size:16pt">Year of Experience</label><br>
+      <textarea 
+        v-model.number="experience" 
+        placeholder="Year of Experience"
+      ></textarea><br><br>
       <label for="subjects" style="font-size:16pt">Subjects</label><br>
       <input
         type="text"
@@ -75,7 +80,9 @@ export default {
       subject:'',
       rates:'',
       phone:'',
-      availability:''
+      availability:'',
+      experience:'',
+      image:''
     }
   },
   methods: {
@@ -96,7 +103,9 @@ export default {
             phone:this.phone,
             rate:0,
             tutid:tutorid,
-            availability:this.availability
+            availability:this.availability,
+            experience:this.experience,
+            image:this.image
           })
           .then(function() {
             console.log("Document successfully written!");
