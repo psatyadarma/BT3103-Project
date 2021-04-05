@@ -4,47 +4,64 @@
         
         <div id='searching'>
             <input type="search" v-model='searchQuery' spellcheck=true 
-            placeholder='Keywords such as Subject, Level...'>
-            <button type="button" id='searchButton'>Search</button>
+            placeholder='Keywords such as Subject, Level, Rates...'>
             <button type="button" id='myTutors'>My Tutors</button>
         </div>
         
         <div id='dropdowns'>
+            
             <label for="sortBy"><strong>Sort By:</strong></label>
             <select name="sortBy" id="sortBy" v-model='sortingKey' v-on:change='sortTutors()'>
                 <option value="select">Select...</option>
                 <option value="ratesAsc">Rates (Low to High)</option>
                 <option value="ratesDesc">Rates (High to Low)</option>
-                <option value="rating">Rating</option>
+                <option value="rate">Rating</option>
                 <option value="experience">Years of Experience</option>
             </select>
-            <label for="filterBy"><strong>Filter By:</strong></label>
-            <select name="filterBy" id="filterBy">
+
+            <label for="level"><strong>Level:</strong></label>
+            <select name="level" id="level" v-model='levelKey'>
                 <option value="select">Select...</option>
-                <optgroup label='Subject'>
-                    <option value="english">English</option>
-                    <option value="mathematics">Mathematics</option>
-                    <option value="physics">Physics</option>
-                    <option value="chemistry">Chemistry</option>
-                    <option value="biology">Biology</option>
-                </optgroup>
+                <option value="Primary">Primary</option>
+                <option value="Secondary">Secondary</option>
+                <option value="JC">JC</option>
             </select>
+
+            <label for="subject"><strong>Subject:</strong></label>
+            <select name="subject" id="subject" v-model='subjectKey'>
+                <option value="select">Select...</option>
+                <option value="English">English</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Biology">Biology</option>
+            </select>
+        
         </div>
         
         <div id='tutorCarousel'>
             <ul>
-                <li v-for='tutor in tutors' :key='tutor.id'>
+                <li v-for='tutor in filteredTutors' :key='tutor.id'>
                     <img v-bind:src='tutor.image' alt='Tutor Image'>
-                    <p id='tutorName'>{{ tutor.name }}</p>
-                    <p id='tutorDescription'>{{ tutor.description }}</p>
-                    <p id='tutorSubject'>Subjects: {{ tutor.subject }}</p>
+                    <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
+                    <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
+                    <p id='tutorSubject'>Subjects: {{ tutor.subject[0] }} 
+                                                   {{ tutor.subject[1] }} 
+                                                   {{ tutor.subject[2] }}
+                                                   {{ tutor.subject[3] }}
+                                                   {{ tutor.subject[4] }}
+                    </p>
+                    <p id='tutorLevel'>Levels: {{ tutor.level[0] }} 
+                                               {{ tutor.level[1] }}
+                                               {{ tutor.level[2] }}
+                    </p>
                     <p id='tutorYearsExp'>Years of Experience: {{ tutor.experience }}</p>
                     <p id='tutorRates'>Rates: ${{ tutor.rates }}/hr</p>
-                    <p v-if='tutor.rating == 1'>Rating: ⭐</p>
-                    <p v-else-if='tutor.rating == 2'>Rating: ⭐⭐</p>
-                    <p v-else-if='tutor.rating == 3'>Rating: ⭐⭐⭐</p>
-                    <p v-else-if='tutor.rating == 4'>Rating: ⭐⭐⭐⭐</p>
-                    <p v-else-if='tutor.rating == 5'>Rating: ⭐⭐⭐⭐⭐</p>
+                    <p v-if='tutor.rate == 1'>Rating: ⭐</p>
+                    <p v-else-if='tutor.rate == 2'>Rating: ⭐⭐</p>
+                    <p v-else-if='tutor.rate == 3'>Rating: ⭐⭐⭐</p>
+                    <p v-else-if='tutor.rate == 4'>Rating: ⭐⭐⭐⭐</p>
+                    <p v-else-if='tutor.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
                 </li>
             </ul>
         </div>
@@ -63,6 +80,8 @@ export default {
           tutors: [],
           searchQuery: '',
           sortingKey: '',
+          levelKey: 'select',
+          subjectKey: 'select',
       };
   },
   methods: {
@@ -96,8 +115,50 @@ export default {
 
   },
 
+  computed: {
+      filteredTutors: function() {
+          if (this.levelKey == 'select' && this.subjectKey == 'select' && this.searchQuery == '') {
+              return this.tutors;
+          }
+          var tutors = this.tutors;
+          var result = {};
+          Object.keys(tutors).forEach(key => {
+              var tutor = tutors[key];
+              for (var field in tutor) {
+                  if ( String(tutor[field]).toLowerCase().includes(this.searchQuery.toLowerCase()) ) {
+                      result[key] = tutor;
+                  }
+              }
+              if (this.levelKey != 'select' && this.subjectKey != 'select') {
+                  var levelMatch = false;
+                  var subjectMatch = false;
+                  for (let i=0; i < 5; i++) {
+                      if (this.levelKey == tutor.level[i]) {
+                          levelMatch = true;
+                      }
+                  }
+                  for (let i=0; i < 5; i++) {
+                      if (this.subjectKey == tutor.subject[i]) {
+                          subjectMatch = true;
+                      }
+                  }
+                  if (levelMatch && subjectMatch) {
+                      result[key] = tutor;
+                  }
+              } else {
+                  for (let i=0; i < 5; i++) {
+                      if (this.levelKey == tutor.level[i] || this.subjectKey == tutor.subject[i]) {
+                          result[key] = tutor;
+                        }
+                    }
+              }
+          })
+          return result;
+      }
+  },
+
   created() {
-      this.fetchTutors()
+      this.fetchTutors();
   },
 
 }
@@ -143,7 +204,7 @@ li {
     font-size: 28px;
 }
 
-#tutorDescription {
+#tutorQualifications {
     font-family: Montserrat;
     color: grey;
     font-size: 20px;
