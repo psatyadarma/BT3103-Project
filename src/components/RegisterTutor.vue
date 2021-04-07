@@ -7,19 +7,19 @@
         type="text"
         placeholder="First Name"
         v-model="first"
-      /><br><br>
+      required /><br><br>
       <label for="last" style="font-size:16pt">Last Name</label><br>
       <input
         type="text"
         placeholder="Last Name"
         v-model="last"
-      /><br><br>
+      required /><br><br>
       <label for="phone" style="font-size:16pt">Phone Number</label><br>
       <input 
         v-model.number="phone" 
         type="number"
         placeholder="Phone Number"
-      /><br><br>
+      required /><br><br>
       <label for="qualifications" style="font-size:16pt">Your Qualifications</label><br>
       <textarea 
         v-model="qualifications" 
@@ -39,8 +39,7 @@
       <input 
         v-model.number="experience" 
         type="number"
-        placeholder="Year of Experience"
-      /><br><br>
+      min="0" max="60" oninput="validity.valid||(value='');"/><br><br>
       <p style="font-size:16pt">Teaching Subjects</p>
       <input type="checkbox" id="mathematics" value="mathematics" v-model="subject" class="check">
       <label for="mathematics">Mathematics</label>
@@ -58,24 +57,24 @@
         v-model.number="rates" 
         type="number"
         placeholder="Hourly Rate"
-      /><br><br>
+      min=0 oninput="validity.valid||(value='');" /><br><br>
       <label for="qualifications" style="font-size:16pt">Your Available Days</label><br>
       <textarea 
         v-model="availability" 
         placeholder="Your available days"
-      ></textarea><br><br>
+      required ></textarea><br><br>
       <label for="email" style="font-size:16pt">Email Address</label><br>
       <input
         type="email"
         placeholder="Email address"
         v-model="email"
-      /><br><br>
+      required /><br><br>
       <label for="password" style="font-size:16pt">Password</label><br>
       <input
         type="password"
         placeholder="Password"
         v-model="password"
-      /><br><br>
+      required /><br><br>
       <button type="submit" value="register">Register</button>
     </form>
 </div>
@@ -166,7 +165,7 @@ input[type=checkbox]
 .checkboxtext
 {
   /* Checkbox text */
-  font-size: 16pt;
+  font-size: 18pt;
   display: inline;
 }
 

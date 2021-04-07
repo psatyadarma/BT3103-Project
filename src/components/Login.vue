@@ -23,6 +23,8 @@
 
 <script>
 import firebase from "../firebase"
+var db = firebase.firestore();
+
 export default {
   name: 'SignInPage',
   data() {
@@ -36,9 +38,18 @@ export default {
       firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then(() => {
+          .then((user) => {
               alert('Successfully logged in');
-              this.$router.push('/');
+              console.log(user)
+              const usersRef = db.collection('profiles').doc(user.user.uid)
+              usersRef.get()
+              .then((docSnapshot) => {
+                if (docSnapshot.exists) {
+                  this.$router.push('/'); //change with tutor homepage
+                } else {
+                  this.$router.push('/registerStudent'); //change with student homepage
+                }
+              });
           })
           .catch(error => {
               alert(error.message);

@@ -7,31 +7,31 @@
         type="text"
         placeholder="First Name"
         v-model="first"
-      /><br><br>
+      required /><br><br>
       <label for="last" style="font-size:16pt">Last Name</label><br>
       <input
         type="text"
         placeholder="Last Name"
         v-model="last"
-      /><br><br>
+      required /><br><br>
       <label for="phone" style="font-size:16pt">Phone Number</label><br>
       <input 
         v-model.number="phone" 
         type="number"
         placeholder="Phone Number"
-      /><br><br>
+      required /><br><br>
       <label for="email" style="font-size:16pt">Email Address</label><br>
       <input
         type="email"
         placeholder="Email address"
         v-model="email"
-      /><br><br>
+      required /><br><br>
       <label for="password" style="font-size:16pt">Password</label><br>
       <input
         type="password"
         placeholder="Password"
         v-model="password"
-      /><br><br>
+      required /><br><br>
       <select v-model="education">
         <option disabled value="">Education Level</option>
         <option>Primary</option>
