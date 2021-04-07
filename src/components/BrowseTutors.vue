@@ -41,7 +41,7 @@
         
         <div id='tutorCarousel'>
             <ul>
-                <li v-for='tutor in filteredTutors' :key='tutor.id'>
+                <li v-for='tutor in filteredTutors' :key='tutor.id' v-on:click='openModal(tutor.last_name, tutor.email, tutor.phone)'>
                     <img v-bind:src='tutor.image' alt='Tutor Image'>
                     <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
                     <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
@@ -66,6 +66,18 @@
             </ul>
         </div>
 
+        <div class='modal' id='modal'>
+            <div class='modal-header'>
+                <div class='title' id='modalTitle'>Get in Touch with Pietro Pang</div>
+                <button class='close-button' v-on:click='closeModal()'>&times;</button>
+            </div>
+            <div class='modal-body'>
+                <p id='modalEmail'></p>
+                <p id='modalPhone'></p>
+            </div>
+        </div>
+        <div id='overlay' v-on:click='closeModal()'></div>
+
     </div>
 </template>
 
@@ -87,7 +99,7 @@ export default {
   methods: {
 
       fetchTutors: function() {
-          database.collection('tutors').get().then((querySnapShot) => {
+          database.collection('profiles').get().then((querySnapShot) => {
               let tutor = {}
               querySnapShot.forEach((doc) => {
                   tutor = doc.data()
@@ -111,6 +123,23 @@ export default {
               this.tutors = this.tutors.sort((a,b) => (a[key] > b[key]) ? 1 : -1);
               this.tutors = this.tutors.reverse();
           }
+      },
+
+      openModal: function(name, email, phone) {
+          const modal = document.getElementById('modal');
+          if (modal == null) return
+          document.getElementById('modalTitle').innerHTML = "Get in touch with " + name;
+          document.getElementById('modalEmail').innerHTML = "Email: " + email;
+          document.getElementById('modalPhone').innerHTML = "Phone: " + phone;
+          modal.classList.add('active');
+          document.getElementById('overlay').classList.add('active');
+      },
+
+      closeModal: function() {
+          const modal = document.getElementById('modal');
+          if (modal == null) return
+          modal.classList.remove('active');
+          document.getElementById('overlay').classList.remove('active');
       },
 
   },
@@ -195,6 +224,12 @@ li {
     box-sizing: border-box;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
     border-radius: 46px;
+    cursor: pointer;
+}
+
+li:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.472);
 }
 
 #tutorName {
@@ -220,7 +255,7 @@ li {
     padding: 20px;
 }
 
-button {
+#myTutors {
     font-family: Montserrat;
     font-weight: bold;
     font-size: 24px;
@@ -228,9 +263,6 @@ button {
     background: #50cdc5;
     border-radius: 20px;
     padding: 7px 35px;
-}
-
-#myTutors {
     position: absolute;
     right: 70px;
     top: 400px;
@@ -280,6 +312,69 @@ select {
 
 select:hover {
     border-color: rgb(70, 70, 70);
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 2px solid black;
+    border-radius: 20px;
+    z-index: 10;
+    background-color: white;
+    height: 200px;
+    width: 500px;
+    max-width: 50%;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black;
+}
+
+.modal-header .title {
+    font-size: 28px;
+    font-weight: 900;
+    font-family: Montserrat;
+}
+
+.modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.modal-body {
+    padding: 30px 100px 10px;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    transition: 200ms ease-in-out;
+}
+
+#overlay.active {
+    pointer-events: all;
+    opacity: 1;
 }
 
 </style>
