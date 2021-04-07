@@ -4,50 +4,79 @@
         
         <div id='searching'>
             <input type="search" v-model='searchQuery' spellcheck=true 
-            placeholder='Keywords such as Subject, Level...'>
-            <button type="button" id='searchButton'>Search</button>
+            placeholder='Keywords such as Subject, Level, Rates...'>
             <button type="button" id='myTutors'>My Tutors</button>
         </div>
         
         <div id='dropdowns'>
+            
             <label for="sortBy"><strong>Sort By:</strong></label>
             <select name="sortBy" id="sortBy" v-model='sortingKey' v-on:change='sortTutors()'>
                 <option value="select">Select...</option>
                 <option value="ratesAsc">Rates (Low to High)</option>
                 <option value="ratesDesc">Rates (High to Low)</option>
-                <option value="rating">Rating</option>
+                <option value="rate">Rating</option>
                 <option value="experience">Years of Experience</option>
             </select>
-            <label for="filterBy"><strong>Filter By:</strong></label>
-            <select name="filterBy" id="filterBy">
+
+            <label for="level"><strong>Level:</strong></label>
+            <select name="level" id="level" v-model='levelKey'>
                 <option value="select">Select...</option>
-                <optgroup label='Subject'>
-                    <option value="english">English</option>
-                    <option value="mathematics">Mathematics</option>
-                    <option value="physics">Physics</option>
-                    <option value="chemistry">Chemistry</option>
-                    <option value="biology">Biology</option>
-                </optgroup>
+                <option value="Primary">Primary</option>
+                <option value="Secondary">Secondary</option>
+                <option value="JC">JC</option>
             </select>
+
+            <label for="subject"><strong>Subject:</strong></label>
+            <select name="subject" id="subject" v-model='subjectKey'>
+                <option value="select">Select...</option>
+                <option value="English">English</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Biology">Biology</option>
+            </select>
+        
         </div>
         
         <div id='tutorCarousel'>
             <ul>
-                <li v-for='tutor in tutors' :key='tutor.id'>
+                <li v-for='tutor in filteredTutors' :key='tutor.id' v-on:click='openModal(tutor.last_name, tutor.email, tutor.phone)'>
                     <img v-bind:src='tutor.image' alt='Tutor Image'>
-                    <p id='tutorName'>{{ tutor.name }}</p>
-                    <p id='tutorDescription'>{{ tutor.description }}</p>
-                    <p id='tutorSubject'>Subjects: {{ tutor.subject }}</p>
+                    <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
+                    <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
+                    <p id='tutorSubject'>Subjects: {{ tutor.subject[0] }} 
+                                                   {{ tutor.subject[1] }} 
+                                                   {{ tutor.subject[2] }}
+                                                   {{ tutor.subject[3] }}
+                                                   {{ tutor.subject[4] }}
+                    </p>
+                    <p id='tutorLevel'>Levels: {{ tutor.level[0] }} 
+                                               {{ tutor.level[1] }}
+                                               {{ tutor.level[2] }}
+                    </p>
                     <p id='tutorYearsExp'>Years of Experience: {{ tutor.experience }}</p>
                     <p id='tutorRates'>Rates: ${{ tutor.rates }}/hr</p>
-                    <p v-if='tutor.rating == 1'>Rating: ⭐</p>
-                    <p v-else-if='tutor.rating == 2'>Rating: ⭐⭐</p>
-                    <p v-else-if='tutor.rating == 3'>Rating: ⭐⭐⭐</p>
-                    <p v-else-if='tutor.rating == 4'>Rating: ⭐⭐⭐⭐</p>
-                    <p v-else-if='tutor.rating == 5'>Rating: ⭐⭐⭐⭐⭐</p>
+                    <p v-if='tutor.rate == 1'>Rating: ⭐</p>
+                    <p v-else-if='tutor.rate == 2'>Rating: ⭐⭐</p>
+                    <p v-else-if='tutor.rate == 3'>Rating: ⭐⭐⭐</p>
+                    <p v-else-if='tutor.rate == 4'>Rating: ⭐⭐⭐⭐</p>
+                    <p v-else-if='tutor.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
                 </li>
             </ul>
         </div>
+
+        <div class='modal' id='modal'>
+            <div class='modal-header'>
+                <div class='title' id='modalTitle'>Get in Touch with Pietro Pang</div>
+                <button class='close-button' v-on:click='closeModal()'>&times;</button>
+            </div>
+            <div class='modal-body'>
+                <p id='modalEmail'></p>
+                <p id='modalPhone'></p>
+            </div>
+        </div>
+        <div id='overlay' v-on:click='closeModal()'></div>
 
     </div>
 </template>
@@ -63,12 +92,14 @@ export default {
           tutors: [],
           searchQuery: '',
           sortingKey: '',
+          levelKey: 'select',
+          subjectKey: 'select',
       };
   },
   methods: {
 
       fetchTutors: function() {
-          database.collection('tutors').get().then((querySnapShot) => {
+          database.collection('profiles').get().then((querySnapShot) => {
               let tutor = {}
               querySnapShot.forEach((doc) => {
                   tutor = doc.data()
@@ -94,10 +125,69 @@ export default {
           }
       },
 
+      openModal: function(name, email, phone) {
+          const modal = document.getElementById('modal');
+          if (modal == null) return
+          document.getElementById('modalTitle').innerHTML = "Get in touch with " + name;
+          document.getElementById('modalEmail').innerHTML = "Email: " + email;
+          document.getElementById('modalPhone').innerHTML = "Phone: " + phone;
+          modal.classList.add('active');
+          document.getElementById('overlay').classList.add('active');
+      },
+
+      closeModal: function() {
+          const modal = document.getElementById('modal');
+          if (modal == null) return
+          modal.classList.remove('active');
+          document.getElementById('overlay').classList.remove('active');
+      },
+
+  },
+
+  computed: {
+      filteredTutors: function() {
+          if (this.levelKey == 'select' && this.subjectKey == 'select' && this.searchQuery == '') {
+              return this.tutors;
+          }
+          var tutors = this.tutors;
+          var result = {};
+          Object.keys(tutors).forEach(key => {
+              var tutor = tutors[key];
+              for (var field in tutor) {
+                  if ( String(tutor[field]).toLowerCase().includes(this.searchQuery.toLowerCase()) ) {
+                      result[key] = tutor;
+                  }
+              }
+              if (this.levelKey != 'select' && this.subjectKey != 'select') {
+                  var levelMatch = false;
+                  var subjectMatch = false;
+                  for (let i=0; i < 5; i++) {
+                      if (this.levelKey == tutor.level[i]) {
+                          levelMatch = true;
+                      }
+                  }
+                  for (let i=0; i < 5; i++) {
+                      if (this.subjectKey == tutor.subject[i]) {
+                          subjectMatch = true;
+                      }
+                  }
+                  if (levelMatch && subjectMatch) {
+                      result[key] = tutor;
+                  }
+              } else {
+                  for (let i=0; i < 5; i++) {
+                      if (this.levelKey == tutor.level[i] || this.subjectKey == tutor.subject[i]) {
+                          result[key] = tutor;
+                        }
+                    }
+              }
+          })
+          return result;
+      }
   },
 
   created() {
-      this.fetchTutors()
+      this.fetchTutors();
   },
 
 }
@@ -134,6 +224,12 @@ li {
     box-sizing: border-box;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
     border-radius: 46px;
+    cursor: pointer;
+}
+
+li:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.472);
 }
 
 #tutorName {
@@ -143,7 +239,7 @@ li {
     font-size: 28px;
 }
 
-#tutorDescription {
+#tutorQualifications {
     font-family: Montserrat;
     color: grey;
     font-size: 20px;
@@ -159,7 +255,7 @@ li {
     padding: 20px;
 }
 
-button {
+#myTutors {
     font-family: Montserrat;
     font-weight: bold;
     font-size: 24px;
@@ -167,9 +263,6 @@ button {
     background: #50cdc5;
     border-radius: 20px;
     padding: 7px 35px;
-}
-
-#myTutors {
     position: absolute;
     right: 70px;
     top: 400px;
@@ -219,6 +312,69 @@ select {
 
 select:hover {
     border-color: rgb(70, 70, 70);
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 2px solid black;
+    border-radius: 20px;
+    z-index: 10;
+    background-color: white;
+    height: 200px;
+    width: 500px;
+    max-width: 50%;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black;
+}
+
+.modal-header .title {
+    font-size: 28px;
+    font-weight: 900;
+    font-family: Montserrat;
+}
+
+.modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.modal-body {
+    padding: 30px 100px 10px;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    transition: 200ms ease-in-out;
+}
+
+#overlay.active {
+    pointer-events: all;
+    opacity: 1;
 }
 
 </style>
