@@ -4,6 +4,8 @@
   <ul style="list-style-type: none;">
   <li><router-link to="/HomeStudent">HomeStudent</router-link></li>
   <li><router-link to="/ProfileStudent">ProfileStudent</router-link></li>
+  <li><router-link to="/browseTutor">Browse Tutor</router-link></li>
+  <li><router-link to="/requestForm">Request</router-link></li>
   </ul>
   </nav>
   <div class = "reminders">

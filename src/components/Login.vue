@@ -45,9 +45,9 @@ export default {
               usersRef.get()
               .then((docSnapshot) => {
                 if (docSnapshot.exists) {
-                  this.$router.push('/'); //change with tutor homepage
+                  this.$router.push('/homeTutor');
                 } else {
-                  this.$router.push('/registerStudent'); //change with student homepage
+                  this.$router.push('/homeStudent'); 
                 }
               });
           })

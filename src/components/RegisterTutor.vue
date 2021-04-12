@@ -133,7 +133,7 @@ export default {
           });
           alert('Successfully registered!');
           
-          this.$router.push('/');
+          this.$router.push('/homeTutor');
         })
         .catch(error => {
           alert(error.message);

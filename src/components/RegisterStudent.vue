@@ -58,7 +58,8 @@ export default {
       password: '',
       phone:'',
       education:'',
-      image:''
+      image:'',
+      mytutor:[]
     }
   },
   methods: {
@@ -74,7 +75,8 @@ export default {
             email: this.email,
             phone: this.phone,
             education: this.education,
-            image: this.image
+            image: this.image,
+            mytutors: this.mytutor
           })
           .then(function() {
             console.log("Document successfully written!");
@@ -84,7 +86,7 @@ export default {
           });
           alert('Successfully registered!');
           
-          this.$router.push('/');
+          this.$router.push('/homeStudent');
         })
         .catch(error => {
           alert(error.message);
