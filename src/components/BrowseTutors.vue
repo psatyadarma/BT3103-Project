@@ -5,7 +5,7 @@
         <div id='searching'>
             <input type="search" v-model='searchQuery' spellcheck=true 
             placeholder='Keywords such as Subject, Level, Rates...'>
-            <button type="button" id='myTutors'>My Tutors</button>
+            <button type="button" id='myTutors' v-on:click='myTutors()'>My Tutors</button>
         </div>
         
         <div id='dropdowns'>
@@ -41,7 +41,7 @@
         
         <div id='tutorCarousel'>
             <ul>
-                <li v-for='tutor in filteredTutors' :key='tutor.id' v-on:click='openModal(tutor.last_name, tutor.email, tutor.phone)'>
+                <li v-for='tutor in filteredTutors' :key='tutor.id'>
                     <img v-bind:src='tutor.image' alt='Tutor Image'>
                     <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
                     <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
@@ -62,21 +62,34 @@
                     <p v-else-if='tutor.rate == 3'>Rating: ⭐⭐⭐</p>
                     <p v-else-if='tutor.rate == 4'>Rating: ⭐⭐⭐⭐</p>
                     <p v-else-if='tutor.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
+                    <button type='button' id='contactInfo' class='liButton' v-on:click='openContactModal(tutor.last_name, tutor.email, tutor.phone)'>Contact</button><br><br>
+                    <button type='button' id='addTutor' class='liButton' v-on:click='openAddTutorModal(tutor.id, tutor.last_name)'>Add to MyTutors</button>
                 </li>
             </ul>
         </div>
 
-        <div class='modal' id='modal'>
+        <div class='modal' id='contactModal'>
             <div class='modal-header'>
-                <div class='title' id='modalTitle'>Get in Touch with Pietro Pang</div>
-                <button class='close-button' v-on:click='closeModal()'>&times;</button>
+                <div class='title' id='contactModalTitle'>Get in Touch with Pietro Pang</div>
+                <button class='close-button' v-on:click='closeContactModal()'>&times;</button>
             </div>
             <div class='modal-body'>
-                <p id='modalEmail'></p>
-                <p id='modalPhone'></p>
+                <p id='contactModalEmail'></p>
+                <p id='contactModalPhone'></p>
             </div>
         </div>
-        <div id='overlay' v-on:click='closeModal()'></div>
+        <div id='contactOverlay' v-on:click='closeContactModal()'></div>
+
+        <div class='modal' id='addTutorModal'>
+            <div class='modal-header'>
+                <div class='title' id='addTutorModalTitle'>Confirm that you are adding Pietro Pang</div>
+                <button class='close-button' v-on:click='closeAddTutorModal()'>&times;</button>
+            </div>
+            <div class='modal-body'>
+                <button type='button' id='addTutorConfirm' class='liButton' v-on:click='updateMyTutors(addTutorId)'>Yes</button>
+            </div>
+        </div>
+        <div id='addTutorOverlay' v-on:click='closeAddTutorModal()'></div>
 
     </div>
 </template>
@@ -90,10 +103,12 @@ export default {
   data() {
       return {
           tutors: [],
+          mytutors: [],
           searchQuery: '',
           sortingKey: '',
           levelKey: 'select',
           subjectKey: 'select',
+          addTutorId: '',
       };
   },
   methods: {
@@ -125,21 +140,53 @@ export default {
           }
       },
 
-      openModal: function(name, email, phone) {
-          const modal = document.getElementById('modal');
+      openContactModal: function(name, email, phone) {
+          const modal = document.getElementById('contactModal');
           if (modal == null) return
-          document.getElementById('modalTitle').innerHTML = "Get in touch with " + name;
-          document.getElementById('modalEmail').innerHTML = "Email: " + email;
-          document.getElementById('modalPhone').innerHTML = "Phone: " + phone;
+          document.getElementById('contactModalTitle').innerHTML = "Get in touch with " + name;
+          document.getElementById('contactModalEmail').innerHTML = "Email: " + email;
+          document.getElementById('contactModalPhone').innerHTML = "Phone: " + phone;
           modal.classList.add('active');
-          document.getElementById('overlay').classList.add('active');
+          document.getElementById('contactOverlay').classList.add('active');
       },
 
-      closeModal: function() {
-          const modal = document.getElementById('modal');
+      closeContactModal: function() {
+          const modal = document.getElementById('contactModal');
           if (modal == null) return
           modal.classList.remove('active');
-          document.getElementById('overlay').classList.remove('active');
+          document.getElementById('contactOverlay').classList.remove('active');
+      },
+
+      openAddTutorModal: function(id, name) {
+          const modal = document.getElementById('addTutorModal');
+          if (modal == null) return
+          document.getElementById('addTutorModalTitle').innerHTML = "Confirm that you are adding " + name;
+          this.addTutorId = id;
+          modal.classList.add('active');
+          document.getElementById('addTutorOverlay').classList.add('active');
+      },
+
+      updateMyTutors: function(id) {
+          if (!(this.mytutors.includes(id))) {
+              this.mytutors.push(id);
+          }
+          database.collection('students').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
+              querySnapShot.ref.update({
+                  mytutors: this.mytutors
+              })
+          });
+          this.addTutorId = '';
+      },
+
+      closeAddTutorModal: function() {
+          const modal = document.getElementById('addTutorModal');
+          if (modal == null) return
+          modal.classList.remove('active');
+          document.getElementById('addTutorOverlay').classList.remove('active');
+      },
+
+      myTutors: function() {
+          this.$router.push('mytutors');
       },
 
   },
@@ -150,12 +197,13 @@ export default {
               return this.tutors;
           }
           var tutors = this.tutors;
-          var result = {};
+          var searchResult = {};
+          var filterResult = {};
           Object.keys(tutors).forEach(key => {
               var tutor = tutors[key];
               for (var field in tutor) {
                   if ( String(tutor[field]).toLowerCase().includes(this.searchQuery.toLowerCase()) ) {
-                      result[key] = tutor;
+                      searchResult[key] = tutor;
                   }
               }
               if (this.levelKey != 'select' && this.subjectKey != 'select') {
@@ -172,22 +220,32 @@ export default {
                       }
                   }
                   if (levelMatch && subjectMatch) {
-                      result[key] = tutor;
+                      filterResult[key] = tutor;
                   }
               } else {
                   for (let i=0; i < 5; i++) {
                       if (this.levelKey == tutor.level[i] || this.subjectKey == tutor.subject[i]) {
-                          result[key] = tutor;
+                          filterResult[key] = tutor;
                         }
                     }
               }
           })
-          return result;
+          var finalResult = {};
+          for (var key in searchResult) {
+              if (key in filterResult) {
+                  finalResult[key] = searchResult[key];
+              }
+          }
+          return finalResult;
       }
   },
 
   created() {
       this.fetchTutors();
+      database.collection('students').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
+          var data = querySnapShot.data();
+          this.mytutors = data.mytutors;
+      })
   },
 
 }
@@ -220,11 +278,12 @@ li {
     text-align: center;
     padding: 10px;
     border: 1px solid #222;
-    margin: 0 40px 20px;
+    margin: 40px 40px 20px;
     box-sizing: border-box;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
     border-radius: 46px;
     cursor: pointer;
+    max-width: 25%;
 }
 
 li:hover {
@@ -266,6 +325,17 @@ li:hover {
     position: absolute;
     right: 70px;
     top: 400px;
+    background: #3a938d;
+}
+
+.liButton {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: normal;
+    background: #50cdc5;
+    border-radius: 20px;
+    padding: 7px 35px;
     background: #3a938d;
 }
 
@@ -360,7 +430,7 @@ select:hover {
     padding: 30px 100px 10px;
 }
 
-#overlay {
+#contactOverlay {
     position: fixed;
     opacity: 0;
     top: 0;
@@ -372,7 +442,24 @@ select:hover {
     transition: 200ms ease-in-out;
 }
 
-#overlay.active {
+#contactOverlay.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+#addTutorOverlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    transition: 200ms ease-in-out;
+}
+
+#addTutorOverlay.active {
     pointer-events: all;
     opacity: 1;
 }
