@@ -1,32 +1,32 @@
 <template>
-  <div style="text-align:center">
+  <div style="text-align:center" class="formdiv">
     <h1>Register Your Account</h1>
-    <form @submit.prevent="register" style="background-color:#E6E6FA">
-      <label for="first" style="font-size:16pt">First Name</label><br>
+    <form @submit.prevent="register">
+      <label for="first" style="font-size:16pt"><b>First Name</b></label><br>
       <input
         type="text"
         placeholder="First Name"
         v-model="first"
       required /><br><br>
-      <label for="last" style="font-size:16pt">Last Name</label><br>
+      <label for="last" style="font-size:16pt"><b>Last Name</b></label><br>
       <input
         type="text"
         placeholder="Last Name"
         v-model="last"
       required /><br><br>
-      <label for="phone" style="font-size:16pt">Phone Number</label><br>
+      <label for="phone" style="font-size:16pt"><b>Phone Number</b></label><br>
       <input 
         v-model.number="phone" 
         type="number"
         placeholder="Phone Number"
       required /><br><br>
-      <label for="email" style="font-size:16pt">Email Address</label><br>
+      <label for="email" style="font-size:16pt"><b>Email Address</b></label><br>
       <input
         type="email"
         placeholder="Email address"
         v-model="email"
       required /><br><br>
-      <label for="password" style="font-size:16pt">Password</label><br>
+      <label for="password" style="font-size:16pt"><b>Password</b></label><br>
       <input
         type="password"
         placeholder="Password"
@@ -41,7 +41,7 @@
       </select><br><br>
       <button type="submit" value="register">Register</button>
     </form>
-</div>
+  </div>
 </template>
 
 <script>
@@ -97,6 +97,15 @@ export default {
 </script>
 
 <style scoped>
+
+.formdiv {
+  border-radius: 25px;
+  border: 4px solid black;
+  padding: 20px;
+  background-image:linear-gradient(green, yellow);
+  width: 400px;
+  margin: auto;
+}
 h1 {
   font-size:24pt
 }

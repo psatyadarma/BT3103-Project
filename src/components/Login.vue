@@ -1,8 +1,7 @@
 <template>
-  <div style="text-align:center">   
+  <div style="text-align:center" class="formdiv">   
   <h1>Login</h1> 
-  <form @submit.prevent="login" style="background-color:#E6E6FA">     
-        
+  <form @submit.prevent="login">     
     <input       
       type="email"       
       placeholder="Email address"       
@@ -60,6 +59,14 @@ export default {
 </script>
 
 <style scoped>
+.formdiv {
+  border-radius: 25px;
+  border: 4px solid black;
+  padding: 20px;
+  background-image:linear-gradient(green, yellow);
+  width: 400px;
+  margin: auto;
+}
 h1 {
   font-size:24pt
 }

@@ -1,10 +1,12 @@
 <template>
-  <div :style="{'background-image': 'url(' + require('@/assets/landingPage-bg.jpg') + ')'}">
+  <div>
+      <div class="content" :style="{'background-image': 'url(' + require('../assets/landingPage-bg.jpg') + ')'}">
         <p id="welcome">Welcome!</p>
         <p id="content1">Are you having trouble finding tutors to assist your studies?</p>
         <p id="content2"> Are you looking to tutor some students?</p>
         <button @click="$router.push('/registerStudent')" id="button1">Join As Student</button>
         <button @click="$router.push('/registerTutor')" id="button2">Join As Tutor</button> 
+      </div>
   </div>
 </template>
 
@@ -19,10 +21,12 @@ export default {
 </script>
 
 <style scoped>
-div {
+.content {
+    /*
     background-image: url('../assets/landingPage-bg.jpg');
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: 100% 100%;*/
+    background-color: red;
 }
 
 #welcome {
@@ -116,8 +120,12 @@ div {
     display: flex;
     align-items: center;
     text-align: center;
+    
+    background-color: #48B9B2;
+    border-radius: 30px;
+}
 
-    background: #48B9B2;
-    border-radius: 50px;
+button:focus { 
+  outline: none; 
 }
 </style>

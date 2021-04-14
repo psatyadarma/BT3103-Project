@@ -1,7 +1,8 @@
 <template>
-  <div style="text-align:center">
+  <div style="text-align:center" class="formdiv">
     <h1>Register Your Account</h1><br>
-    <form @submit.prevent="register" style="background-color:#E6E6FA">
+    <form @submit.prevent="register">
+      
       <label for="first" style="font-size:16pt">First Name</label><br>
       <input
         type="text"
@@ -99,7 +100,12 @@ export default {
       availability:'',
       experience:'',
       image:'',
-      level:[]
+      level:[],
+      engaging:[0,0,0,0,0,0,0,0,0,0],
+      communication:[0,0,0,0,0,0,0,0,0,0],
+      listening:[0,0,0,0,0,0,0,0,0,0],
+      patience:[0,0,0,0,0,0,0,0,0,0],
+      overall:[0,0,0,0,0]
     }
   },
   methods: {
@@ -123,7 +129,12 @@ export default {
             availability:this.availability,
             experience:this.experience,
             image:this.image,
-            level:this.level
+            level:this.level,
+            engaging:this.engaging,
+            communication:this.communication,
+            listening:this.listening,
+            patience:this.patience,
+            overall:this.overall
           })
           .then(function() {
             console.log("Document successfully written!");
@@ -146,6 +157,17 @@ export default {
 <style scoped>
 h1 {
   font-size: 24pt
+}
+
+.formdiv {
+  border-radius: 25px;
+  border: 4px solid black;
+  padding: 20px;
+  background-image:linear-gradient(green, yellow);
+  width: 550px;
+  margin: auto;
+  border-style: outset;
+  font-weight : bold;
 }
 
 input[type=checkbox]
