@@ -55,6 +55,7 @@
             <p class="inline" id = "value"> {{ this.availability}} </p>
             <br><br><br>
             <button v-on:click="updateProfile()">Update Profile</button>
+            <button v-on:click="dashboard()">Dashboard</button>
         </div>
     </body>
 </template>
@@ -89,6 +90,9 @@ export default {
   methods:{
       updateProfile() {
         this.$router.push('/EditProfileTutor');
+      },
+      dashboard() {
+        this.$router.push('dashboard');
       }
   },
   created(){
