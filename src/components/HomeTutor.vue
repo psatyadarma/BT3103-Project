@@ -12,18 +12,69 @@
 
   <div class = "classes">
     <p class = "heading"> Classes </p>
-    </div>
+  </div>
+
+  <div class = "requests">
+    <p class = "heading"> Requests </p>
+    <ul>
+        <li v-for="request in this.requests" :key="request.id">
+            <p>
+              {{request.first_name}} {{request.last_name}}
+              requested subject {{request.subject}} 
+              timeslot {{request.start}} - {{request.end}}
+            </p>
+            <div class="buttons">
+              <button v-on:click="acceptRequest(request.stdid, request.start, request.end, request.subject)">Accept</button>
+              <button v-on:click="declineRequest(request.stdid, request.start, request.end, request.subject)">Decline</button>
+            </div>
+        </li>   
+    </ul> 
+  </div>  
   
   </body>
 </template>
 
 <script>
+import firebase from "../firebase"
+var db = firebase.firestore();
 export default {
   name: "HomeTutor",
   props: {
     msg: String
   },
+  data() {
+    return {
+      requests: []
+    }
+  },
   components:{
+  },
+  methods:{
+      acceptRequest(userid, timeStart, timeEnd, subject) {
+        db.collection("results").doc(userid)
+        .collection("results").doc(firebase.auth().currentUser.uid).set({
+          message: "Congratulations! your request for tutor " + this.first_name + 
+          " " + this.last_name + " subject " + subject +
+          " timeslot " + timeStart + " - " + timeEnd +
+          " has been accepted"
+        })
+      },
+      declineRequest(userid, timeStart, timeEnd, subject) {
+        db.collection("results").doc(userid)
+        .collection("results").doc(firebase.auth().currentUser.uid).set({
+          message: "Unfortunately your request for tutor " + this.first_name + 
+          " " + this.last_name + " subject " + subject +
+          " timeslot " + timeStart + " - " + timeEnd +
+          " has been rejected"
+        })
+      },
+  },
+  created() {
+    db.collection('requests').doc(firebase.auth().currentUser.uid).collection('requests').get().then(snapshot => {
+          snapshot.docs.forEach(doc => {
+              this.requests.push(doc.data());
+          });
+      });
   }
 };
 </script>
@@ -82,4 +133,7 @@ nav a {
   font-weight: bold;
 }
 
+.buttons {
+  display:inline;
+}
 </style>

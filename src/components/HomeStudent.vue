@@ -14,18 +14,43 @@
 
   <div class = "classes">
     <p class = "heading"> Classes </p>
-    </div>
+  </div>
+
+  <div class = "results">
+    <p class = "heading"> Results </p>
+    <ul>
+        <li v-for="result in this.results" :key="result.id">
+            <p>
+              {{result.message}}
+            </p>
+        </li>   
+    </ul> 
+  </div>  
   
   </body>
 </template>
 
 <script>
+import firebase from "../firebase"
+var db = firebase.firestore();
 export default {
-  name: "HomeTutor",
+  name: "HomeStudent",
   props: {
     msg: String
   },
+  data() {
+    return {
+      results: []
+    }
+  },
   components:{
+  },
+  created() {
+    db.collection('results').doc(firebase.auth().currentUser.uid).collection('results').get().then(snapshot => {
+          snapshot.docs.forEach(doc => {
+              this.results.push(doc.data());
+          });
+      });
   }
 };
 </script>

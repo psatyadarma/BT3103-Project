@@ -20,7 +20,7 @@
       required /><br><br>
       <button type="submit" value="register">Create Request</button>
     </form>
-</div>
+  </div>
 </template>
 
 <script>
@@ -33,19 +33,30 @@ export default {
     return {
       subject:'',
       start:'',
-      end:''
+      end:'',
+      first_name:'',
+      last_name:'',
+      phone:'',
+      requests:[]
+    }
+  },
+  props: {
+    tutid: {
+      type: String
     }
   },
   methods: {
     request() {
         var user = firebase.auth().currentUser;
-        //var stdid = user.user.uid;
-        console.log(user.uid);
         db.collection("requests").doc(user.uid).
         collection("requests").doc(user.uid).set({
-        subject: this.subject,
-        start: this.start,
-        end: this.end
+          subject: this.subject,
+          start: this.start,
+          end: this.end,
+          stdid: user.uid,
+          phone: this.phone,
+          first_name: this.first_name,
+          last_name: this.last_name
         })
         .then(function() {
         console.log("Document successfully written!");
@@ -55,9 +66,29 @@ export default {
         });
         alert('Successfully created request!');
         
-        this.$router.push('/homeStudent');
+        console.log("requests:")
+        console.log(this.requests[0]['end'])
+
+        //this.$router.push('/homeStudent');
+    },
+    acceptRequest(uid) {
+      console.log(uid)
     }
   },
+  created() {
+    db.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot)=>
+    {
+        var data = querySnapShot.data();
+        this.first_name = data.first_name;
+        this.last_name = data.last_name; 
+        this.phone = data.phone;
+    });
+    db.collection('requests').doc(firebase.auth().currentUser.uid).collection('requests').get().then(snapshot => {
+          snapshot.docs.forEach(doc => {
+              this.requests.push(doc.data());
+          });
+      });
+  }
 }
 </script>
 
@@ -88,8 +119,12 @@ textarea {
 
 button {
   height:40px;
-  width:100px;
+  width:150px;
   font-size: 14pt;
   background-color:aquamarine
+}
+
+.buttons {
+  display: inline;
 }
 </style>

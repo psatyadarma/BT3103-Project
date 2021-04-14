@@ -93,10 +93,11 @@ export default {
       },
       dashboard() {
         this.$router.push('dashboard');
-      }
+      },
   },
   created(){
-      db.collection('profiles').doc(firebase.auth().currentUser.uid).get().then((querySnapShot)=>
+      var user = firebase.auth().currentUser
+      db.collection('profiles').doc(user.uid).get().then((querySnapShot)=>
         {
             var data = querySnapShot.data();
             this.first_name = data.first_name;
@@ -111,8 +112,8 @@ export default {
             this.level = data.level;
             this.availability = data.availability;
             this.img = data.img;
-        })
-      }
+        });
+    }
 };
 </script>
 
