@@ -246,7 +246,7 @@ export default {
             modal.classList.remove('active');
             document.getElementById('removeTutorOverlay').classList.remove('active');
         },
-
+     
         navigateBack: function() {
             this.$router.push('tutors');
         },
