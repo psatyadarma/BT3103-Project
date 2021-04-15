@@ -41,7 +41,7 @@
         
         <div id='tutorCarousel'>
             <ul>
-                <li v-for='tutor in filteredTutors' :key='tutor.id'>
+                <li v-for='tutor in filteredTutors' :key='tutor.id' v-on:mouseover='incrementProfileView(tutor.id)'>
                     <img v-bind:src='tutor.image' alt='Tutor Image'>
                     <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
                     <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
@@ -62,7 +62,7 @@
                     <p v-else-if='tutor.rate == 3'>Rating: ⭐⭐⭐</p>
                     <p v-else-if='tutor.rate == 4'>Rating: ⭐⭐⭐⭐</p>
                     <p v-else-if='tutor.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
-                    <button type='button' id='contactInfo' class='liButton' v-on:click='openContactModal(tutor.last_name, tutor.email, tutor.phone)'>Contact</button><br><br>
+                    <button type='button' id='contactInfo' class='liButton' v-on:click='openContactModal(tutor.id, tutor.last_name, tutor.email, tutor.phone)'>Contact</button><br><br>
                     <button type='button' id='addTutor' class='liButton' v-on:click='openAddTutorModal(tutor.id, tutor.last_name)'>Add to MyTutors</button>
                 </li>
             </ul>
@@ -140,7 +140,16 @@ export default {
           }
       },
 
-      openContactModal: function(name, email, phone) {
+      incrementProfileView: function(id) {
+          database.collection('tutors').doc(id).get().then((querySnapShot) => {
+              var tutor = querySnapShot.data();
+              database.collection('tutors').doc(id).update({
+                  profileViews: tutor.profileViews + 1
+              })
+          })
+      },
+
+      openContactModal: function(id, name, email, phone) {
           const modal = document.getElementById('contactModal');
           if (modal == null) return
           document.getElementById('contactModalTitle').innerHTML = "Get in touch with " + name;
@@ -148,6 +157,13 @@ export default {
           document.getElementById('contactModalPhone').innerHTML = "Phone: " + phone;
           modal.classList.add('active');
           document.getElementById('contactOverlay').classList.add('active');
+          //Increment contactClicks by 1
+          database.collection('profiles').doc(id).get().then((querySnapShot) => {
+              var tutor = querySnapShot.data();
+              database.collection('profiles').doc(id).update({
+                  contactClicks: tutor.contactClicks + 1
+              })
+          })
       },
 
       closeContactModal: function() {
@@ -174,7 +190,7 @@ export default {
               querySnapShot.ref.update({
                   mytutors: this.mytutors
               })
-          });
+          })
           this.addTutorId = '';
       },
 

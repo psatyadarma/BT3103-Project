@@ -8,21 +8,21 @@
                 <div class='row'>
                     <div class='column avgRating'>
                         <h2>Engaging</h2>
-                        <div class='avgRatingText'>9.7</div>
+                        <div class='avgRatingText'>{{ avgScores[0] }}</div>
                     </div>
                     <div class='column avgRating'>
                         <h2>Communication</h2>
-                        <div class='avgRatingText'>7.5</div>
+                        <div class='avgRatingText'>{{ avgScores[1] }}</div>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='column avgRating'>
                         <h2>Listening</h2>
-                        <div class='avgRatingText'>6.8</div>
+                        <div class='avgRatingText'>{{ avgScores[2] }}</div>
                     </div>
                     <div class='column avgRating'>
                         <h2>Patience</h2>
-                        <div class='avgRatingText'>8.2</div>
+                        <div class='avgRatingText'>{{ avgScores[3] }}</div>
                     </div>
                 </div>
             </div>
@@ -35,6 +35,26 @@
         <div class='row'>
             <div class='column'><listening-bar-chart></listening-bar-chart></div>
             <div class='column'><patience-bar-chart></patience-bar-chart></div>
+        </div>
+
+        <div class='row'>
+            <div class='column clickMetrics'>
+                <p class='clickMetricTitle'>Total Profile Views</p>
+                <div class='clickMetricsText'>{{ profileViews }}</div>
+            </div>
+            <div class='column clickMetrics'>
+                <p class='clickMetricTitle'>Avg. Daily Profile Views</p>
+                <div class='clickMetricsText'>{{ avgDailyProfileViews[0] }} - {{ avgDailyProfileViews[1] }}</div>
+            </div>
+            <div class='column clickMetrics'>
+                <p class='clickMetricTitle'>Total Contact Clicks</p>
+                <div class='clickMetricsText'>{{ contactClicks }}</div>
+            </div>
+            <div class='column clickMetrics'>
+                <p class='clickMetricTitle'>Contact Click : Profile View</p>
+                <div class='clickMetricsText'>{{ contactToProfileRatio[0] }} : {{ contactToProfileRatio[1] }}</div>
+                <div id='ratioPercent'>({{ ratioPercent }}%)</div>
+            </div>
         </div>
 
     </div>
@@ -55,16 +75,63 @@ export default {
     data() {
         return {
             tutor: {},
+            avgScores: [],
+            profileViews: 0,
+            contactClicks: 0,
+            avgDailyProfileViews: [],
+            contactToProfileRatio: []
         }
     },
 
     methods: {
         fetchTutor: function() {
             database.collection('profiles').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
-                var tutor = querySnapShot.data();
+                var tutor  = querySnapShot.data();
                 this.tutor = tutor;
+                var engagingList = tutor.engaging;
+                var communicationList = tutor.communication;
+                var listeningList = tutor.listening;
+                var patienceList = tutor.patience;
+                var attributeLists = [engagingList, communicationList, listeningList, patienceList]
+                var data = [];
+                for (var i=0; i<4; i++) {
+                    var attributeList = attributeLists[i];
+                    var sumRatings = 0;
+                    var numRatings = 0;
+                    attributeList.forEach((value, index) => {
+                        sumRatings += value*(index+1);
+                        numRatings += value;
+                    })
+                    data[i] = Math.round( ((sumRatings/numRatings) + Number.EPSILON) * 10) / 10;
+                }
+                this.avgScores = data;
+                this.profileViews = tutor.profileViews;
+                this.contactClicks = tutor.contactClicks;
+                this.contactToProfileRatio = this.reduce(tutor.contactClicks, tutor.profileViews);
+                this.ratioPercent = (tutor.contactClicks / tutor.profileViews) * 100;
+                this.ratioPercent = Math.round( ((this.ratioPercent) + Number.EPSILON) * 100) / 100;
+                var today = new Date();
+                var timeDiff = Math.abs(today - tutor.createDate.toDate());
+                var dayDiff = Math.ceil(timeDiff / (1000*60*60*24));
+                this.avgDailyProfileViews = [Math.floor(tutor.profileViews / dayDiff), Math.ceil(tutor.profileViews / dayDiff)];
             })
         },
+
+        reduce: function(numerator, denominator) {
+            var gcd = this.gcd(numerator, denominator);
+            return [numerator/gcd, denominator/gcd];
+        },
+
+        //Greatest Common Divisor function using Euclidean Algorithm
+        gcd: function(a,b) {
+            while (b) {
+                var r = a%b;
+                a = b;
+                b = r;
+            }
+            return a;
+        },
+
     },
 
     components: {
@@ -91,11 +158,11 @@ h1 {
 }
 
 .row {
-    display: flex;
+  display: flex;
 }
 
 .column {
-    flex: 50%;
+  flex: 50%;
 }
 
 .avgRating {
@@ -118,6 +185,49 @@ h1 {
 .avgRatingText {
     font-size: 8rem;
     margin-top: 30px;
+    font-family: Montserrat;
+}
+
+.clickMetrics {
+    height: 240px;
+    width: 300px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #222;
+    margin: 20px 20px 10px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.clickMetrics:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
+}
+
+.clickMetricsText {
+    font-size: 5rem;
+    margin-top: 20px;
+    font-family: Montserrat;
+}
+
+#ratioPercent {
+    font-size: 1.6rem;
+    color: #7eca9c;
+    font-weight: 600;
+    border: 2px solid #7eca9c;
+    border-radius: 10px;
+    max-width: 40%;
+    padding: 3px;
+    margin: 0 auto 0;
+    font-family: Montserrat;
+}
+
+.clickMetricTitle {
+    color: grey;
+    font-weight: 900;
+    font-family: Montserrat;
+    font-size: 1.5rem;
 }
 
 </style>
