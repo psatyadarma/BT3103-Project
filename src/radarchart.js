@@ -75,7 +75,7 @@ export default {
                         sumRatings += value*(index+1);
                         numRatings += value;
                     })
-                    data[i] = sumRatings/numRatings;
+                    data[i] = Math.round( ((sumRatings/numRatings) + Number.EPSILON) * 10) / 10;
                 }
                 this.chartdata.datasets[0].data = data;
                 this.renderChart(this.chartdata, this.options);
