@@ -7,16 +7,17 @@ import HomeTutor from './components/HomeTutor.vue'
 import BrowseTutor from './components/BrowseTutors.vue'
 import RequestForm from './components/RequestForm.vue'
 import Dashboard from './components/Dashboard.vue'
-
+import LogoutPage from './components/Logout.vue'
 export default [
     { path: '/', component: LandingPage },
     { path: '/login', component: LoginPage },
+    { path: '/logout', component: LogoutPage },
     { path: '/registerStudent', component: RegisterStudent },
     { path: '/registerTutor', component: RegisterTutor },
     { path: '/homeStudent', component: HomeStudent },
     { path: '/homeTutor', component: HomeTutor },
     { path: '/browseTutor', component: BrowseTutor },
-    { path: '/requestForm', component: RequestForm },
+    { path: '/requestForm', name:'requestForm',component: RequestForm,props:true },
     { path: '/dashboard', component: Dashboard }
     
 ]
