@@ -20,6 +20,7 @@
       required /><br><br>
       <button type="submit" value="register">Create Request</button>
     </form>
+    <button v-on:click="$router.go(-1)">Go Back</button>
   </div>
 </template>
 
