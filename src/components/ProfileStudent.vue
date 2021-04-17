@@ -1,38 +1,53 @@
 <template>
     <body>
-  <nav>
-  <ul style="list-style-type: none;">
-  <li><router-link to="/HomeStudent">HomeStudent</router-link></li>
-  <li><router-link to="/ProfileStudent">ProfileStudent</router-link></li>
-  </ul>
-  </nav>        
+    <img :src="logo" />
+    <div class="top">
+        <nav>
+          <ul style="list-style-type: none;">
+          <li><router-link to="/HomeStudent">Home</router-link></li>
+          <li><router-link to="/ProfileStudent">Profile</router-link></li>
+          <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+          </ul>
+        </nav>       
+      </div>        
         <div class="profile">
+            <img class="pic" :src="profile" />  
             <p class="inline">  {{"First Name: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.first_name}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Last Name: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.last_name}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Email: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.email}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Phone: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.phone}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Education Level: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.education}} </p>
-            <br><br>
-            <p class="inline">  {{"Profile Picture: "}} </p>
-              <img v-bind:src="this.img">
-            <br><br>
+            </div>
+            <br>
             <button v-on:click="updateProfile()">Update Profile</button>
         </div>
     </body>
 </template>
 
 <script>
+import logo from "../assets/logo2.png"
+import profile from "../assets/profile.jpg"
 import firebase from "../firebase"
 var db = firebase.firestore();
+
 export default {
   name: "profile",
   components: {
@@ -42,7 +57,8 @@ export default {
   },
   data(){
     return {
-        picked: "",
+        logo: logo,
+        profile: profile,
         first_name:null,
         last_name: null,
         email: null,
@@ -57,6 +73,8 @@ export default {
       }
   },
   created(){
+    firebase.auth().onAuthStateChanged(user => {
+      if (user!=null) {
       db.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot)=>
         {
             var data = querySnapShot.data();
@@ -66,14 +84,31 @@ export default {
             this.phone = data.phone;
             this.education = data.education;
             this.img = data.img;
-        })
+        });
+      } else {
+          // No user is signed in.
       }
-};
+    })
+  }
+}
 </script>
 
 <style scoped lang="scss">
-  div {
-    background-color: pink;
+img {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+
+  .top {
+    background-color: #55C9C2;
+  }
+
+  .profile {
+    background-color: #55C9C2;
     color: black;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     display: inline-block;
@@ -82,7 +117,7 @@ export default {
     border-radius: 35px; 
     height: 600px;
     width: 1000px;  
-    margin: 120px;
+    margin: 100px;
     padding-top: 50px;
     padding-left: 20px;
     font-family: "Lucida Console", "Courier New", monospace;
@@ -122,17 +157,19 @@ button {
   border-radius: 10px;
   border-width: 1px;
   font-weight: bold;
-  font-size: 16 px;
+  font-size: 15px;
   border-color: white;
+  margin: 10px;
 }
 
 .inline {
   display: inline;
+  list-style-type: none,
 }
 
 .profile {
     font-size: 20px;
-}
+  }
 
 #value {
     background-color: white;
@@ -142,5 +179,23 @@ button {
     padding: 5px;
     width: 200px;
 
+}
+
+.pic {
+  float: right;
+  margin-right: 100px;
+  margin-top: 10px;
+  height: 150px;
+  width: 200px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.test {
+  background-color: white;
+  width: 500px;
+  border-radius:10px;
 }
 </style>

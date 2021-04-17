@@ -1,59 +1,79 @@
 <template>
     <body>
+    <img :src="logo" />
+    <div class="top">
         <nav>
-            <ul style="list-style-type: none;">
-            <li><router-link to="/HomeTutor">HomeTutor</router-link></li>
-            <li><router-link to="/ProfileTutor">ProfileTutor</router-link></li>
-            </ul>
-        </nav>          
+          <ul style="list-style-type: none;">
+          <li><router-link to="/HomeTutor">Home</router-link></li>
+          <li><router-link to="/ProfileTutor">Profile</router-link></li>
+          <li><router-link to="/CalendarTutor">Calendar</router-link></li>
+          </ul>
+        </nav>       
+      </div>   
         <div class="profile">
-            <p class="inline" id="pic">  {{"Profile Picture: "}} </p>
-              <img v-bind:src="this.img">
-            <br><br>          
+            <img class="pic" :src="profile" />            
+              <p class="rating" v-if='this.rate == 1'>Rating: ⭐</p>
+              <p class="rating" v-else-if='this.rate == 2'>Rating: ⭐⭐</p>
+              <p class="rating" v-else-if='this.rate == 3'>Rating: ⭐⭐⭐</p>
+              <p class="rating" v-else-if='this.rate == 4'>Rating: ⭐⭐⭐⭐</p>
+              <p class="rating" v-else-if='this.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
+            <br>
+            <p class="rates1">  {{"Rates (per hour): "}} </p>
+            <p class="rates2" id = "value"> {{ this.rates}} </p>
+
             <p class="inline">  {{"First Name: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.first_name}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Last Name: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.last_name}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Email: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.email}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Phone: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.phone}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Qualifications: "}} </p>
+            <div class="test">            
             <p class="inline" id = "value"> {{ this.qualifications}} </p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Experience: "}} </p>
+            <div class="test">            
             <p class="inline" id = "value"> {{ this.experience}} </p>
-            <br><br>
-            <p class="inline">  {{"Rates (per hour): "}} </p>
-            <p class="inline" id = "value"> {{ this.rates}} </p>
-            <br><br>
-              <p class="inline" v-if='this.rate == 1'>Rating: ⭐</p>
-              <p class="inline" v-else-if='this.rate == 2'>Rating: ⭐⭐</p>
-              <p class="inline" v-else-if='this.rate == 3'>Rating: ⭐⭐⭐</p>
-              <p class="inline" v-else-if='this.rate == 4'>Rating: ⭐⭐⭐⭐</p>
-              <p class="inline" v-else-if='this.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
-            <br><br>
+            </div>
+            <br>
             <p class="inline">  {{"Subjects: "}} </p>
+            <div class="test">
             <ul>
               <li v-for="subject in this.subject" v-bind:key="subject.name">
                 <p class="inline" id = "value">  {{ subject }} </p> 
               </li>
             </ul>  
+            </div>
             <br>
             <p class="inline">  {{"Teaching Level: "}} </p>
+            <div class="test">
             <ul>
             <li v-for="level in this.level" v-bind:key="level.name">
                 <p class="inline" id = "value">  {{ level }} </p> 
             </li>
             </ul>
+            </div>
             <br>
             <p class="inline">  {{"Availability: "}} </p>
+            <div class="test">
             <p class="inline" id = "value"> {{ this.availability}} </p>
-            <br><br><br>
+            </div>
+            <br><br>
             <button v-on:click="updateProfile()">Update Profile</button>
             <button v-on:click="dashboard()">Dashboard</button>
         </div>
@@ -61,6 +81,9 @@
 </template>
 
 <script>
+//import image from "../assets/stamp.jpg"
+import logo from "../assets/logo2.png"
+import profile from "../assets/profile.jpg"
 import firebase from "../firebase"
 var db = firebase.firestore();
 export default {
@@ -72,8 +95,8 @@ export default {
   },
   data(){
     return {
-        picked: "",
-        first_name:null,
+        profile:profile,
+        first_name: null,
         last_name: null,
         email: null,
         phone: null,
@@ -85,40 +108,56 @@ export default {
         experience: null,
         availability: null,
         img: null,
+        logo:logo,
     }
   },
   methods:{
       updateProfile() {
         this.$router.push('/EditProfileTutor');
-      },
-      dashboard() {
-        this.$router.push('dashboard');
-      },
+      }
   },
   created(){
-      var user = firebase.auth().currentUser
-      db.collection('profiles').doc(user.uid).get().then((querySnapShot)=>
-        {
-            var data = querySnapShot.data();
-            this.first_name = data.first_name;
-            this.last_name = data.last_name; 
-            this.email = data.email;
-            this.phone = data.phone;
-            this.qualifications = data.qualifications;
-            this.experience = data.experience;
-            this.rates = data.rates;
-            this.rate = data.rate;
-            this.subject = data.subject,
-            this.level = data.level;
-            this.availability = data.availability;
-            this.img = data.img;
-        });
-    }
+      firebase.auth().onAuthStateChanged(user => {
+          if (user!=null) {
+            db.collection('profiles').doc(user.uid).get().then((querySnapShot)=>
+              {
+                  var data = querySnapShot.data();
+                  this.first_name = data.first_name;
+                  this.last_name = data.last_name; 
+                  this.email = data.email;
+                  this.phone = data.phone;
+                  this.qualifications = data.qualifications;
+                  this.experience = data.experience;
+                  this.rates = data.rates;
+                  this.rate = data.rate;
+                  this.subject = data.subject,
+                  this.level = data.level;
+                  this.availability = data.availability;
+                  this.img = data.img;
+              })
+          } else {
+            // No user is signed in.
+          }
+      })
+  }
 };
 </script>
 
 <style scoped lang="scss">
-  div {
+img {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+
+  .top {
+    background-color: #55C9C2;
+  }
+
+  .profile {
     background-color: #55C9C2;
     color: black;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
@@ -168,8 +207,9 @@ button {
   border-radius: 10px;
   border-width: 1px;
   font-weight: bold;
-  font-size: 16 px;
+  font-size: 15px;
   border-color: white;
+  margin: 10px;
 }
 
 .inline {
@@ -179,7 +219,7 @@ button {
 
 .profile {
     font-size: 20px;
-}
+  }
 
 #value {
     background-color: white;
@@ -191,12 +231,39 @@ button {
 
 }
 
-#pic {
+.pic {
   float: right;
-  margin-right: 20px;
+  margin-right: 100px;
+  margin-top: 10px;
+  height: 150px;
+  width: 200px;
+}
+
+.rating {
+  float: right;
+  margin-right: -180px;
+  margin-top: 170px;  
+}
+
+.rates1 {
+  float: right;
+  margin-right: -220px;
+  margin-top: 200px;  
+}
+
+.rates2 {
+  float: right;
+  margin-right: -220px;
+  margin-top: 250px;  
 }
 
 ul {
   list-style-type: none;
+}
+
+.test {
+  background-color: white;
+  width: 500px;
+  border-radius:10px;
 }
 </style>
