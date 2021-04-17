@@ -22,19 +22,20 @@
             <label for="level"><strong>Level:</strong></label>
             <select name="level" id="level" v-model='levelKey'>
                 <option value="select">Select...</option>
-                <option value="Primary">Primary</option>
-                <option value="Secondary">Secondary</option>
-                <option value="JC">JC</option>
+                <option value="primary">Primary</option>
+                <option value="secondary">Secondary</option>
+                <option value="jc">JC</option>
+                <option value="university">University</option>
             </select>
 
             <label for="subject"><strong>Subject:</strong></label>
             <select name="subject" id="subject" v-model='subjectKey'>
                 <option value="select">Select...</option>
-                <option value="English">English</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Physics">Physics</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Biology">Biology</option>
+                <option value="english">English</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="physics">Physics</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="biology">Biology</option>
             </select>
         
         </div>
@@ -54,6 +55,7 @@
                     <p id='tutorLevel'>Levels: {{ tutor.level[0] }} 
                                                {{ tutor.level[1] }}
                                                {{ tutor.level[2] }}
+                                               {{ tutor.level[3] }}
                     </p>
                     <p id='tutorYearsExp'>Years of Experience: {{ tutor.experience }}</p>
                     <p id='tutorRates'>Rates: ${{ tutor.rates }}/hr</p>
@@ -97,7 +99,8 @@
 
 <script>
 
-import database from "../firebase.js"
+import firebase from "../firebase.js"
+var database = firebase.firestore();
 
 export default {
   name: 'BrowseTutors',
@@ -209,7 +212,7 @@ export default {
           if (!(this.mytutors.includes(id))) {
               this.mytutors.push(id);
           }
-          database.collection('students').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
+          database.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot) => {
               querySnapShot.ref.update({
                   mytutors: this.mytutors
               })
@@ -281,7 +284,7 @@ export default {
 
   created() {
       this.fetchTutors();
-      database.collection('students').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
+      database.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot) => {
           var data = querySnapShot.data();
           this.mytutors = data.mytutors;
       })

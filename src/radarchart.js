@@ -1,5 +1,6 @@
 import { Radar } from 'vue-chartjs'
-import database from './firebase.js'
+import firebase from './firebase.js'
+var database = firebase.firestore();
 
 export default {
     extends: Radar,
@@ -59,7 +60,7 @@ export default {
 
     methods: {
         fetchData: function() {
-            database.collection('profiles').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
+            database.collection('profiles').doc(firebase.auth().currentUser.uid).get().then((querySnapShot) => {
                 var tutor = querySnapShot.data();
                 var engagingList = tutor.engaging;
                 var communicationList = tutor.communication;

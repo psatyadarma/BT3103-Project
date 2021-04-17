@@ -129,7 +129,8 @@
 
 <script>
 
-import database from "../firebase.js"
+import firebase from "../firebase.js"
+var database = firebase.firestore();
 
 export default {
 
@@ -183,7 +184,7 @@ export default {
         },
 
         updateTutorRating: function(id) {
-            database.collection('tutors').doc(id).get().then((querySnapShot) => {
+            database.collection('profiles').doc(id).get().then((querySnapShot) => {
                 //Get Tutor's current ratings
                 var tutor = querySnapShot.data();
                 this.engagingList = tutor.engaging;
@@ -242,7 +243,7 @@ export default {
                 return tutorid != id;
             }
             this.mytutors = this.mytutors.filter(getIdMatch);
-            database.collection('students').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
+            database.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot) => {
                 querySnapShot.ref.update({
                     mytutors: this.mytutors
                 })
@@ -264,7 +265,7 @@ export default {
     },
 
     created() {
-        database.collection('students').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
+        database.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot) => {
           var data = querySnapShot.data();
           this.mytutors = data.mytutors;
         })

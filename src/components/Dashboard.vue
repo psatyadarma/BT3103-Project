@@ -66,13 +66,14 @@
 
 <script>
 
-import database from '../firebase.js'
 import engagingbarchart from '../engagingbarchart.js'
 import communicationbarchart from '../communicationbarchart.js'
 import listeningbarchart from '../listeningbarchart.js'
 import patiencebarchart from '../patiencebarchart.js'
 import radarchart from '../radarchart.js'
 import linechart from '../linechart.js'
+import firebase from '../firebase.js'
+var database = firebase.firestore();
 
 export default {
     name: 'Dashboard',
@@ -90,7 +91,7 @@ export default {
 
     methods: {
         fetchTutor: function() {
-            database.collection('profiles').doc(database.auth().currentUser.uid).get().then((querySnapShot) => {
+            database.collection('profiles').doc(firebase.auth().currentUser.uid).get().then((querySnapShot) => {
                 var tutor  = querySnapShot.data();
                 this.tutor = tutor;
                 var engagingList = tutor.engaging;
