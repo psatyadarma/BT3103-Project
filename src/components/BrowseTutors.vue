@@ -228,7 +228,7 @@ export default {
       },
 
       myTutors: function() {
-          this.$router.push('mytutors');
+          this.$router.push('myTutors');
       },
 
   },
@@ -239,15 +239,17 @@ export default {
               return this.tutors;
           }
           var tutors = this.tutors;
-          var searchResult = {};
-          var filterResult = {};
-          Object.keys(tutors).forEach(key => {
-              var tutor = tutors[key];
-              for (var field in tutor) {
-                  if ( String(tutor[field]).toLowerCase().includes(this.searchQuery.toLowerCase()) ) {
-                      searchResult[key] = tutor;
+          var searchResult = [];
+          var filterResult = [];
+          tutors.forEach(tutor => {
+              var searchKeys = ['first_name', 'last_name', 'availability', 'experience', 'level', 'subject', 'rates', 'qualifications'];
+              searchKeys.forEach(searchKey => {
+                  if ( String(tutor[searchKey]).toLowerCase().includes(this.searchQuery.toLowerCase()) && (this.searchQuery != '')) {
+                      if (!(searchResult.includes(tutor))) {
+                          searchResult.push(tutor);
+                      }
                   }
-              }
+              })
               if (this.levelKey != 'select' && this.subjectKey != 'select') {
                   var levelMatch = false;
                   var subjectMatch = false;
@@ -262,21 +264,27 @@ export default {
                       }
                   }
                   if (levelMatch && subjectMatch) {
-                      filterResult[key] = tutor;
+                      filterResult.push(tutor);
                   }
               } else {
                   for (let i=0; i < 5; i++) {
                       if (this.levelKey == tutor.level[i] || this.subjectKey == tutor.subject[i]) {
-                          filterResult[key] = tutor;
-                        }
-                    }
+                          filterResult.push(tutor);
+                      }
+                  }
               }
           })
-          var finalResult = {};
-          for (var key in searchResult) {
-              if (key in filterResult) {
-                  finalResult[key] = searchResult[key];
-              }
+          var finalResult = [];
+          if (searchResult.length == 0) {
+              finalResult = filterResult;
+          } else if (filterResult.length == 0) {
+              finalResult = searchResult;
+          } else {
+              searchResult.forEach(tutor => {
+                  if (filterResult.includes(tutor)) {
+                      finalResult.push(tutor);
+                  }
+              })
           }
           return finalResult;
       }
