@@ -64,7 +64,7 @@
                     <p v-else-if='tutor.rate == 3'>Rating: ⭐⭐⭐</p>
                     <p v-else-if='tutor.rate == 4'>Rating: ⭐⭐⭐⭐</p>
                     <p v-else-if='tutor.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
-                    <button class='liButton' v-on:click="$router.push({name: 'requestForm', params: { tutid: tutor.id }})">Request a Timeslot</button>
+                    <button class='liButton' v-on:click="$router.push({name: 'requestForm', params: { tutid: tutor.id }})">Request a Timeslot</button><br><br>
                     <button type='button' id='contactInfo' class='liButton' v-on:click='openContactModal(tutor.id, tutor.last_name, tutor.email, tutor.phone)'>Contact</button><br><br>
                     <button type='button' id='addTutor' class='liButton' v-on:click='openAddTutorModal(tutor.id, tutor.last_name)'>Add to MyTutors</button>
                 </li>
