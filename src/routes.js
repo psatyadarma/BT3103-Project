@@ -19,5 +19,4 @@ export default [
     { path: '/browseTutor', component: BrowseTutor },
     { path: '/requestForm', name:'requestForm',component: RequestForm,props:true },
     { path: '/dashboard', component: Dashboard }
-    
 ]
