@@ -85,6 +85,21 @@
 import firebase from "../firebase"
 var db = firebase.firestore();
 
+var pastThirtyDays = [];
+for (let i=0; i < 30; i++) {
+  var date = new Date(new Date().setDate(new Date().getDate() - i)).toDateString().slice(4);
+  pastThirtyDays.push(date);
+}
+pastThirtyDays = pastThirtyDays.sort((a,b) => new Date(a) - new Date(b));
+
+var clickHistory = {};
+var viewHistory = {};
+
+for (const date of pastThirtyDays) {
+  clickHistory[date] = 0;
+  viewHistory[date] = 0;
+}
+
 export default {
   name: 'RegisterTutor',
   data() {
@@ -134,7 +149,12 @@ export default {
             communication:this.communication,
             listening:this.listening,
             patience:this.patience,
-            overall:this.overall
+            overall:this.overall,
+            profileViews:0,
+            contactClicks:0,
+            createDate: new Date(),
+            clickHistory: clickHistory,
+            viewHistory: viewHistory,
           })
           .then(function() {
             console.log("Document successfully written!");
