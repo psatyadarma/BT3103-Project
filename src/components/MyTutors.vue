@@ -150,6 +150,8 @@ export default {
             listeningList: [],
             patienceList: [],
             overallList: [],
+            sumOverallRatings: 0,
+            numOverallRatings: 0
         }
     },
 
@@ -195,13 +197,21 @@ export default {
                 this.listeningList[parseInt(this.listening) - 1] = this.listeningList[parseInt(this.listening) - 1] + 1
                 this.patienceList[parseInt(this.patience) - 1] = this.patienceList[parseInt(this.patience) - 1] + 1
                 this.overallList[parseInt(this.overall) - 1] = this.overallList[parseInt(this.overall) - 1] + 1
+                this.overallList.forEach((value, index) => {
+                    this.sumOverallRatings += value*(index+1);
+                    this.numOverallRatings += value;
+                });
+                var newRate = Math.ceil(this.sumOverallRatings/this.numOverallRatings);
+                this.sumOverallRatings = 0;
+                this.numOverallRatings = 0;
                 //Update Tutor's Ratings in Firestore
                 database.collection('tutors').doc(id).update({
                     engaging: this.engagingList,
                     communication: this.communicationList,
                     listening: this.listeningList,
                     patience: this.patienceList,
-                    overall: this.overallList
+                    overall: this.overallList,
+                    rate: newRate
                 });
                 //Reset updateTutorRatingId, engaging, communication, listening, patience, overall
                 [this.updateTutorRatingId, this.engaging, this.communication, this.listening, this.patience, this.overall] = [ '', '0', '0', '0', '0', '0' ];
@@ -246,7 +256,7 @@ export default {
             modal.classList.remove('active');
             document.getElementById('removeTutorOverlay').classList.remove('active');
         },
-     
+        
         navigateBack: function() {
             this.$router.push('tutors');
         },

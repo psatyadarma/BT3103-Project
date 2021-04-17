@@ -62,7 +62,6 @@
                     <p v-else-if='tutor.rate == 3'>Rating: ⭐⭐⭐</p>
                     <p v-else-if='tutor.rate == 4'>Rating: ⭐⭐⭐⭐</p>
                     <p v-else-if='tutor.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
-                    <button @click="$router.push({name: 'requestForm', params: { tutid: tutor.id },})">Request a Timeslot</button>
                     <button type='button' id='contactInfo' class='liButton' v-on:click='openContactModal(tutor.id, tutor.last_name, tutor.email, tutor.phone)'>Contact</button><br><br>
                     <button type='button' id='addTutor' class='liButton' v-on:click='openAddTutorModal(tutor.id, tutor.last_name)'>Add to MyTutors</button>
                 </li>
@@ -98,10 +97,9 @@
 <script>
 
 import database from "../firebase.js"
+
 export default {
   name: 'BrowseTutors',
-  components: {
-  },
   data() {
       return {
           tutors: [],
@@ -143,10 +141,21 @@ export default {
       },
 
       incrementProfileView: function(id) {
-          database.collection('tutors').doc(id).get().then((querySnapShot) => {
+          database.collection('profiles').doc(id).get().then((querySnapShot) => {
               var tutor = querySnapShot.data();
-              database.collection('tutors').doc(id).update({
-                  profileViews: tutor.profileViews + 1
+              var dateToday = new Date().toDateString().slice(4);
+              var oldViewHistory = tutor.viewHistory;
+              oldViewHistory[dateToday] = oldViewHistory[dateToday] + 1;
+              var dateKeys = Object.keys(oldViewHistory);
+              dateKeys = dateKeys.sort((a,b) => new Date(a) - new Date(b));
+              if (dateKeys.length > 30) {
+                  var firstDayInList = dateKeys[0];
+                  delete oldViewHistory[firstDayInList];
+              }
+              var newViewHistory = oldViewHistory;
+              database.collection('profiles').doc(id).update({
+                  profileViews: tutor.profileViews + 1,
+                  viewHistory: newViewHistory
               })
           })
       },
@@ -162,8 +171,19 @@ export default {
           //Increment contactClicks by 1
           database.collection('profiles').doc(id).get().then((querySnapShot) => {
               var tutor = querySnapShot.data();
+              var dateToday = new Date().toDateString().slice(4);
+              var oldClickHistory = tutor.clickHistory;
+              oldClickHistory[dateToday] = oldClickHistory[dateToday] + 1;
+              var dateKeys = Object.keys(oldClickHistory);
+              dateKeys = dateKeys.sort((a,b) => new Date(a) - new Date(b));
+              if (dateKeys.length > 30) {
+                  var firstDayInList = dateKeys[0];
+                  delete oldClickHistory[firstDayInList];
+              }
+              var newClickHistory = oldClickHistory;
               database.collection('profiles').doc(id).update({
-                  contactClicks: tutor.contactClicks + 1
+                  contactClicks: tutor.contactClicks + 1,
+                  clickHistory: newClickHistory
               })
           })
       },

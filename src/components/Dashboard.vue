@@ -3,6 +3,30 @@
         <h1>Welcome to your Dashboard, {{ tutor.last_name }}</h1>
 
         <div class='row'>
+            <div class='column clickMetrics'>
+                <p class='clickMetricTitle'>Total Profile Views</p>
+                <div class='clickMetricsText'>{{ profileViews }}</div>
+            </div>
+            <div class='column clickMetrics'>
+                <p class='clickMetricTitle'>Avg. Daily Profile Views</p>
+                <div class='clickMetricsText'>{{ avgDailyProfileViews[0] }} - {{ avgDailyProfileViews[1] }}</div>
+            </div>
+            <div class='column clickMetrics'>
+                <p class='clickMetricTitle'>Total Contact Clicks</p>
+                <div class='clickMetricsText'>{{ contactClicks }}</div>
+            </div>
+            <div class='column clickMetrics'>
+                <p class='clickMetricTitle'>Contact Click : Profile View</p>
+                <div class='clickMetricsText'>{{ contactToProfileRatio[0] }} : {{ contactToProfileRatio[1] }}</div>
+                <div id='ratioPercent'>({{ ratioPercent }}%)</div>
+            </div>
+        </div>
+
+        <div id='lineChart'>
+            <line-chart></line-chart>
+        </div>
+
+        <div class='row'>
             <div class='column'><radar-chart></radar-chart></div>
             <div class='column'>
                 <div class='row'>
@@ -37,26 +61,6 @@
             <div class='column'><patience-bar-chart></patience-bar-chart></div>
         </div>
 
-        <div class='row'>
-            <div class='column clickMetrics'>
-                <p class='clickMetricTitle'>Total Profile Views</p>
-                <div class='clickMetricsText'>{{ profileViews }}</div>
-            </div>
-            <div class='column clickMetrics'>
-                <p class='clickMetricTitle'>Avg. Daily Profile Views</p>
-                <div class='clickMetricsText'>{{ avgDailyProfileViews[0] }} - {{ avgDailyProfileViews[1] }}</div>
-            </div>
-            <div class='column clickMetrics'>
-                <p class='clickMetricTitle'>Total Contact Clicks</p>
-                <div class='clickMetricsText'>{{ contactClicks }}</div>
-            </div>
-            <div class='column clickMetrics'>
-                <p class='clickMetricTitle'>Contact Click : Profile View</p>
-                <div class='clickMetricsText'>{{ contactToProfileRatio[0] }} : {{ contactToProfileRatio[1] }}</div>
-                <div id='ratioPercent'>({{ ratioPercent }}%)</div>
-            </div>
-        </div>
-
     </div>
 </template>
 
@@ -68,6 +72,7 @@ import communicationbarchart from '../communicationbarchart.js'
 import listeningbarchart from '../listeningbarchart.js'
 import patiencebarchart from '../patiencebarchart.js'
 import radarchart from '../radarchart.js'
+import linechart from '../linechart.js'
 
 export default {
     name: 'Dashboard',
@@ -140,6 +145,7 @@ export default {
         'listening-bar-chart': listeningbarchart,
         'patience-bar-chart': patiencebarchart,
         'radar-chart': radarchart,
+        'line-chart': linechart
     },
 
     created() {
@@ -229,5 +235,10 @@ h1 {
     font-family: Montserrat;
     font-size: 1.5rem;
 }
+
+#lineChart {
+    margin: 50px 0;
+}
+
 
 </style>
