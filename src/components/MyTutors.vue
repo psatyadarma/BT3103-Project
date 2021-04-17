@@ -259,7 +259,7 @@ export default {
         },
         
         navigateBack: function() {
-            this.$router.push('tutors');
+            this.$router.push('browseTutor');
         },
 
     },
