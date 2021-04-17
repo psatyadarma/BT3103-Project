@@ -206,7 +206,7 @@ export default {
                 this.sumOverallRatings = 0;
                 this.numOverallRatings = 0;
                 //Update Tutor's Ratings in Firestore
-                database.collection('tutors').doc(id).update({
+                database.collection('profiles').doc(id).update({
                     engaging: this.engagingList,
                     communication: this.communicationList,
                     listening: this.listeningList,

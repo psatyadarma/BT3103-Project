@@ -213,8 +213,8 @@ h1 {
 }
 
 .clickMetricsText {
-    font-size: 5rem;
-    margin-top: 20px;
+    font-size: 3rem;
+    margin-top: 50px;
     font-family: Montserrat;
 }
 

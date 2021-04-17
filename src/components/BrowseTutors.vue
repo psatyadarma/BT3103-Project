@@ -22,20 +22,20 @@
             <label for="level"><strong>Level:</strong></label>
             <select name="level" id="level" v-model='levelKey'>
                 <option value="select">Select...</option>
-                <option value="primary">Primary</option>
-                <option value="secondary">Secondary</option>
-                <option value="jc">JC</option>
-                <option value="university">University</option>
+                <option value="Primary">Primary</option>
+                <option value="Secondary">Secondary</option>
+                <option value="JC">JC</option>
+                <option value="University">University</option>
             </select>
 
             <label for="subject"><strong>Subject:</strong></label>
             <select name="subject" id="subject" v-model='subjectKey'>
                 <option value="select">Select...</option>
-                <option value="english">English</option>
-                <option value="mathematics">Mathematics</option>
-                <option value="physics">Physics</option>
-                <option value="chemistry">Chemistry</option>
-                <option value="biology">Biology</option>
+                <option value="English">English</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Biology">Biology</option>
             </select>
         
         </div>
@@ -149,7 +149,11 @@ export default {
               var tutor = querySnapShot.data();
               var dateToday = new Date().toDateString().slice(4);
               var oldViewHistory = tutor.viewHistory;
-              oldViewHistory[dateToday] = oldViewHistory[dateToday] + 1;
+              if (dateToday in oldViewHistory) {
+                  oldViewHistory[dateToday] = oldViewHistory[dateToday] + 1;
+              } else {
+                  oldViewHistory[dateToday] = 1;
+              }
               var dateKeys = Object.keys(oldViewHistory);
               dateKeys = dateKeys.sort((a,b) => new Date(a) - new Date(b));
               if (dateKeys.length > 30) {
@@ -177,7 +181,11 @@ export default {
               var tutor = querySnapShot.data();
               var dateToday = new Date().toDateString().slice(4);
               var oldClickHistory = tutor.clickHistory;
-              oldClickHistory[dateToday] = oldClickHistory[dateToday] + 1;
+              if (dateToday in oldClickHistory) {
+                  oldClickHistory[dateToday] = oldClickHistory[dateToday] + 1;
+              } else {
+                  oldClickHistory[dateToday] = 1;
+              }
               var dateKeys = Object.keys(oldClickHistory);
               dateKeys = dateKeys.sort((a,b) => new Date(a) - new Date(b));
               if (dateKeys.length > 30) {
