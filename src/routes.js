@@ -4,6 +4,8 @@ import RegisterStudent from './components/RegisterStudent.vue'
 import RegisterTutor from './components/RegisterTutor.vue'
 import HomeStudent from './components/HomeStudent.vue'
 import HomeTutor from './components/HomeTutor.vue'
+import ProfileStudent from './components/ProfileStudent.vue'
+import ProfileTutor from './components/ProfileTutor.vue'
 import BrowseTutor from './components/BrowseTutors.vue'
 import MyTutors from './components/MyTutors.vue'
 import RequestForm from './components/RequestForm.vue'
@@ -18,6 +20,8 @@ export default [
     { path: '/registerTutor', component: RegisterTutor },
     { path: '/homeStudent', component: HomeStudent },
     { path: '/homeTutor', component: HomeTutor },
+    { path: '/profileStudent', component: ProfileStudent },
+    { path: '/profileTutor', component: ProfileTutor },
     { path: '/browseTutor', component: BrowseTutor },
     { path: '/myTutors', component: MyTutors },
     { path: '/requestForm', name:'requestForm',component: RequestForm,props:true },

@@ -27,30 +27,30 @@
         placeholder="Your qualifications"
       ></textarea><br>
       <p style="font-size:16pt">Teaching Level</p>
-      <input type="checkbox" id="primary" value="primary" v-model="level" class="check">
+      <input type="checkbox" id="primary" value="Primary" v-model="level" class="check">
       <label for="primary">Primary</label>
-      <input type="checkbox" id="secondary" value="secondary" v-model="level" class="check">
+      <input type="checkbox" id="secondary" value="Secondary" v-model="level" class="check">
       <label for="secondary">Secondary</label>
-      <input type="checkbox" id="jc" value="jc" v-model="level" class="check">
+      <input type="checkbox" id="jc" value="JC" v-model="level" class="check">
       <label for="jc">JC</label>
-      <input type="checkbox" id="university" value="university" v-model="level" class="check">
+      <input type="checkbox" id="university" value="University" v-model="level" class="check">
       <label for="university">University</label>
       <br><br><br>
-      <label for="experience" style="font-size:16pt">Year of Experience</label><br>
+      <label for="experience" style="font-size:16pt">Years of Experience</label><br>
       <input 
         v-model.number="experience" 
         type="number"
       min="0" max="60" oninput="validity.valid||(value='');"/><br><br>
       <p style="font-size:16pt">Teaching Subjects</p>
-      <input type="checkbox" id="mathematics" value="mathematics" v-model="subject" class="check">
+      <input type="checkbox" id="mathematics" value="Mathematics" v-model="subject" class="check">
       <label for="mathematics">Mathematics</label>
-      <input type="checkbox" id="english" value="english" v-model="subject" class="check">
+      <input type="checkbox" id="english" value="English" v-model="subject" class="check">
       <label for="english">English</label>
-      <input type="checkbox" id="physics" value="physics" v-model="subject" class="check">
+      <input type="checkbox" id="physics" value="Physics" v-model="subject" class="check">
       <label for="physics">Physics</label>
-      <input type="checkbox" id="chemistry" value="chemistry" v-model="subject" class="check">
+      <input type="checkbox" id="chemistry" value="Chemistry" v-model="subject" class="check">
       <label for="chemistry">Chemistry</label>
-      <input type="checkbox" id="biology" value="biology" v-model="subject" class="check">
+      <input type="checkbox" id="biology" value="Biology" v-model="subject" class="check">
       <label for="biology">Biology</label>
       <br><br><br>
       <label for="rates" style="font-size:16pt">Rates</label><br>
