@@ -8,7 +8,7 @@
                 <select name="tutor" id="tutor" v-model="assignment.tutorId">
                     <!--loop through tutor list here-->
                     <option v-for="tut in this.tutors" v-bind:key="tut.tutid" v-bind:value="tut.tutid"></option>
-                        <!--{{tut.first_name}} {{tut.last_name}}-->
+                        {{tut.first_name}} {{tut.last_name}}
 
                 </select>
             </div>
@@ -62,7 +62,7 @@ export default {
         const ref = firebase.storage().ref().child('assignments/forTutors/' + this.assignment.tutorId + '/' +
                                                                               this.assignment.studentId + '_' +
                                                                               this.assignment.header + '.docx');
-        ref.put(file).then((snapshot) => {
+        ref.put(file).then(() => {
             this.urlLink = ref
             console.log('Uploaded file');
             console.log(this.urlLink.fullPath)
@@ -89,6 +89,7 @@ export default {
     },
   created() {
     this.getTutors();
+    console.log('created')
   },
 
     
