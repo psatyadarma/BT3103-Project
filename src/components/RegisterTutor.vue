@@ -237,4 +237,8 @@ button {
   font-size: 14pt;
   background-color:aquamarine
 }
+
+input,textarea:focus { 
+  outline: none; 
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div style="text-align:center">
+  <div style="text-align:center" class="formdiv">
     <h1>Timeslot Request</h1><br>
-    <form @submit.prevent="request" style="background-color:#E6E6FA">
+    <form @submit.prevent="request">
       <label for="subject" style="font-size:16pt">Subject</label><br>
       <input
         type="text"
@@ -118,6 +118,27 @@ textarea {
   box-shadow: 2px 1px
 }
 
+.formdiv {
+  border-radius: 25px;
+  border: 4px solid black;
+  padding: 20px;
+  background-image:linear-gradient(rgb(0, 81, 128), rgb(102, 237, 241));
+  width: 400px;
+  margin: auto;
+}
+h1 {
+  font-size:24pt
+}
+input, select {
+  height:40px;
+  width:200 px;
+  font-size: 14pt;
+  margin:5px 0;
+  padding:8px;
+  border-radius:10px;
+  box-shadow: 2px 1px
+}
+
 button {
   height:40px;
   width:150px;
@@ -125,7 +146,7 @@ button {
   background-color:aquamarine
 }
 
-.buttons {
-  display: inline;
+input:focus { 
+  outline: none; 
 }
 </style>

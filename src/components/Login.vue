@@ -86,4 +86,8 @@ button {
   font-size: 14pt;
   background-color:aquamarine
 }
+
+input:focus { 
+  outline: none; 
+}
 </style>
