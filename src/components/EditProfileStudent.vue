@@ -1,5 +1,6 @@
 <template>
     <body>
+          <img :src="logo" />
         <nav>
           <ul style="list-style-type: none;">
           <li><router-link to="/HomeStudent">Home</router-link></li>
@@ -7,7 +8,7 @@
           <li><router-link to="/CalendarStudent">Calendar</router-link></li>
           </ul>
         </nav>
-  <h2>Edit Profile</h2><br>
+  <h1 style="text-align:center; color:#55C9C2; font-weight: bold; padding-top:150px;" >EDIT YOUR PROFILE</h1>
   <div class = "editProfile">
     <form @submit.prevent="register">
       <p class="inline">  {{"First Name: "}} </p>
@@ -17,18 +18,13 @@
       <p class="inline">  {{"Phone: "}} </p>
       <input type="text" placeholder="Phone" maxlength="50" v-model="phone"/><br><br>
       <p class="inline">  {{"Education Level: "}} </p>
-      <select v-model="education">
+      <select v-model="education" class="edu">
         <option disabled value="">Education Level</option>
         <option>Primary</option>
         <option>Secondary</option>
         <option>Junior College</option>
         <option>University</option>
       </select><br><br>
-      <!-- <p class="inline">  {{"Profile Picture: "}} </p>
-      <button raised class="primary" @click="onPickFile">Upload Image</button>
-      <input type="file" style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked">
-      <img :src="imageUrl" height="150">
-      <br> -->
       <button v-on:click="update()">Save Changes</button>
 
             </form>
@@ -37,10 +33,11 @@
 </template>
 
 <script>
+import logo from "../assets/logo2.png"
 import firebase from "../firebase"
 var db = firebase.firestore();
 export default {
-  name: "profile",
+  name: "EditProfileStudent",
   components: {
   },
   props: {
@@ -48,36 +45,20 @@ export default {
   },
   data(){
     return {
+        logo: logo,
         first_name:null,
         last_name: null,
         phone: null,
         education: null,
         img: null,
         uploadValue: 0,
-        imageData: null,
-        image: null,
-        imageUrl: ''
     }
   },
   methods:{
-    onFilePicked(event) {
-      const files = event.target.files
-      let filename = files[0].name
-      if (filename.lastIndexOf('.') <= 0) {
-        return alert("Please add a valid file!")
-      }
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', () => {
-        this.imageUrl = fileReader.result
-      })
-      fileReader.readAsDataURL(files[0])
-      this.image = files[0]
-    },
-    onPickFile() {
-      this.$refs.fileInput.click()
-    },
     update() {
-      db.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot)=>
+      firebase.auth().onAuthStateChanged(user => {
+      if (user!=null) {
+        db.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot)=>
           { querySnapShot.ref.update({
           first_name : this.first_name,
           last_name : this.last_name,
@@ -85,19 +66,14 @@ export default {
           education: this.education,
           img: this.img,
       })})
-          this.$router.push('/HomeStudent');
+      }
+      })
+      this.$router.push('/HomeStudent');
     },
-    uploadImage: function(event) {
-      const file = event.target.files[0]        
-        firebase
-        .app()
-        .storage()
-        .ref('images')
-        .child(file.name)
-        .put(file);
-    }
-    },
+  },
   created(){
+    firebase.auth().onAuthStateChanged(user => {
+      if (user!=null) {
       db.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot)=>
         {
             var data = querySnapShot.data();
@@ -106,6 +82,8 @@ export default {
             this.phone = data.phone;
             this.education = data.education;
         })
+      }
+    })
   } 
 };
 </script>
@@ -196,5 +174,12 @@ input {
   margin-top: 10px;
   height: 150px;
   width: 200px;
+}
+
+.edu {
+  background-color: white;
+  border-radius: 10px;
+  height: 25px;
+  border-width: 1px;              
 }
 </style>
