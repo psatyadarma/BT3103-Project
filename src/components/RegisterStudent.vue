@@ -104,7 +104,7 @@ export default {
   border-radius: 25px;
   border: 4px solid black;
   padding: 20px;
-  background-image:linear-gradient(green, yellow);
+  background-image:linear-gradient(#55C9C2, white);
   width: 400px;
   margin: auto;
 }

@@ -184,7 +184,7 @@ h1 {
   border-radius: 25px;
   border: 4px solid black;
   padding: 20px;
-  background-image:linear-gradient(green, yellow);
+  background-image:linear-gradient(#55C9C2, white);
   width: 550px;
   margin: auto;
   border-style: outset;
