@@ -24,7 +24,7 @@
                 <label id='studentLabel' for="student"><strong>Student:</strong></label>
                 <select name="student" id="student" v-model="assignment.student">
                     <!--loop through student list here-->
-                    <option v-for="stu in this.students" v-bind:key="stu.id" v-bind:value="stu.id"></option>
+                    <option v-for="stu in this.students" v-bind:key="stu.stuid" v-bind:value="stu.stuid"></option>
                         <!--{{stu.first_name}} {{stu.last_name}}-->
 
                 </select>
@@ -78,9 +78,9 @@ export default {
     },
 
     uploadBlob: function(file) {
-        const ref = firebase.storage().ref().child('assignments/forStudents/' + this.assignment.dueDate + '_' +
+        const ref = firebase.storage().ref().child('assignments/forStudents/' + this.assignment.student.stuid + '/' +
+                                                                                this.assignment.dueDate + '_' +
                                                                                 this.assignment.subject + '_' +
-                                                                                this.assignment.student.id + '_' +
                                                                                 this.assignment.header + '.docx');
         ref.put(file).then((snapshot) => {
             this.urlLink = ref
@@ -93,8 +93,9 @@ export default {
     addItem:  function () {
             //Save item to database
             this.assignment.uploadURL = this.urlLink.fullPath
-            db.collection('itemTest').doc().set(this.assignment);
+            db.collection('student_files').doc().set(this.assignment);
             alert("Item saved successfully")
+            this.$router.push('/tutorAssignment')
         },
 
     getStudents: function() {
