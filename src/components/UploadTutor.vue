@@ -1,8 +1,6 @@
 <template>
     <div id='full'>
         <button id='newAssgn'>New Assignment</button>
-        <button id='newRecord' @click="$router.push('/uploadTutorRecording')">New Recording</button>
-        
         
         <form id='inputs'>
             <div id='dates'>
@@ -83,13 +81,12 @@ export default {
                                                                                 this.assignment.dueDate + '_' +
                                                                                 this.assignment.subject + '_' +
                                                                                 this.assignment.header + '.docx');
-        ref.put(file).then((snapshot) => {
+        ref.put(file).then(() => {
             this.urlLink = ref
             console.log('Uploaded file');
             console.log(this.urlLink.fullPath)
         });
     },
-    
     
     addItem:  function () {
             //Save item to database
@@ -108,15 +105,10 @@ export default {
     },
 
     getSubjects: function() {
-        var thisUserId = firebase.auth().currentUser.uid
-        database.collection('profiles').get().then((querySnapShot) => {
-              let tutor = {}
-              querySnapShot.forEach((doc) => {
-                  tutor = doc.data()
-                  if (tutor.id == thisUserId) {
-                      this.subjects = tutor.subjects
-                  }
-              })
+        db.collection('profiles').doc(this.thisUserId).get().then((querySnapShot) => {
+            let tutor = {}
+            tutor = querySnapShot.data()
+            this.subjects = tutor.subjects
           })
     }
 
