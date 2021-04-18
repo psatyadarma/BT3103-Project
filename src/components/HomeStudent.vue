@@ -6,6 +6,7 @@
   <li><router-link to="/HomeStudent">Home</router-link></li>
   <li><router-link to="/ProfileStudent">Profile</router-link></li>
   <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+  <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
   </ul>
   </nav>
   <p class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</p>
@@ -23,6 +24,17 @@
       <br>
 
   </div>
+
+  <div class = "results">
+    <p class = "heading"> Results </p>
+    <ul>
+        <li v-for="result in this.results" :key="result.id">
+            <p>
+              {{result.message}}
+            </p>
+        </li>   
+    </ul> 
+  </div>  
   </body>
 </template>
 
@@ -46,6 +58,7 @@ export default {
       last_name: null,
       today: new Date().toISOString().substr(0, 10),
       yesterday: new Date(new Date().setDate(new Date().getDate()-1)),
+      results:[]
     }
   },
   methods: {
@@ -76,6 +89,12 @@ export default {
     this.getEvents();
   },
     created(){
+      console.log(firebase.auth().currentUser.uid)
+      db.collection('results').doc(firebase.auth().currentUser.uid).collection('results').get().then(snapshot => {
+          snapshot.docs.forEach(doc => {
+              this.results.push(doc.data());
+          });
+      });
       firebase.auth().onAuthStateChanged(user => {
           if (user!=null) {
             db.collection('students').doc(user.uid).get().then((querySnapShot)=>

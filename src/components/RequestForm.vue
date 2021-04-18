@@ -48,6 +48,7 @@ export default {
   },
   methods: {
     request() {
+        console.log(this.tutid);
         var user = firebase.auth().currentUser;
         db.collection("requests").doc(this.tutid).
         collection("requests").doc(user.uid).set({
