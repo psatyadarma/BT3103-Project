@@ -11,6 +11,9 @@ import MyTutors from './components/MyTutors.vue'
 import RequestForm from './components/RequestForm.vue'
 import Dashboard from './components/Dashboard.vue'
 import LogoutPage from './components/Logout.vue'
+import UploadTutor from './components/UploadTutor.vue'
+import UploadStudent from './components/UploadStudent.vue'
+import AssignmentStudent from './components/AssignmentStudent.vue'
 
 export default [
     { path: '/', component: LandingPage },
@@ -25,5 +28,9 @@ export default [
     { path: '/browseTutor', component: BrowseTutor },
     { path: '/myTutors', component: MyTutors },
     { path: '/requestForm', name:'requestForm',component: RequestForm,props:true },
-    { path: '/dashboard', component: Dashboard }
+    { path: '/dashboard', component: Dashboard },
+    { path: '/uploadTutor', component: UploadTutor },
+    { path: '/uploadStudent', component: UploadStudent },
+    { path: '/assignmentStudent', component: AssignmentStudent },
+
 ]

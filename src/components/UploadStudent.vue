@@ -34,7 +34,7 @@ export default {
   name: 'UploadStudent',
   data() {
       return {
-          thisUserId: '6EFPePkvrUdNrLUGws1AnvYKk4E3', //firebase.auth().currentUser.uid,
+          thisUserId: firebase.auth().currentUser.uid,
           tutors: [],
           urlLink: '',
           assignment:{
@@ -65,10 +65,9 @@ export default {
         ref.put(file).then((snapshot) => {
             this.urlLink = ref
             console.log('Uploaded file');
-            //console.log(this.urlLink.fullPath)
+            console.log(this.urlLink.fullPath)
         });
     },
-    
     
     addItem:  function () {
             //Save item to database
@@ -76,17 +75,14 @@ export default {
             this.assignment.studentId = this.thisUserId
             db.collection('tutor_files').doc().set(this.assignment);
             alert("Item saved successfully")
-            //this.$router.push('/studentAssignment')
+            this.$router.push('/studentAssignment')
         },
 
     getTutors: function() {
-        db.collection('students').where("stuid", "==", this.thisUserId).get().then((querySnapShot) => {
-              let student = {}
-              querySnapShot.forEach((doc) => {
-                  student = doc.data()
-                  this.tutors = student.mytutors
-
-              })
+        db.collection('students').doc(this.thisUserId).get().then((querySnapShot) => {
+            let student = {}
+            student = querySnapShot.data()
+            this.tutors = student.mytutors 
           })
     }
 

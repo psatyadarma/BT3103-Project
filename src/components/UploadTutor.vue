@@ -51,6 +51,7 @@ export default {
   name: 'UploadTutor',
   data() {
       return {
+          thisUserId: firebase.auth().currentUser.uid,
           students: [],
           subjects:[],
           uploadFiles: [],
@@ -85,7 +86,7 @@ export default {
         ref.put(file).then((snapshot) => {
             this.urlLink = ref
             console.log('Uploaded file');
-            //console.log(this.urlLink.fullPath)
+            console.log(this.urlLink.fullPath)
         });
     },
     
@@ -99,27 +100,15 @@ export default {
         },
 
     getStudents: function() {
-        var thisUserId = "BKtdsQm4OmQO8UwPe1ktIwUqhgb2" //firebase.auth().currentUser.uid
-        db.collection('students').get().then((querySnapShot) => {
-              let student = {}
-              let studentTutors = []
-              querySnapShot.forEach((doc) => {
-                  student = doc.data()
-                  studentTutors = student.mytutors
-                  //console.log(studentTutors)
-                  var i;
-                  for (i=0; i<studentTutors.length; i++) {
-                    if (studentTutors[i] == thisUserId) {
-                        this.students.push(student)
-                    }
-                  }
-              })
+        db.collection('profiles').doc(this.thisUserId).get().then((querySnapShot) => {
+            let tutor = {}
+            tutor = querySnapShot.data()
+            this.students = tutor.mystudents                   
           })
-        
     },
 
     getSubjects: function() {
-        var thisUserId = "BKtdsQm4OmQO8UwPe1ktIwUqhgb2" //firebase.auth().currentUser.uid
+        var thisUserId = firebase.auth().currentUser.uid
         database.collection('profiles').get().then((querySnapShot) => {
               let tutor = {}
               querySnapShot.forEach((doc) => {
