@@ -74,7 +74,11 @@ export default {
           " " + this.last_name + " subject " + subject +
           " timeslot " + timeStart + " - " + timeEnd +
           " has been accepted"
-        })
+        });
+        alert("Request accepted!")
+        var user = firebase.auth().currentUser;
+        db.collection("requests").doc(user.uid).
+        collection("requests").doc(userid).delete();
       },
       declineRequest(userid, timeStart, timeEnd, subject) {
         db.collection("results").doc(userid)
@@ -83,7 +87,11 @@ export default {
           " " + this.last_name + " subject " + subject +
           " timeslot " + timeStart + " - " + timeEnd +
           " has been rejected"
-        })
+        });
+        alert("Request declined")
+        var user = firebase.auth().currentUser;
+        db.collection("requests").doc(user.uid).
+        collection("requests").doc(userid).delete();
       },
     async getEvents() {
     firebase.auth().onAuthStateChanged(async user => {
