@@ -77,7 +77,7 @@ export default {
             phone: this.phone,
             education: this.education,
             image: this.image,
-            mytutors: this.mytutor
+            mytutors: this.mytutor,
             stuid: studentid
           })
           .then(function() {
