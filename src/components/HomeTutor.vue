@@ -98,14 +98,6 @@ export default {
   box-sizing: border-box;
   }
 
-  body {
-  background-image: url('~@/assets/background.jpg');
-  // background-size: cover;
-  // background-repeat: no-repeat;
-  background-size: 100% 100%;
-
-  }
-
   .welcome {
     text-align: left;
     padding-left: 250px;
@@ -139,6 +131,7 @@ export default {
     padding-left: 20px;
     font-family: "Lucida Console", "Courier New", monospace;
     line-height: 150%;
+    
   }
 
 img {
