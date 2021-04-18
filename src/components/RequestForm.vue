@@ -49,7 +49,7 @@ export default {
   methods: {
     request() {
         var user = firebase.auth().currentUser;
-        db.collection("requests").doc(tutid).
+        db.collection("requests").doc(this.tutid).
         collection("requests").doc(user.uid).set({
           subject: this.subject,
           start: this.start,
