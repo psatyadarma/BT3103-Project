@@ -14,6 +14,7 @@ import LogoutPage from './components/Logout.vue'
 import UploadTutor from './components/UploadTutor.vue'
 import UploadStudent from './components/UploadStudent.vue'
 import AssignmentStudent from './components/AssignmentStudent.vue'
+import AssignmentTutor_ToGrade from './components/AssignmentTutor_ToGrade.vue'
 
 export default [
     { path: '/', component: LandingPage },
@@ -32,5 +33,6 @@ export default [
     { path: '/uploadTutor', component: UploadTutor },
     { path: '/uploadStudent', component: UploadStudent },
     { path: '/assignmentStudent', component: AssignmentStudent },
+    { path: '/assignmentTutor_grade', component: AssignmentTutor_ToGrade },
 
 ]
