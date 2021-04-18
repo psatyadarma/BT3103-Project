@@ -68,6 +68,7 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
+          var studentid = user.user.uid;
           console.log(user.user.uid)
           db.collection("students").doc(user.user.uid).set({
             first_name: this.first,
@@ -77,6 +78,7 @@ export default {
             education: this.education,
             image: this.image,
             mytutors: this.mytutor
+            stuid: studentid
           })
           .then(function() {
             console.log("Document successfully written!");
