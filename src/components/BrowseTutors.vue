@@ -220,11 +220,23 @@ export default {
           if (!(this.mytutors.includes(id))) {
               this.mytutors.push(id);
           }
-          database.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot) => {
+          var studentId = firebase.auth().currentUser.uid;
+          //Add tutor to student's mytutors array
+          database.collection('students').doc(studentId).get().then((querySnapShot) => {
               querySnapShot.ref.update({
                   mytutors: this.mytutors
               })
-          })
+          });
+          //Add student to tutor's mystudents array
+          database.collection('profiles').doc(id).get().then((querySnapShot) => {
+              var studentList = querySnapShot.data().mystudents;
+              if (!(studentList.includes(studentId))) {
+                  studentList.push(studentId)
+              }
+              database.collection('profiles').doc(id).update({
+                  mystudents: studentList
+              })
+          });
           this.addTutorId = '';
       },
 

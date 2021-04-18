@@ -1,7 +1,5 @@
 <template>
 <body>
-  <!-- <div :style="{backgroundImage:`url(${this.bg})`}">
-    </div> -->
       <img :src="logo" />
   <nav>
   <ul class="navbar" style="list-style-type: none;">
@@ -98,14 +96,6 @@ export default {
 <style scoped lang="scss">
   * {
   box-sizing: border-box;
-  }
-
-  body {
-  background-image: url('~@/assets/background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  //background-size: 100% 100%;
-
   }
 
   .welcome {

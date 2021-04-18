@@ -239,15 +239,28 @@ export default {
         },
 
         updateMyTutors: function(id) {
+            var studentId = firebase.auth().currentUser.uid;
             function getIdMatch(tutorid) {
                 return tutorid != id;
             }
             this.mytutors = this.mytutors.filter(getIdMatch);
-            database.collection('students').doc(firebase.auth().currentUser.uid).get().then((querySnapShot) => {
+            //Remove tutor from student's mytutors array
+            database.collection('students').doc(studentId).get().then((querySnapShot) => {
                 querySnapShot.ref.update({
                     mytutors: this.mytutors
                 })
-            })
+            });
+            //Remove student from tutor's mystudents array
+            database.collection('profiles').doc(id).get().then((querySnapShot) => {
+                var studentList = querySnapShot.data().mystudents;
+                function getStudentIdMatch(sId) {
+                    return sId != studentId;
+                }
+                studentList = studentList.filter(getStudentIdMatch);
+                database.collection('profiles').doc(id).update({
+                    mystudents: studentList
+                })
+            });
             this.removeTutorId = '';
         },
 

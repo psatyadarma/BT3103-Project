@@ -155,6 +155,7 @@ export default {
             createDate: new Date(),
             clickHistory: clickHistory,
             viewHistory: viewHistory,
+            mystudents: [],
           })
           .then(function() {
             console.log("Document successfully written!");
