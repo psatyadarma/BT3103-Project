@@ -2,19 +2,19 @@
 <body>
       <img :src="logo" />
   <nav>
-  <ul class="navbar" style="list-style-type: none;">
-  <li><router-link to="/HomeStudent">Home</router-link></li>
-  <li><router-link to="/ProfileStudent">Profile</router-link></li>
-  <li><router-link to="/CalendarStudent">Calendar</router-link></li>
-  <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
-  </ul>
+    <ul class="navbar" style="list-style-type: none;">
+      <li><router-link to="/HomeStudent">Home</router-link></li>
+      <li><router-link to="/ProfileStudent">Profile</router-link></li>
+      <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+      <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+    </ul>
   </nav>
-  <p class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</p>
+  <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}} </h1>
   <div class = "reminders">
       <p class = "heading"> Upcoming Lessons </p>
       <br><br>
       <ul class="class">
-        <li v-for="event in this.events" v-bind:key="event.name">
+        <li class='item' v-for="event in this.events" v-bind:key="event.name">
           <p class="inline" id = "value">  {{ "Name: " + event.name }} </p> 
           <p class="inline" id = "value">  {{ "Details: " + event.details }} </p> 
           <p class="inline" id = "value">  {{ "Time: " + event.start + " to " + event.end}} </p> 
@@ -28,7 +28,7 @@
   <div class = "results">
     <p class = "heading"> Results </p>
     <ul>
-        <li v-for="result in this.results" :key="result.id">
+        <li class='item' v-for="result in this.results" :key="result.id">
             <p>
               {{result.message}}
             </p>
@@ -131,6 +131,7 @@ export default {
     font-weight: bold;
     font-size: 30px;
     color: white;
+    font-family: Montserrat;
   }
 
   div {
@@ -140,7 +141,7 @@ export default {
     display: inline-block;
     vertical-align: middle;
     box-sizing: border-box;
-    border-radius: 35px; 
+    border-radius: 80px; 
     height: 600px;
     width: 800px;  
     margin: 100px;
@@ -193,6 +194,22 @@ ul {
 
 .class li:nth-child(3) a {
   background: white;
+}
+
+.item {
+  background: linear-gradient(180deg, #80FFE8 0%, rgba(106, 228, 255, 0.71) 100%);
+  border-radius: 35px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-right: 40px;
+}
+
+.item p {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 </style>
