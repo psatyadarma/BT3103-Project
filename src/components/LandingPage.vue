@@ -1,5 +1,6 @@
 <template>
   <div>
+      <img id='logo' :src="logo" />
       <nav>
           <ul class="navbar" style="list-style-type: none;">
               <li><router-link to="/">Home</router-link></li>
@@ -15,7 +16,7 @@
         <button @click="$router.push('/registerTutor')" id="button2">Join As Tutor</button> 
       </div>
       <div>
-        <img src="https://amesite.com/wp-content/uploads/2021/03/undraw_Online_learning_re_qw08-1024x740.png" alt="studying logo">
+        <img id='icon' src="https://amesite.com/wp-content/uploads/2021/03/undraw_Online_learning_re_qw08-1024x740.png" alt="studying logo">
       </div>
       <span class='circle'></span>
   </div>
@@ -23,10 +24,14 @@
 
 <script>
 
+import logo from "../assets/logo2.png"
+
 export default {
   name: 'LandingPage',
-  components: {
-    
+  data() {
+      return {
+          logo: logo
+      }
   }
 }
 </script>
@@ -45,7 +50,7 @@ export default {
     width: 505px;
     height: 10px;
     left: 96px;
-    top: 100px;
+    top: 250px;
 
     font-family: Montserrat;
     font-style: normal;
@@ -65,7 +70,7 @@ export default {
     width: 736px;
     height: 176px;
     left: 107px;
-    top: 220px;
+    top: 320px;
 
     font-family: Montserrat;
     font-style: normal;
@@ -83,7 +88,7 @@ export default {
     width: 736px;
     height: 176px;
     left: 107px;
-    top: 320px;
+    top: 420px;
 
     font-family: Montserrat;
     font-style: normal;
@@ -96,44 +101,32 @@ export default {
     color: #414141;
 }
 
-#button1 {
-    position: absolute;
-    width: 180 px;
-    height: 61px;
-    left: 96px;
-    top: 550px;
-
+button {
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 100px;
-    display: flex;
-    align-items: center;
-    text-align: center;
+    font-size: 24px;
+    color: white;
+    border-radius: 20px;
+    padding: 7px 35px;
+    background: #3a938d;
+}
 
-    background: #48B9B2;
-    border-radius: 50px;
+#button1 {
+    position: absolute;
+    width: 200px;
+    height: 61px;
+    left: 96px;
+    top: 580px;
 }
 
 #button2 {
     position: absolute;
-    width: 140px;
+    width: 200px;
     height: 61px;
     left: 300px;
-    top: 550px;
-
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 100px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    
-    background-color: #48B9B2;
-    border-radius: 30px;
+    top: 580px;
+    margin-left: 30px;
 }
 
 button:focus { 
@@ -166,7 +159,16 @@ nav a {
   font-weight: bold;
 }
 
-img {
+#logo {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+
+#icon {
   position: absolute;
   width: 340px;
   height: 246px;
