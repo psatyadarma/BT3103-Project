@@ -1,6 +1,6 @@
 <template>
     <body>
-    <img :src="logo" />
+    <img id='logo' :src="logo" />
     <div class="top">
         <nav>
           <ul style="list-style-type: none;">
@@ -13,12 +13,14 @@
         </nav>       
       </div>   
         <div class="profile">
-            <img class="pic" :src="profile" />            
+            <div id='imageRating'>
+              <img id="pic" :src="profile" />            
               <p class="rating" v-if='this.rate == 1'>Rating: ⭐</p>
               <p class="rating" v-else-if='this.rate == 2'>Rating: ⭐⭐</p>
               <p class="rating" v-else-if='this.rate == 3'>Rating: ⭐⭐⭐</p>
               <p class="rating" v-else-if='this.rate == 4'>Rating: ⭐⭐⭐⭐</p>
               <p class="rating" v-else-if='this.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
+<<<<<<< HEAD
             <br>
 <<<<<<< HEAD
             <p class="rates1">  {{"Rates (per hour): "}} </p>
@@ -57,6 +59,10 @@
             <p class="inline">  {{"Subjects: "}} </p>
             <div class="attributes">
 =======
+=======
+              <br>
+            </div>
+>>>>>>> hari-styling
             <p class="inline">First Name</p>
             <div class="test">
             <p class="value"> {{ this.first_name}} </p>
@@ -127,8 +133,10 @@
 >>>>>>> hari-styling
             </div>
             <br><br>
-            <button id='button1' v-on:click="updateProfile()">Update Profile</button>
-            <button id='button2' v-on:click="dashboard()">Dashboard</button>
+            <div id='buttons'>
+              <button id='button1' v-on:click="updateProfile()">Update Profile</button>
+              <button id='button2' v-on:click="dashboard()">Dashboard</button>
+            </div>
         </div>
     </body>
 </template>
@@ -198,7 +206,11 @@ export default {
 
 <style scoped lang="scss">
 
+<<<<<<< HEAD
 img {
+=======
+#logo {
+>>>>>>> hari-styling
   float: left;
   padding-left:20px;
   padding-top: 15px;
@@ -264,7 +276,6 @@ nav a {
 }
 
 button {
-    position: absolute;
     font-family: Montserrat;
     font-weight: bold;
     font-size: 24px;
@@ -283,14 +294,10 @@ button:hover {
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
-#button1 {
-    top: 570px;
-    left: 920px;
-}
-
-#button2 {
-    top: 635px;
-    left: 935px;
+#buttons {
+    position: relative;
+    bottom: 73%;
+    left: 57%;
 }
 
 .inline {
@@ -330,7 +337,7 @@ button:hover {
     font-weight: 600;
 }
 
-.pic {
+#pic {
   float: right;
   margin-right: 200px;
   margin-top: 60px;
