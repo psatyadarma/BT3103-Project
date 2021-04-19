@@ -7,12 +7,14 @@
         <li><router-link to="/logout">Logout</router-link></li>
       </ul>
     </nav>
-
+    <div>
+      <h1>Logout</h1>
+    </div>
     <div style="text-align:center" class="formdiv">
-      <h1>Do you want to logout?</h1>
+      <p>Do you want to sign out?</p>
       <div class="buttons">
         <button v-on:click="logout()">Yes</button>
-        <button v-on:click="$router.go(-1)">Go Back</button>
+        <button v-on:click="$router.go(-1)">Take me back</button>
       </div>
     </div>
   </div>
@@ -48,16 +50,28 @@ export default {
 
 <style scoped>
 .formdiv {
-  border-radius: 25px;
   border: 4px solid black;
   padding: 20px;
-  background-image: linear-gradient(rgb(128, 19, 0), yellow);
-  width: 400px;
-  margin: auto;
+  background: linear-gradient(180deg, #58BCB6 0%, #219A93 100%);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 44px;
+  width: 500px;
+  height: 170px;
+  margin: 70px auto;
 }
+
 h1 {
-  font-size: 24pt;
+    text-align: center;
+    font-size: 64px;
+    padding-top: 100px;
 }
+
+p {
+    text-align: center;
+    font-size: 16pt;
+    margin: 20px;
+}
+
 input,
 select {
   height: 40px;
@@ -70,10 +84,19 @@ select {
 }
 
 button {
-  height: 40px;
-  width: 100px;
-  font-size: 14pt;
-  background-color: aquamarine;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: normal;
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+    background: white;
+    color: #3a938d;
+    border-radius: 20px;
+    padding: 7px 35px;
+    margin: 0 10px;
 }
 
 nav {

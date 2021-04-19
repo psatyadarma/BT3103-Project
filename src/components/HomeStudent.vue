@@ -1,12 +1,13 @@
 <template>
 <body>
-      <img :src="logo" />
+  <img :src="logo" />
   <nav>
     <ul class="navbar" style="list-style-type: none;">
       <li><router-link to="/HomeStudent">Home</router-link></li>
       <li><router-link to="/ProfileStudent">Profile</router-link></li>
       <li><router-link to="/CalendarStudent">Calendar</router-link></li>
       <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+      <li><router-link to='/logout'>Logout</router-link></li>
     </ul>
   </nav>
   <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}} </h1>

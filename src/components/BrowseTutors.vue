@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img :src="logo" />
+        <img id='logo' :src="logo" />
         <nav>
             <ul class="navbar" style="list-style-type: none;">
                 <li><router-link to="/HomeStudent">Home</router-link></li>
@@ -371,6 +371,15 @@ img {
     width: 135px;
     border-radius: 50%;
 }
+
+#logo {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+} 
 
 #tutorList {
     display: flex;
