@@ -1,5 +1,14 @@
 <template>
     <div>
+        <img :src="logo" />
+        <nav>
+            <ul class="navbar" style="list-style-type: none;">
+                <li><router-link to="/HomeStudent">Home</router-link></li>
+                <li><router-link to="/ProfileStudent">Profile</router-link></li>
+                <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+                <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+            </ul>
+        </nav>
         <h1 id='heading'>Browse Through Our Tutors!</h1>
         
         <div id='searching'>
@@ -41,8 +50,8 @@
         </div>
         
         <div id='tutorCarousel'>
-            <ul>
-                <li v-for='tutor in filteredTutors' :key='tutor.id' v-on:mouseover='incrementProfileView(tutor.id)'>
+            <ul id='tutorList'>
+                <li id='tutorCard' v-for='tutor in filteredTutors' :key='tutor.id' v-on:mouseover='incrementProfileView(tutor.id)'>
                     <img v-bind:src='tutor.image' alt='Tutor Image'>
                     <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
                     <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
@@ -99,6 +108,7 @@
 
 <script>
 
+import logo from "../assets/logo2.png"
 import firebase from "../firebase.js"
 var database = firebase.firestore();
 
@@ -113,6 +123,7 @@ export default {
           levelKey: 'select',
           subjectKey: 'select',
           addTutorId: '',
+          logo: logo
       };
   },
   methods: {
@@ -324,6 +335,32 @@ export default {
 
 <style scoped>
 
+nav {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+  overflow: hidden;
+  color: black;
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav li {
+  float: left;
+}
+
+nav a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 h1 {
     text-align: center;
     font-size: 64px;
@@ -335,14 +372,14 @@ img {
     border-radius: 50%;
 }
 
-ul {
+#tutorList {
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;
     padding: 0;
 }
 
-li {
+#tutorCard {
     flex-grow: 1;
     flex-basis: 25%;
     text-align: center;
@@ -356,7 +393,7 @@ li {
     max-width: 25%;
 }
 
-li:hover {
+#tutorCard:hover {
     transform: scale(1.01,1.01);
     box-shadow: 0 12px 12px rgba(0, 0, 0, 0.472);
 }

@@ -114,6 +114,9 @@ export default {
   methods:{
       updateProfile() {
         this.$router.push('/EditProfileTutor');
+      },
+      dashboard() {
+        this.$router.push('dashboard');
       }
   },
   created(){

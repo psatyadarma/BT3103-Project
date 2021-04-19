@@ -1,5 +1,14 @@
 <template>
     <div>
+        <img :src="logo" />
+        <nav>
+            <ul class="navbar" style="list-style-type: none;">
+                <li><router-link to="/HomeStudent">Home</router-link></li>
+                <li><router-link to="/ProfileStudent">Profile</router-link></li>
+                <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+                <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+            </ul>
+        </nav>
         <h1>Welcome to your Dashboard, {{ tutor.last_name }}</h1>
 
         <div class='row'>
@@ -66,6 +75,7 @@
 
 <script>
 
+import logo from "../assets/logo2.png"
 import engagingbarchart from '../engagingbarchart.js'
 import communicationbarchart from '../communicationbarchart.js'
 import listeningbarchart from '../listeningbarchart.js'
@@ -85,7 +95,8 @@ export default {
             profileViews: 0,
             contactClicks: 0,
             avgDailyProfileViews: [],
-            contactToProfileRatio: []
+            contactToProfileRatio: [],
+            logo: logo
         }
     },
 
@@ -158,6 +169,32 @@ export default {
 </script>
 
 <style scoped>
+
+nav {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+  overflow: hidden;
+  color: black;
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav li {
+  float: left;
+}
+
+nav a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
 
 h1 {
     text-align: center;
