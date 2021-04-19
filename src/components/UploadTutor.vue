@@ -1,4 +1,14 @@
 <template>
+    <body>
+      <img :src="logo" />
+    <nav>
+        <ul class="navbar" style="list-style-type: none;">
+            <li><router-link to="/HomeTutor">Home</router-link></li>
+            <li><router-link to="/ProfileTutor">Profile</router-link></li>
+            <li><router-link to="/CalendarTutor">Calendar</router-link></li>
+            <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+        </ul>
+    </nav>
     <div id='full'>
         <button id='newAssgn'>New Assignment</button>
         
@@ -10,7 +20,7 @@
 
 
             <div id='dropdowns'>
-                <label id='subjectLabel' for="subject"><strong>Subject:</strong></label>
+                <label id='subjectLabel' for="subject"><strong>Subject:______________</strong></label>
                 <select name="subject" id="subject" v-model="assignment.subject">
                     <!--loop through subject list here-->
                     <option v-for="sub in this.subjects" v-bind:key="sub">
@@ -21,7 +31,7 @@
 
                 </select>
 
-                <label id='studentLabel' for="student"><strong>Student:</strong></label>
+                <label id='studentLabel' for="student"><strong>Student:______________</strong></label>
                 <select name="student" id="student" v-model="assignment.student">
                     <!--loop through student list here-->
                     <option v-for="stu in this.students" v-bind:key="stu.first_name" v-bind:value="stu.stuid">
@@ -33,7 +43,7 @@
             </div>
             
             <div id='assignBody'>
-                <strong id='header'>Assignment Header:</strong> <input id='headerMsg' type='text' v-model.lazy="assignment.header"> <br>
+                <strong id='header'>Assignment Header:___________________________</strong> <input id='headerMsg' type='text' v-model.lazy="assignment.header"> <br>
                 <strong id='desc'>Assignment Description: </strong> <textarea id='descMsg' type='text' v-model.lazy="assignment.description"></textarea> <br>
                 <strong id='files'>Additional Files: </strong> <input id='fileUpload' type="file" @change="onFileChange">
             </div>
@@ -42,10 +52,11 @@
         </form>
 
     </div>
+    </body>
 </template>
 
 <script>
-
+import logo from "../assets/logo2.png"
 import firebase from "../firebase"
 var db = firebase.firestore();
 
@@ -53,7 +64,8 @@ export default {
   name: 'UploadTutor',
   data() {
       return {
-          thisUserId: "BKtdsQm4OmQO8UwPe1ktIwUqhgb2", //firebase.auth().currentUser.uid,
+          logo:logo,
+          thisUserId: firebase.auth().currentUser.uid,
           studentIds: [],
           students: [],
           subjects:[],
@@ -137,14 +149,45 @@ export default {
 
 
 <style scoped>
+img {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+nav {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+  overflow: hidden;
+  color: black;
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav li {
+  float: left;
+}
+nav a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
 
 #full {
     position: absolute;
     width: 1418px;
-    height: 650px;
-    left: 114px;
+    height: 600px;
+    left: 60px;
     top: 100px;
-    background: #C1E8F0;
+    background: #55c9c2;
     border-radius: 51px;
 }
 
@@ -164,24 +207,6 @@ export default {
     font-weight: 500;
     font-size: 24px;
     color: #FFFFFF;
-}
-
-#newRecord {
-    position: absolute;
-    width: 230px;
-    height: 52px;
-    left: 290px;
-    top: 25px;
-
-    background: #C4C4C4;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 51px;
-
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    color: #000000;
 }
 
 #dates {
@@ -218,6 +243,7 @@ export default {
     left: 310px;
     top: 135px;
     font-size: 20px;
+    width: 250px
 }
 
 #student {
@@ -231,7 +257,7 @@ export default {
 
 #assignBody {
     position: absolute;
-    height: 394px;
+    height: 344px;
     left: 30px;
     right: 30px;
     top: 180px;
@@ -301,7 +327,7 @@ export default {
     width: 142px;
     height: 52px;
     left: 1250px;
-    top: 585px;
+    top: 535px;
 
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
