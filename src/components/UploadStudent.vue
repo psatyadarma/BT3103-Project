@@ -1,10 +1,22 @@
 <template>
+    <body>
+        <img :src="logo" />
+    <nav>
+    <ul class="navbar" style="list-style-type: none;">
+      <li><router-link to="/HomeStudent">Home</router-link></li>
+      <li><router-link to="/ProfileStudent">Profile</router-link></li>
+      <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+      <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+      <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+    </ul>
+    </nav>
+
     <div id='full'>
         <button id='newAssgn'>New Upload</button>
 
         <form id='inputs'>
             <div id='dropdowns'>
-                <label id='tutorLabel' for="tutor"><strong>Tutor: </strong></label>
+                <label id='tutorLabel' for="tutor"><strong>Tutor:__________________ </strong></label>
                 <select name="tutor" id="tutor" v-model="assignment.tutorId">
                     <!--loop through tutor list here-->
                     <option v-for="tut in this.tutors" v-bind:key="tut.tutid" v-bind:value="tut.tutid">
@@ -15,7 +27,8 @@
             </div>
             
             <div id='assignBody'>
-                <strong id='header'>Assignment Header:</strong> <input id='headerMsg' type='text' v-model.lazy="assignment.header"> <br>
+                <strong id='header'>Assignment Header:___________________________
+                    </strong> <input id='headerMsg' type='text' v-model.lazy="assignment.header"> <br>
                 <strong id='desc'>Assignment Description: </strong> <textarea id='descMsg' type='text' v-model.lazy="assignment.description"></textarea> <br>
                 <strong id='files'>Additional Files: (in .docx) </strong> <input id='fileUpload' type="file" @change="onFileChange">
             </div>
@@ -24,10 +37,11 @@
         </form>
 
     </div>
+    </body>
 </template>
 
 <script>
-
+import logo from "../assets/logo2.png"
 import firebase from "../firebase"
 var db = firebase.firestore();
 
@@ -35,7 +49,8 @@ export default {
   name: 'UploadStudent',
   data() {
       return {
-          thisUserId: "z0CCpM0ydJPwz8Q4H6We2fYem7t1", //firebase.auth().currentUser.uid,
+          logo: logo,
+          thisUserId: firebase.auth().currentUser.uid,
           tutorIds: [],
           tutors: [],
           urlLink: '',
@@ -109,14 +124,45 @@ export default {
 
 
 <style scoped>
+img {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+nav {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+  overflow: hidden;
+  color: black;
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav li {
+  float: left;
+}
+nav a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
 
 #full {
     position: absolute;
     width: 1418px;
-    height: 650px;
-    left: 114px;
+    height: 600px;
+    left: 60px;
     top: 100px;
-    background: #C1E8F0;
+    background: #55c9c2;
     border-radius: 51px;
 }
 
@@ -138,30 +184,12 @@ export default {
     color: #FFFFFF;
 }
 
-#newRecord {
-    position: absolute;
-    width: 230px;
-    height: 52px;
-    left: 290px;
-    top: 25px;
-
-    background: #C4C4C4;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 51px;
-
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    color: #000000;
-}
-
 #tutorLabel {
     position: absolute;
     width: 439px;
     height: 43px;
     left: 30px;
-    top: 120px;
+    top: 100px;
     font-size: 20px;
 }
 
@@ -170,8 +198,9 @@ export default {
     width: 152px;
     height: 23px;
     left: 100px;
-    top: 120px;
+    top: 100px;
     font-size: 16px;
+    outline-width: 2px;
 }
 
 #assignBody {
@@ -179,7 +208,7 @@ export default {
     height: 394px;
     left: 30px;
     right: 30px;
-    top: 180px;
+    top: 140px;
 
     background: #FFFFFF;
     border-radius: 25px;
@@ -203,6 +232,7 @@ export default {
     height: 20px;
     top: 15px;
     font-size: 20px;
+    width: 250px;
 }
 
 #desc {
@@ -246,7 +276,7 @@ export default {
     width: 142px;
     height: 52px;
     left: 1250px;
-    top: 585px;
+    top: 540px;
 
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -256,7 +286,7 @@ export default {
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
-
 }
+
 
 </style>
