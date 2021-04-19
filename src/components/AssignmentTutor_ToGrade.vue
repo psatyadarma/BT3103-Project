@@ -48,7 +48,7 @@ export default {
   data() {
       return {
           logo: logo,
-          thisUserId: "BKtdsQm4OmQO8UwPe1ktIwUqhgb2", //firebase.auth().currentUser.uid,
+          thisUserId: firebase.auth().currentUser.uid,
           allAssignments: [],
           sorted:[], 
       };
