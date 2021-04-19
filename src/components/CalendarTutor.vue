@@ -192,10 +192,10 @@ var db = firebase.firestore();
     },
     methods: {
       async getEvents() {
-        firebase.auth().onAuthStateChanged(async user => {
+        await firebase.auth().onAuthStateChanged(user => {
             if (user!=null) {
                let events = [];
-                let snapshot = await db.collection('calendar');
+                let snapshot = db.collection('calendar');
                 snapshot.get().then(querySnapshot => {
                   querySnapshot.forEach((doc) => {
                     let userid = doc.data().id;
@@ -254,9 +254,10 @@ var db = firebase.firestore();
             db.collection("calendar").doc(ev).delete();
             this.selectedOpen = false;
             this.getEvents();
-            this.$router.push('/HomeTutor');
+            //this.$router.push('/HomeTutor');
           }
-        })
+        });
+        setTimeout( () => this.$router.push('/HomeTutor'), 500);
       },
       viewDay ({ date }) {
         this.focus = date

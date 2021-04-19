@@ -22,37 +22,37 @@
             <p class="rates2" id = "value"> {{ this.rates}} </p>
 
             <p class="inline">  {{"First Name: "}} </p>
-            <div class="test">
+            <div class="attributes">
             <p class="inline" id = "value"> {{ this.first_name}} </p>
             </div>
             <br>
             <p class="inline">  {{"Last Name: "}} </p>
-            <div class="test">
+            <div class="attributes">
             <p class="inline" id = "value"> {{ this.last_name}} </p>
             </div>
             <br>
             <p class="inline">  {{"Email: "}} </p>
-            <div class="test">
+            <div class="attributes">
             <p class="inline" id = "value"> {{ this.email}} </p>
             </div>
             <br>
             <p class="inline">  {{"Phone: "}} </p>
-            <div class="test">
+            <div class="attributes">
             <p class="inline" id = "value"> {{ this.phone}} </p>
             </div>
             <br>
             <p class="inline">  {{"Qualifications: "}} </p>
-            <div class="test">            
+            <div class="attributes">            
             <p class="inline" id = "value"> {{ this.qualifications}} </p>
             </div>
             <br>
             <p class="inline">  {{"Experience: "}} </p>
-            <div class="test">            
+            <div class="attributes">            
             <p class="inline" id = "value"> {{ this.experience}} </p>
             </div>
             <br>
             <p class="inline">  {{"Subjects: "}} </p>
-            <div class="test">
+            <div class="attributes">
             <ul>
               <li v-for="subject in this.subject" v-bind:key="subject.name">
                 <p class="inline" id = "value">  {{ subject }} </p> 
@@ -61,7 +61,7 @@
             </div>
             <br>
             <p class="inline">  {{"Teaching Level: "}} </p>
-            <div class="test">
+            <div class="attributes">
             <ul>
             <li v-for="level in this.level" v-bind:key="level.name">
                 <p class="inline" id = "value">  {{ level }} </p> 
@@ -70,7 +70,7 @@
             </div>
             <br>
             <p class="inline">  {{"Availability: "}} </p>
-            <div class="test">
+            <div class="attributes">
             <p class="inline" id = "value"> {{ this.availability}} </p>
             </div>
             <br><br>
@@ -87,7 +87,7 @@ import profile from "../assets/profile.jpg"
 import firebase from "../firebase"
 var db = firebase.firestore();
 export default {
-  name: "profile",
+  name: "ProfileTutor",
   components: {
   },
   props: {
@@ -114,13 +114,10 @@ export default {
   methods:{
       updateProfile() {
         this.$router.push('/EditProfileTutor');
-      },
-      dashboard() {
-        this.$router.push('dashboard');
       }
   },
-  created(){
-      firebase.auth().onAuthStateChanged(user => {
+  async created(){
+      await firebase.auth().onAuthStateChanged(user => {
           if (user!=null) {
             db.collection('profiles').doc(user.uid).get().then((querySnapShot)=>
               {
@@ -147,6 +144,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 img {
   float: left;
   padding-left:20px;
@@ -170,8 +168,8 @@ img {
     border-radius: 35px; 
     height: 1200px;
     width: 1000px;  
-    margin: 100px;
-    padding-top: 50px;
+    margin: 20px;
+    padding-top: 20px;
     padding-left: 20px;
     font-family: "Lucida Console", "Courier New", monospace;
     line-height: 150%;
@@ -264,7 +262,7 @@ ul {
   list-style-type: none;
 }
 
-.test {
+.attributes {
   background-color: white;
   width: 500px;
   border-radius:10px;
