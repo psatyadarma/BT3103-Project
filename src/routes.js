@@ -17,6 +17,8 @@ import AssignmentStudent from './components/AssignmentStudent.vue'
 import AssignmentTutor_ToGrade from './components/AssignmentTutor_ToGrade.vue'
 import CalendarStudent from './components/CalendarStudent.vue'
 import CalendarTutor from './components/CalendarTutor.vue'
+import EditProfileStudent from './components/EditProfileStudent.vue'
+import EditProfileTutor from './components/EditProfileTutor.vue'
 
 export default [
     { path: '/', component: LandingPage },
@@ -38,5 +40,7 @@ export default [
     { path: '/assignmentTutor', component: AssignmentTutor_ToGrade },
     { path: '/calendarStudent', component: CalendarStudent },
     { path: '/calendarTutor', component: CalendarTutor },
+    { path: '/editprofilestudent', component: EditProfileStudent },
+    { path: '/editprofiletutor', component: EditProfileTutor }
 
 ]
