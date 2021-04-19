@@ -13,7 +13,7 @@
 
         <div id='assignmentList'>
             <ul>
-                <li v-for="assgn in sortedAssignments" :key="generateKey(assgn.dueDate, assgn.id)">
+                <li v-for="assgn in allAssignments" :key="generateKey(assgn.dueDate, assgn.id)">
                     <span id='dateList'>{{assgn.dueDate}} </span>
                     <span id='subjectList'>{{assgn.subject}} </span>
                     <span id='headerList'>{{assgn.header}} </span>
@@ -38,13 +38,10 @@ export default {
       return {
           thisUserId: "z0CCpM0ydJPwz8Q4H6We2fYem7t1", //firebase.auth().currentUser.uid,
           allAssignments: [],
+          sorted:[], 
       };
   },
-  computed: {
-      sortedAssignments: function() {
-          return this.allAssignments.sort((a,b) => a.dateObject - b.dateObject)
-      }
-  },
+  
   methods: {
       fetchAssignments: function() {
           db.collection('student_files').where("student", "==", this.thisUserId).get().then((querySnapShot)=> {
