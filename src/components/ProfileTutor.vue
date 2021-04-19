@@ -4,9 +4,11 @@
     <div class="top">
         <nav>
           <ul style="list-style-type: none;">
-          <li><router-link to="/HomeTutor">Home</router-link></li>
+          <li><router-link to="/HomeStudent">Home</router-link></li>
           <li><router-link to="/ProfileTutor">Profile</router-link></li>
           <li><router-link to="/CalendarTutor">Calendar</router-link></li>
+          <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+          <li><router-link to='/logout'>Logout</router-link></li>
           </ul>
         </nav>       
       </div>   
@@ -18,64 +20,66 @@
               <p class="rating" v-else-if='this.rate == 4'>Rating: ⭐⭐⭐⭐</p>
               <p class="rating" v-else-if='this.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
             <br>
-            <p class="rates1">  {{"Rates (per hour): "}} </p>
-            <p class="rates2" id = "value"> {{ this.rates}} </p>
-
-            <p class="inline">  {{"First Name: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.first_name}} </p>
+            <p class="inline">First Name</p>
+            <div class="test">
+            <p class="value"> {{ this.first_name}} </p>
             </div>
             <br>
-            <p class="inline">  {{"Last Name: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.last_name}} </p>
+            <p class="inline">Last Name</p>
+            <div class="test">
+            <p class="value"> {{ this.last_name}} </p>
             </div>
             <br>
-            <p class="inline">  {{"Email: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.email}} </p>
+            <p class="inline">Email</p>
+            <div class="test">
+            <p class="value"> {{ this.email}} </p>
             </div>
             <br>
-            <p class="inline">  {{"Phone: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.phone}} </p>
+            <p class="inline">Phone</p>
+            <div class="test">
+            <p class="value"> {{ this.phone}} </p>
             </div>
             <br>
-            <p class="inline">  {{"Qualifications: "}} </p>
-            <div class="attributes">            
-            <p class="inline" id = "value"> {{ this.qualifications}} </p>
+            <p class="inline">Qualifications</p>
+            <div class="test">            
+            <p class="value"> {{ this.qualifications}} </p>
             </div>
             <br>
-            <p class="inline">  {{"Experience: "}} </p>
-            <div class="attributes">            
-            <p class="inline" id = "value"> {{ this.experience}} </p>
+            <p class="inline">Experience</p>
+            <div class="test">            
+            <p class="value"> {{ this.experience}} </p>
             </div>
             <br>
-            <p class="inline">  {{"Subjects: "}} </p>
-            <div class="attributes">
+            <p class="inline">Subjects</p>
+            <div class="test">
             <ul>
               <li v-for="subject in this.subject" v-bind:key="subject.name">
-                <p class="inline" id = "value">  {{ subject }} </p> 
+                <p class="value">  {{ subject }} </p> 
               </li>
             </ul>  
             </div>
             <br>
-            <p class="inline">  {{"Teaching Level: "}} </p>
-            <div class="attributes">
+            <p class="inline">Teaching Level</p>
+            <div class="test">
             <ul>
             <li v-for="level in this.level" v-bind:key="level.name">
-                <p class="inline" id = "value">  {{ level }} </p> 
+                <p class="value">  {{ level }} </p> 
             </li>
             </ul>
             </div>
             <br>
-            <p class="inline">  {{"Availability: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.availability}} </p>
+            <p class="inline">Availability</p>
+            <div class="test">
+            <p class="value"> {{ this.availability}} </p>
+            </div>
+            <br>
+            <p class="inline">Rates (per hour)</p>
+            <div class="test">
+              <p class="value"> {{ this.rates}} </p>
             </div>
             <br><br>
-            <button v-on:click="updateProfile()">Update Profile</button>
-            <button v-on:click="dashboard()">Dashboard</button>
+            <button id='button1' v-on:click="updateProfile()">Update Profile</button>
+            <button id='button2' v-on:click="dashboard()">Dashboard</button>
         </div>
     </body>
 </template>
@@ -159,20 +163,20 @@ img {
   }
 
   .profile {
-    background-color: #55C9C2;
     color: black;
-    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     display: inline-block;
     vertical-align: middle;
-    box-sizing: border-box;
-    border-radius: 35px; 
-    height: 1200px;
-    width: 1000px;  
-    margin: 20px;
-    padding-top: 20px;
+    box-sizing: border-box; 
+    height: 1500px;
+    width: 85%;  
+    margin: 100px;
+    padding-top: 50px;
     padding-left: 20px;
     font-family: "Lucida Console", "Courier New", monospace;
     line-height: 150%;
+    background: linear-gradient(180deg, #55C9C2 0%, #1D918A 100%), #DFEEEF;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 51px;
   }
 
 nav {
@@ -202,60 +206,94 @@ nav a {
 }
 
 button {
-  width: 150px;
-  height: 50px;
-  background-color: white;
-  border-radius: 10px;
-  border-width: 1px;
-  font-weight: bold;
-  font-size: 15px;
-  border-color: white;
-  margin: 10px;
+    position: absolute;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: normal;
+    border-radius: 20px;
+    padding: 7px 35px;
+    margin: 10px;
+    color: #3a938d;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
+}
+
+#button1 {
+    top: 570px;
+    left: 920px;
+}
+
+#button2 {
+    top: 635px;
+    left: 935px;
 }
 
 .inline {
   display: inline;
-  list-style-type: none,
+  list-style-type: none;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  margin: 5px 0 10px 100px;
 }
 
 .profile {
     font-size: 20px;
   }
 
-#value {
+.value {
+    display: inline;
+    list-style-type: none;
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
     background-color: white;
     border-radius: 10px;
     border-width: 1px;
     border-spacing: 50px;
-    padding: 5px;
+    padding: 10px 0 10px 50px;
     width: 200px;
-
+    color: #2D7C77;
+    font-weight: 600;
 }
 
 .pic {
   float: right;
-  margin-right: 100px;
-  margin-top: 10px;
-  height: 150px;
-  width: 200px;
+  margin-right: 200px;
+  margin-top: 60px;
+  padding: 0;
+  height: 190px;
+  width: 190px;
+  border-radius: 50%;
 }
 
 .rating {
   float: right;
-  margin-right: -180px;
-  margin-top: 170px;  
-}
-
-.rates1 {
-  float: right;
-  margin-right: -220px;
-  margin-top: 200px;  
-}
-
-.rates2 {
-  float: right;
-  margin-right: -220px;
-  margin-top: 250px;  
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  margin-right: -200px;
+  margin-top: 280px;
 }
 
 ul {
@@ -266,5 +304,7 @@ ul {
   background-color: white;
   width: 500px;
   border-radius:10px;
+  margin: 5px 0 5px 100px;
 }
+
 </style>
