@@ -40,20 +40,6 @@
         </li>   
     </ul> 
   </div>
-  <div>
-    <p class = "heading"><u>Upcoming Lessons</u></p>
-    <br>
-    <br>
-    <ul class="class">
-      <li class='item' v-for="event in this.events" v-bind:key="event.name">
-        <p class="inline" id = "value">  {{ "Name: " + event.name }} </p> 
-        <p class="inline" id = "value">  {{ "Details: " + event.details }} </p> 
-        <p class="inline" id = "value">  {{ "Time: " + event.start + " to " + event.end}} </p> 
-        <br>
-      </li>
-    </ul>  
-    <br>
-  </div>
   </body>
 </template>
 
