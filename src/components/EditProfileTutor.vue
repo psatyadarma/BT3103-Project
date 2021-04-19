@@ -1,6 +1,6 @@
 <template>
     <body>
-          <img :src="image" />
+          <img :src="logo" />
         <nav>
           <ul style="list-style-type: none;">
           <li><router-link to="/HomeTutor">Home</router-link></li>
@@ -12,11 +12,6 @@
     <form @submit.prevent="register">
         <img class="pic" :src="profile" />
         <br><br>
-      <!-- <p class="inline" id="pic">  {{"Profile Picture: "}} </p>
-      <button raised class="primary" @click="onPickFile" id="pic">Upload Image</button>
-      <input type="file" style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked">
-      <img :src="imageUrl" height="150" id="pic">
-      <br> -->
       <p class="inline">  {{"First Name: "}} </p>
       <input type="text" placeholder="First Name" maxlength="50" v-model="first_name"/><br><br>
       <p class="inline">  {{"Last Name: "}} </p>
@@ -42,7 +37,6 @@
       <input type="checkbox" id="Biology" value="Biology" v-model="subject" class="check">
       <label for="Biology">Biology</label>
       <br>
-      <!-- <input type="text" placeholder="Subject" v-model="subject"/><br><br> -->
       <br><br>
       <p class="inline">  {{"Teaching Level: "}} </p>
       <input type="checkbox" id="Primary" value="Primary" v-model="level" class="check">
@@ -66,12 +60,13 @@
 </template>
 
 <script>
-//import image from "../assets/stamp.jpg"
+import image from "../assets/stamp.jpg"
+import logo from "../assets/logo2.png"
 import profile from "../assets/profile.jpg"
 import firebase from "../firebase"
 var db = firebase.firestore();
 export default {
-  name: "profile",
+  name: "EditProfileTutor",
   components: {
   },
   props: {
@@ -79,7 +74,8 @@ export default {
   },
   data(){
     return {
-        //image: image,
+        image: image,
+        logo: logo,
         profile:profile,
         first_name:null,
         last_name: null,
@@ -93,28 +89,9 @@ export default {
         tutid: null,
         img: null,
         uploadValue: 0,
-        imageData: null,
-        //image: null,
-        imageUrl: ''
     }
   },
   methods:{
-    onFilePicked(event) {
-      const files = event.target.files
-      let filename = files[0].name
-      if (filename.lastIndexOf('.') <= 0) {
-        return alert("Please add a valid file!")
-      }
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', () => {
-        this.imageUrl = fileReader.result
-      })
-      fileReader.readAsDataURL(files[0])
-      //this.image = files[0]
-    },
-    onPickFile() {
-      this.$refs.fileInput.click()
-    },
     update() {
       firebase.auth().onAuthStateChanged(user => {
           if (user!=null) {
@@ -130,33 +107,13 @@ export default {
                   level: this.level,
                   availability: this.availability,
               })})
-              // db.collection("profilepics").get().then(querySnapshot => {
-              //     querySnapshot.forEach((doc) => {
-              //       let userid = doc.data().id;
-              //       if (userid == user.uid) {
-              //         doc.ref.delete();
-              //       }
-              //     })
-              // })
-              // db.collection("profilepics").add({
-              //     image : this.imageUrl,
-              //     id : user.uid,
-              // })
           } else {
             // not user
           }
-          this.$router.push('/ProfileTutor');
-      })
+      });
+      setTimeout( () => this.$router.push('/ProfileTutor'), 800);
+      
     },
-    // uploadImage: function(event) {
-    //   const file = event.target.files[0]        
-    //     firebase
-    //     .app()
-    //     .storage()
-    //     .ref('images')
-    //     .child(file.name)
-    //     .put(file);
-    // }
     },
   created(){
       firebase.auth().onAuthStateChanged(user => {
@@ -174,7 +131,6 @@ export default {
               this.subject = data.subject;
               this.level = data.level;
               this.availability = data.availability;
-              //this.image = data.image;
             })
           } else {
             // No user is signed in.
@@ -182,23 +138,6 @@ export default {
       })
   }
 }
-      // db.collection('profiles').doc(firebase.auth().currentUser.uid).get().then((querySnapShot)=>
-      //   {
-      //       var data = querySnapShot.data();
-      //       this.first_name = data.first_name;
-      //       this.last_name = data.last_name; 
-      //       this.phone = data.phone;
-      //       this.qualifications = data.qualifications;
-      //       this.experience = data.experience;
-      //       this.rates = data.rates;
-      //       this.tutid = data.tutid,
-      //       this.subject = data.subject;
-      //       this.level = data.level;
-      //       this.availability = data.availability;
-      //       this.image = data.image;
-      //   })
-//   } 
-// };
 </script>
 
 <style scoped lang="scss">
