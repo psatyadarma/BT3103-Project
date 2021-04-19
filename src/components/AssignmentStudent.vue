@@ -1,6 +1,6 @@
 <template>
     <body>
-        <img :src="logo">
+        <img :src="logo" />
     <nav>
     <ul class="navbar" style="list-style-type: none;">
       <li><router-link to="/HomeStudent">Home</router-link></li>
@@ -49,6 +49,7 @@ export default {
   name: 'AssignmentStudent',
   data() {
       return {
+          logo: logo,
           thisUserId: "z0CCpM0ydJPwz8Q4H6We2fYem7t1", //firebase.auth().currentUser.uid,
           allAssignments: [],
           sorted:[], 
