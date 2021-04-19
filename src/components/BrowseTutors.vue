@@ -11,8 +11,9 @@
                 <li><router-link to='/logout'>Logout</router-link></li>
             </ul>
         </nav>
+        <br>
         <h1 id='heading'>Browse Through Our Tutors!</h1>
-        
+        <br><br>
         <div id='searching'>
             <input type="search" v-model='searchQuery' spellcheck=true 
             placeholder='Keywords such as Subject, Level, Rates...'>
@@ -48,13 +49,12 @@
                 <option value="Chemistry">Chemistry</option>
                 <option value="Biology">Biology</option>
             </select>
-        
         </div>
-        
+        <br><br>
         <div id='tutorCarousel'>
             <ul id='tutorList'>
                 <li id='tutorCard' v-for='tutor in filteredTutors' :key='tutor.id' v-on:mouseover='incrementProfileView(tutor.id)'>
-                    <img id='tutorimg' v-bind:src='tutor.image' alt='Tutor Image'>
+                    <img id='tutorimg' v-bind:src='profile' alt='Tutor Image'>
                     <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
                     <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
                     <p id='tutorSubject'>Subjects: {{ tutor.subject[0] }} 
@@ -111,6 +111,7 @@
 <script>
 
 import logo from "../assets/logo2.png"
+import profile from "../assets/profile.jpg"
 import firebase from "../firebase.js"
 var database = firebase.firestore();
 
@@ -125,7 +126,8 @@ export default {
           levelKey: 'select',
           subjectKey: 'select',
           addTutorId: '',
-          logo: logo
+          logo: logo,
+          profile:profile
       };
   },
   methods: {
@@ -422,8 +424,16 @@ h1 {
     font-size: 20px;
 }
 
-#searching {
-    padding: 30px 0px;
+
+
+input {
+    border:2px solid black;
+    display: block;
+    margin: 0 auto;
+    width: 33%;
+    padding: 13px;
+    border-radius: 5px;
+    box-shadow: 2px 1px;
 }
 
 #dropdowns {
@@ -440,9 +450,9 @@ h1 {
     background: #50cdc5;
     border-radius: 20px;
     padding: 7px 35px;
-    position: absolute;
-    right: 70px;
-    top: 400px;
+    position:relative;
+    top:20px;
+    left:50%;
     background: #3a938d;
 }
 
@@ -455,14 +465,6 @@ h1 {
     border-radius: 20px;
     padding: 7px 35px;
     background: #3a938d;
-}
-
-input {
-    display: block;
-    margin: 0 auto;
-    width: 33%;
-    padding: 13px;
-    border-radius: 5px;
 }
 
 #searchButton {

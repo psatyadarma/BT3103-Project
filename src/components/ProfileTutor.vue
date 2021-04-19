@@ -1,6 +1,6 @@
 <template>
     <body>
-    <img id='logo' :src="logo" />
+    <img :src="logo" />
     <div class="top">
         <nav>
           <ul style="list-style-type: none;">
@@ -13,56 +13,13 @@
         </nav>       
       </div>   
         <div class="profile">
-            <div id='imageRating'>
-              <img id="pic" :src="profile" />            
+            <img class="pic" :src="profile" />            
               <p class="rating" v-if='this.rate == 1'>Rating: ⭐</p>
               <p class="rating" v-else-if='this.rate == 2'>Rating: ⭐⭐</p>
               <p class="rating" v-else-if='this.rate == 3'>Rating: ⭐⭐⭐</p>
               <p class="rating" v-else-if='this.rate == 4'>Rating: ⭐⭐⭐⭐</p>
               <p class="rating" v-else-if='this.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
-<<<<<<< HEAD
             <br>
-<<<<<<< HEAD
-            <p class="rates1">  {{"Rates (per hour): "}} </p>
-            <p class="rates2" id = "value"> {{ this.rates}} </p>
-
-            <p class="inline">  {{"First Name: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.first_name}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Last Name: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.last_name}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Email: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.email}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Phone: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.phone}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Qualifications: "}} </p>
-            <div class="attributes">            
-            <p class="inline" id = "value"> {{ this.qualifications}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Experience: "}} </p>
-            <div class="attributes">            
-            <p class="inline" id = "value"> {{ this.experience}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Subjects: "}} </p>
-            <div class="attributes">
-=======
-=======
-              <br>
-            </div>
->>>>>>> hari-styling
             <p class="inline">First Name</p>
             <div class="test">
             <p class="value"> {{ this.first_name}} </p>
@@ -95,7 +52,6 @@
             <br>
             <p class="inline">Subjects</p>
             <div class="test">
->>>>>>> hari-styling
             <ul>
               <li v-for="subject in this.subject" v-bind:key="subject.name">
                 <p class="value">  {{ subject }} </p> 
@@ -103,13 +59,8 @@
             </ul>  
             </div>
             <br>
-<<<<<<< HEAD
-            <p class="inline">  {{"Teaching Level: "}} </p>
-            <div class="attributes">
-=======
             <p class="inline">Teaching Level</p>
             <div class="test">
->>>>>>> hari-styling
             <ul>
             <li v-for="level in this.level" v-bind:key="level.name">
                 <p class="value">  {{ level }} </p> 
@@ -117,11 +68,6 @@
             </ul>
             </div>
             <br>
-<<<<<<< HEAD
-            <p class="inline">  {{"Availability: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.availability}} </p>
-=======
             <p class="inline">Availability</p>
             <div class="test">
             <p class="value"> {{ this.availability}} </p>
@@ -130,13 +76,10 @@
             <p class="inline">Rates (per hour)</p>
             <div class="test">
               <p class="value"> {{ this.rates}} </p>
->>>>>>> hari-styling
             </div>
             <br><br>
-            <div id='buttons'>
-              <button id='button1' v-on:click="updateProfile()">Update Profile</button>
-              <button id='button2' v-on:click="dashboard()">Dashboard</button>
-            </div>
+            <button id='button1' v-on:click="updateProfile()">Update Profile</button>
+            <button id='button2' v-on:click="dashboard()">Dashboard</button>
         </div>
     </body>
 </template>
@@ -205,12 +148,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-<<<<<<< HEAD
 img {
-=======
-#logo {
->>>>>>> hari-styling
   float: left;
   padding-left:20px;
   padding-top: 15px;
@@ -218,29 +156,18 @@ img {
   width: 95px;
   top:50px;
 }
-
   .top {
     background-color: #55C9C2;
   }
-
   .profile {
     color: black;
     display: inline-block;
     vertical-align: middle;
-<<<<<<< HEAD
-    box-sizing: border-box;
-    border-radius: 35px; 
-    height: 1200px;
-    width: 1000px;  
-    margin: 20px;
-    padding-top: 20px;
-=======
     box-sizing: border-box; 
     height: 1500px;
     width: 85%;  
     margin: 100px;
     padding-top: 50px;
->>>>>>> hari-styling
     padding-left: 20px;
     font-family: "Lucida Console", "Courier New", monospace;
     line-height: 150%;
@@ -248,7 +175,6 @@ img {
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     border-radius: 51px;
   }
-
 nav {
   list-style-type: none;
   margin: 10px;
@@ -262,11 +188,9 @@ nav {
   text-decoration: none;
   font-weight: bold;
 }
-
 nav li {
   float: left;
 }
-
 nav a {
   display: block;
   text-align: center;
@@ -274,8 +198,8 @@ nav a {
   text-decoration: none;
   font-weight: bold;
 }
-
 button {
+    position: absolute;
     font-family: Montserrat;
     font-weight: bold;
     font-size: 24px;
@@ -288,18 +212,18 @@ button {
     cursor: pointer;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 button:hover {
     transform: scale(1.01,1.01);
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
-
-#buttons {
-    position: relative;
-    bottom: 73%;
-    left: 57%;
+#button1 {
+    top: 570px;
+    left: 920px;
 }
-
+#button2 {
+    top: 635px;
+    left: 935px;
+}
 .inline {
   display: inline;
   list-style-type: none;
@@ -313,11 +237,9 @@ button:hover {
   color: #FFFFFF;
   margin: 5px 0 10px 100px;
 }
-
 .profile {
     font-size: 20px;
   }
-
 .value {
     display: inline;
     list-style-type: none;
@@ -336,8 +258,7 @@ button:hover {
     color: #2D7C77;
     font-weight: 600;
 }
-
-#pic {
+.pic {
   float: right;
   margin-right: 200px;
   margin-top: 60px;
@@ -346,7 +267,6 @@ button:hover {
   width: 190px;
   border-radius: 50%;
 }
-
 .rating {
   float: right;
   font-family: Montserrat;
@@ -360,16 +280,13 @@ button:hover {
   margin-right: -200px;
   margin-top: 280px;
 }
-
 ul {
   list-style-type: none;
 }
-
 .attributes {
   background-color: white;
   width: 500px;
   border-radius:10px;
   margin: 5px 0 5px 100px;
 }
-
 </style>

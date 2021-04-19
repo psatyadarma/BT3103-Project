@@ -1,13 +1,16 @@
 <template>
     <body>
           <img :src="logo" />
-        <nav>
-          <ul style="list-style-type: none;">
+      <nav>
+        <ul style="list-style-type: none;">
           <li><router-link to="/HomeStudent">Home</router-link></li>
           <li><router-link to="/ProfileStudent">Profile</router-link></li>
           <li><router-link to="/CalendarStudent">Calendar</router-link></li>
-          </ul>
-        </nav>
+          <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+          <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+          <li><router-link to='/logout'>Logout</router-link></li>
+        </ul>
+      </nav> 
   <h1 style="text-align:center; color:#55C9C2; font-weight: bold; padding-top:150px;" >EDIT YOUR PROFILE</h1>
   <div class = "editProfile">
     <form @submit.prevent="register">
@@ -68,7 +71,7 @@ export default {
       })})
       }
       })
-      this.$router.push('/HomeStudent');
+      setTimeout( () => this.$router.push('/ProfileStudent'), 800);
     },
   },
   created(){
@@ -98,9 +101,9 @@ img {
 }
 
   div {
-    background-color: #55C9C2;
-    color: black;
+    background: linear-gradient(180deg, #55C9C2 0%, #1D918A 100%), #DFEEEF;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+    color: black;
     display: inline-block;
     vertical-align: middle;
     box-sizing: border-box;
@@ -141,14 +144,25 @@ nav a {
 }
 
 button {
-  width: 150px;
-  height: 50px;
-  background-color: white;
-  border-radius: 10px;
-  border-width: 1px;
-  font-weight: bold;
-  font-size: 15px;
-  border-color: white;
+    top: 590px;
+    left: 960px;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: normal;
+    border-radius: 90px;
+    padding: 15px 35px;
+    margin: 10px;
+    padding-left: 30px;
+    color: #3a938d;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
 .inline {
