@@ -215,6 +215,7 @@ button:hover {
 
 .pic {
   float: right;
+  padding: 0;
   margin-right: 150px;
   margin-top: 130px;
   height: 175px;
