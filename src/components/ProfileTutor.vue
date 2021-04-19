@@ -148,7 +148,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 img {
   float: left;
   padding-left:20px;
@@ -157,11 +156,9 @@ img {
   width: 95px;
   top:50px;
 }
-
   .top {
     background-color: #55C9C2;
   }
-
   .profile {
     color: black;
     display: inline-block;
@@ -178,7 +175,6 @@ img {
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     border-radius: 51px;
   }
-
 nav {
   list-style-type: none;
   margin: 10px;
@@ -192,11 +188,9 @@ nav {
   text-decoration: none;
   font-weight: bold;
 }
-
 nav li {
   float: left;
 }
-
 nav a {
   display: block;
   text-align: center;
@@ -204,7 +198,6 @@ nav a {
   text-decoration: none;
   font-weight: bold;
 }
-
 button {
     position: absolute;
     font-family: Montserrat;
@@ -219,22 +212,18 @@ button {
     cursor: pointer;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 button:hover {
     transform: scale(1.01,1.01);
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
-
 #button1 {
     top: 570px;
     left: 920px;
 }
-
 #button2 {
     top: 635px;
     left: 935px;
 }
-
 .inline {
   display: inline;
   list-style-type: none;
@@ -248,11 +237,9 @@ button:hover {
   color: #FFFFFF;
   margin: 5px 0 10px 100px;
 }
-
 .profile {
     font-size: 20px;
   }
-
 .value {
     display: inline;
     list-style-type: none;
@@ -271,7 +258,6 @@ button:hover {
     color: #2D7C77;
     font-weight: 600;
 }
-
 .pic {
   float: right;
   margin-right: 200px;
@@ -281,7 +267,6 @@ button:hover {
   width: 190px;
   border-radius: 50%;
 }
-
 .rating {
   float: right;
   font-family: Montserrat;
@@ -295,16 +280,13 @@ button:hover {
   margin-right: -200px;
   margin-top: 280px;
 }
-
 ul {
   list-style-type: none;
 }
-
 .attributes {
   background-color: white;
   width: 500px;
   border-radius:10px;
   margin: 5px 0 5px 100px;
 }
-
 </style>
