@@ -59,7 +59,8 @@ export default {
               tutorId:'',
               header: '',
               description: '',
-              uploadURL:''
+              uploadURL:'',
+              uploadDate:''
           }
       };
   },
@@ -90,6 +91,7 @@ export default {
             //Save item to database
             this.assignment.uploadURL = this.urlLink.fullPath
             this.assignment.studentId = this.thisUserId
+            this.assignment.uploadDate = new Date().toISOString().slice(0, 10)
             db.collection('tutor_files').doc().set(this.assignment);
             alert("Item saved successfully")
             this.$router.push('/assignmentStudent')

@@ -1,18 +1,19 @@
 <template>
-<body>
-      <img :src="logo" />
-  <nav>
-    <ul class="navbar" style="list-style-type: none;">
-      <li><router-link to="/HomeStudent">Home</router-link></li>
-      <li><router-link to="/ProfileStudent">Profile</router-link></li>
-      <li><router-link to="/CalendarStudent">Calendar</router-link></li>
-      <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
-      <li><router-link to="/assignmentStudent">Assignment</router-link></li>
-    </ul>
-  </nav>
-  <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}} </h1>
-  <div class = "reminders">
-      <p class = "heading"> Upcoming Lessons </p>
+  <body>
+    <img :src="logo" />
+    <nav>
+      <ul class="navbar" style="list-style-type: none;">
+        <li><router-link to="/HomeStudent">Home</router-link></li>
+        <li><router-link to="/ProfileStudent">Profile</router-link></li>
+        <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+        <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+        <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+        <li><router-link to='/logout'>Logout</router-link></li>
+      </ul>
+    </nav>
+    <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}} </h1>
+    <div class = "reminders">
+      <p class = "heading"><u>Upcoming Lessons</u></p>
       <br><br>
       <ul class="class">
         <li class='item' v-for="event in this.events" v-bind:key="event.name">
@@ -23,19 +24,18 @@
         </li>
       </ul>  
       <br>
+    </div>
 
-  </div>
-
-  <div class = "results">
-    <p class = "heading"> Results </p>
-    <ul>
+    <div class = "results">
+      <p class = "heading"><u>Results</u></p>
+      <ul>
         <li class='item' v-for="result in this.results" :key="result.id">
-            <p>
-              {{result.message}}
-            </p>
+          <p>
+            {{result.message}}
+          </p>
         </li>   
-    </ul> 
-  </div>  
+      </ul> 
+    </div>  
   </body>
 </template>
 
@@ -121,10 +121,10 @@ export default {
   .welcome {
     text-align: left;
     padding-left: 250px;
-    padding-top: 100px;
+    padding-top: 120px;
     color: black;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 64px;
   }
 
   .heading {
@@ -202,7 +202,7 @@ ul {
   border-radius: 35px;
   box-sizing: border-box;
   padding: 10px;
-  margin-right: 40px;
+  margin: 20px 15px 20px 0px;
 }
 
 .item p {
