@@ -67,16 +67,19 @@ export default {
     firebase.auth().onAuthStateChanged(async user => {
         if (user!=null) {
             let events = [];
-            let snapshot = await db.collection('calendar').where("end", ">=", this.today).orderBy("end").limit(6);
-            //console.log(this.yesterday);
-            snapshot.get().then(querySnapshot => {
+            let snapshot = await db.collection('calendar');
+            snapshot.orderBy("end").get().then(querySnapshot => {
               querySnapshot.forEach((doc) => {
                 let userid = doc.data().id;
                 if (userid == user.uid) {
                   let appData = doc.data();
                   appData.id = doc.id;
-                  events.push(appData);
+                  //events.push(appData);
+                  if (doc.data().end >= this.today) {
+                    events.push(appData);
+                  }
                 }
+                //events.sort();              
               });
             })
             this.events = events;
@@ -193,9 +196,6 @@ ul {
   list-style-type: none;
 }
 
-.class li:nth-child(3) a {
-  background: white;
-}
 
 .item {
   background: linear-gradient(180deg, #80FFE8 0%, rgba(106, 228, 255, 0.71) 100%);

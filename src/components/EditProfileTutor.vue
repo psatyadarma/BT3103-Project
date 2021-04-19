@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import image from "../assets/stamp.jpg"
 import logo from "../assets/logo2.png"
 import profile from "../assets/profile.jpg"
 import firebase from "../firebase"
@@ -74,7 +73,6 @@ export default {
   },
   data(){
     return {
-        image: image,
         logo: logo,
         profile:profile,
         first_name:null,

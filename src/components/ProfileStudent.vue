@@ -155,7 +155,6 @@ nav a {
 }
 
 button {
-    position: absolute;
     top: 590px;
     left: 960px;
     font-family: Montserrat;
@@ -165,10 +164,12 @@ button {
     border-radius: 90px;
     padding: 15px 35px;
     margin: 10px;
+    padding-left: 30px;
     color: #3a938d;
     background: white;
     cursor: pointer;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    display: inline;
 }
 
 button:hover {
