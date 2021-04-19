@@ -1,4 +1,13 @@
 <template>
+  <div>
+  <img id="logo" :src="logo" />
+    <nav>
+      <ul class="navbar" style="list-style-type: none;">
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/login">Login</router-link></li>
+        <li><router-link to="/logout">Logout</router-link></li>
+      </ul>
+    </nav>
   <div style="text-align:center" class="formdiv">
     <h1>Timeslot Request</h1><br>
     <form @submit.prevent="request">
@@ -21,6 +30,7 @@
       <button type="submit" value="register">Create Request</button>
     </form>
     <button v-on:click="$router.go(-1)">Go Back</button>
+  </div>
   </div>
 </template>
 
@@ -150,4 +160,40 @@ button {
 input:focus { 
   outline: none; 
 }
+
+nav {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+  overflow: hidden;
+  color: black;
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav li {
+  float: left;
+}
+
+nav a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#logo {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+
 </style>

@@ -21,7 +21,21 @@
         </li>
       </ul>  
       <br>
-
+   <div class = "requests">
+    <p class = "heading"> Timeslot Requests </p>
+    <ul>
+        <li v-for="request in this.requests" :key="request.id">
+            <p>
+              {{request.first_name}} {{request.last_name}}
+              requested subject {{request.subject}} 
+              timeslot {{request.start}} - {{request.end}}
+            </p>
+              <button v-on:click="acceptRequest(request.stdid, request.start, request.end, request.subject)">Accept</button>
+              <button v-on:click="declineRequest(request.stdid, request.start, request.end, request.subject)">Decline</button>
+            
+        </li>   
+    </ul> 
+  </div>
   </div>
   </body>
 </template>
@@ -49,6 +63,32 @@ export default {
     }
   },
   methods: {
+    acceptRequest(userid, timeStart, timeEnd, subject) {
+        db.collection("results").doc(userid)
+        .collection("results").doc(firebase.auth().currentUser.uid).set({
+          message: "Congratulations! your request for tutor " + this.first_name + 
+          " " + this.last_name + " subject " + subject +
+          " timeslot " + timeStart + " - " + timeEnd +
+          " has been accepted"
+        });
+        alert("Request accepted!");
+        var user = firebase.auth().currentUser;
+        db.collection("requests").doc(user.uid).
+        collection("requests").doc(userid).delete();
+      },
+      declineRequest(userid, timeStart, timeEnd, subject) {
+        db.collection("results").doc(userid)
+        .collection("results").doc(firebase.auth().currentUser.uid).set({
+          message: "Unfortunately your request for tutor " + this.first_name + 
+          " " + this.last_name + " subject " + subject +
+          " timeslot " + timeStart + " - " + timeEnd +
+          " has been rejected"
+        });
+        alert("Request declined");
+        var user = firebase.auth().currentUser;
+        db.collection("requests").doc(user.uid).
+        collection("requests").doc(userid).delete();
+      },
     async getEvents() {
     firebase.auth().onAuthStateChanged(async user => {
         if (user!=null) {
