@@ -20,43 +20,6 @@
               <p class="rating" v-else-if='this.rate == 4'>Rating: ⭐⭐⭐⭐</p>
               <p class="rating" v-else-if='this.rate == 5'>Rating: ⭐⭐⭐⭐⭐</p>
             <br>
-<<<<<<< HEAD
-            <p class="rates1">  {{"Rates (per hour): "}} </p>
-            <p class="rates2" id = "value"> {{ this.rates}} </p>
-
-            <p class="inline">  {{"First Name: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.first_name}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Last Name: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.last_name}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Email: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.email}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Phone: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.phone}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Qualifications: "}} </p>
-            <div class="attributes">            
-            <p class="inline" id = "value"> {{ this.qualifications}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Experience: "}} </p>
-            <div class="attributes">            
-            <p class="inline" id = "value"> {{ this.experience}} </p>
-            </div>
-            <br>
-            <p class="inline">  {{"Subjects: "}} </p>
-            <div class="attributes">
-=======
             <p class="inline">First Name</p>
             <div class="test">
             <p class="value"> {{ this.first_name}} </p>
@@ -89,7 +52,6 @@
             <br>
             <p class="inline">Subjects</p>
             <div class="test">
->>>>>>> hari-styling
             <ul>
               <li v-for="subject in this.subject" v-bind:key="subject.name">
                 <p class="value">  {{ subject }} </p> 
@@ -97,13 +59,8 @@
             </ul>  
             </div>
             <br>
-<<<<<<< HEAD
-            <p class="inline">  {{"Teaching Level: "}} </p>
-            <div class="attributes">
-=======
             <p class="inline">Teaching Level</p>
             <div class="test">
->>>>>>> hari-styling
             <ul>
             <li v-for="level in this.level" v-bind:key="level.name">
                 <p class="value">  {{ level }} </p> 
@@ -111,11 +68,6 @@
             </ul>
             </div>
             <br>
-<<<<<<< HEAD
-            <p class="inline">  {{"Availability: "}} </p>
-            <div class="attributes">
-            <p class="inline" id = "value"> {{ this.availability}} </p>
-=======
             <p class="inline">Availability</p>
             <div class="test">
             <p class="value"> {{ this.availability}} </p>
@@ -124,7 +76,6 @@
             <p class="inline">Rates (per hour)</p>
             <div class="test">
               <p class="value"> {{ this.rates}} </p>
->>>>>>> hari-styling
             </div>
             <br><br>
             <button id='button1' v-on:click="updateProfile()">Update Profile</button>
@@ -215,20 +166,11 @@ img {
     color: black;
     display: inline-block;
     vertical-align: middle;
-<<<<<<< HEAD
-    box-sizing: border-box;
-    border-radius: 35px; 
-    height: 1200px;
-    width: 1000px;  
-    margin: 20px;
-    padding-top: 20px;
-=======
     box-sizing: border-box; 
     height: 1500px;
     width: 85%;  
     margin: 100px;
     padding-top: 50px;
->>>>>>> hari-styling
     padding-left: 20px;
     font-family: "Lucida Console", "Courier New", monospace;
     line-height: 150%;
