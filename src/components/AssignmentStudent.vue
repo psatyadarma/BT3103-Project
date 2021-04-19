@@ -19,7 +19,8 @@
         <div id='headings'>
             <label id='dueDate'>Due Date</label>
             <label id='subject'>Subject</label>
-            <label id='assignment'>Assignment</label>
+            <label id='header'>Header</label>
+            <label id='desc'>Description</label>
             <hr id='linebreak'>
         </div>
 
@@ -50,7 +51,7 @@ export default {
   data() {
       return {
           logo: logo,
-          thisUserId: "z0CCpM0ydJPwz8Q4H6We2fYem7t1", //firebase.auth().currentUser.uid,
+          thisUserId: firebase.auth().currentUser.uid,
           allAssignments: [],
           sorted:[], 
       };
@@ -104,8 +105,6 @@ export default {
           })   
       },
 
-      
-
       generateKey(date, id) {
       const uniqueKey = `${date}-${id}`;
       return uniqueKey;
@@ -156,12 +155,11 @@ nav a {
   font-weight: bold;
 }
 
-
 #full {
     position: absolute;
     width: 1418px;
-    height: 650px;
-    left: 114px;
+    height: 600px;
+    left: 60px;
     top: 100px;
     background: #55c9c2;
     border-radius: 51px;
@@ -203,24 +201,6 @@ nav a {
     color: #000000;
 }
 
-#record {
-    position: absolute;
-    width: 230px;
-    height: 52px;
-    left: 290px;
-    top: 25px;
-
-    background: #C4C4C4;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 51px;
-
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    color: #000000;
-}
-
 #headings {
     position: absolute;
     top: 100px;
@@ -230,26 +210,21 @@ nav a {
 
 #subject {
     position: absolute;
-    left: 150px;
+    left: 170px;
 }
 
-#assignment {
+#header {
     position: absolute;
-    left: 750px;
+    left: 450px;
 }
 
-#checkboxFilter {
+#desc {
     position: absolute;
-    left: 1300px;
+    left: 800px;
 }
 
 #linebreak {
     width: 1750%;
-}
-
-input[type=checkbox] {
-    transform: scale(1.6);
-    vertical-align: middle;
 }
 
 #assignmentList {
@@ -259,8 +234,10 @@ input[type=checkbox] {
 }
 
 #assgnlist {
+    position: absolute;
     max-height: 450px;
     overflow-y:scroll;
+    left:20px;
 }
 
 #listElement {
@@ -268,7 +245,32 @@ input[type=checkbox] {
     margin: 10px;
     padding: 5px;
     border-radius: 20px;
-    width: 1320px;
+    width: 1350px;
+}
+
+#subjectList {
+    position: absolute;
+    left: 170px;
+}
+
+#headerList {
+    position: absolute;
+    left: 460px;
+}
+
+#descList {
+    position: absolute;
+    left: 830px;
+}
+
+#downloadBtn {
+    position: absolute;
+    right:60px;
+}
+
+#trashBtn {
+    position: absolute;
+    right:20px;
 }
 
 </style>

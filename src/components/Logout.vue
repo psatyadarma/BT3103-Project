@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img id="logo" :src="logo" />
     <nav>
       <ul class="navbar" style="list-style-type: none;">
         <li><router-link to="/">Home</router-link></li>
@@ -7,18 +8,22 @@
         <li><router-link to="/logout">Logout</router-link></li>
       </ul>
     </nav>
-
+    <div>
+      <h1>Logout</h1>
+    </div>
     <div style="text-align:center" class="formdiv">
-      <h1>Do you want to logout?</h1>
+      <p>Do you want to logout?</p>
       <div class="buttons">
         <button v-on:click="logout()">Yes</button>
-        <button v-on:click="$router.go(-1)">Go Back</button>
+        <button v-on:click="$router.go(-1)">Take Me Back</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import logo from "../assets/logo2.png"
 import firebase from "../firebase";
 
 export default {
@@ -27,6 +32,7 @@ export default {
     return {
       email: "",
       password: "",
+      logo: logo
     };
   },
   methods: {
@@ -48,16 +54,36 @@ export default {
 
 <style scoped>
 .formdiv {
-  border-radius: 25px;
   border: 4px solid black;
   padding: 20px;
-  background-image: linear-gradient(rgb(128, 19, 0), yellow);
-  width: 400px;
-  margin: auto;
+  background: linear-gradient(180deg, #58BCB6 0%, #219A93 100%);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 44px;
+  width: 450px;
+  margin: 50px auto;
 }
+
 h1 {
-  font-size: 24pt;
+    text-align: center;
+    font-size: 64px;
+    padding-top: 100px;
+    margin: 10px auto;
 }
+
+p {
+    font-size: 16pt;
+    margin: 20px auto;
+}
+
+#logo {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+
 input,
 select {
   height: 40px;
@@ -70,10 +96,16 @@ select {
 }
 
 button {
-  height: 40px;
-  width: 100px;
-  font-size: 14pt;
-  background-color: aquamarine;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: normal;
+    background: #50cdc5;
+    border-radius: 20px;
+    padding: 7px 35px;
+    color: #3a938d;
+    background: white;
+    margin: 10px;
 }
 
 nav {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img :src="logo" />
+        <img id='logo' :src="logo" />
         <nav>
             <ul class="navbar" style="list-style-type: none;">
                 <li><router-link to="/HomeStudent">Home</router-link></li>
@@ -8,6 +8,7 @@
                 <li><router-link to="/CalendarStudent">Calendar</router-link></li>
                 <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
                 <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+                <li><router-link to='/logout'>Logout</router-link></li>
             </ul>
         </nav>
         <h1 id='heading'>Browse Through Our Tutors!</h1>
@@ -53,7 +54,7 @@
         <div id='tutorCarousel'>
             <ul id='tutorList'>
                 <li id='tutorCard' v-for='tutor in filteredTutors' :key='tutor.id' v-on:mouseover='incrementProfileView(tutor.id)'>
-                    <img v-bind:src='tutor.image' alt='Tutor Image'>
+                    <img id='tutorimg' v-bind:src='tutor.image' alt='Tutor Image'>
                     <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
                     <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
                     <p id='tutorSubject'>Subjects: {{ tutor.subject[0] }} 
@@ -367,7 +368,16 @@ h1 {
     font-size: 64px;
 }
 
-img {
+#logo {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+
+#tutorimg {
     height: 135px;
     width: 135px;
     border-radius: 50%;

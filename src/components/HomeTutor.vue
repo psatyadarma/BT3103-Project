@@ -1,15 +1,19 @@
 <template>
 <body>
-      <img :src="logo" />
+  <img :src="logo" />
   <nav>
-  <ul class="navbar" style="list-style-type: none;">
-  <li><router-link to="/HomeTutor">Home</router-link></li>
-  <li><router-link to="/ProfileTutor">Profile</router-link></li>
-  <li><router-link to="/CalendarTutor">Calendar</router-link></li>
-  </ul>
+    <ul class="navbar" style="list-style-type: none;">
+      <li><router-link to="/HomeStudent">Home</router-link></li>
+      <li><router-link to="/ProfileStudent">Profile</router-link></li>
+      <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+      <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+      <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+      <li><router-link to='/logout'>Logout</router-link></li>
+    </ul>
   </nav>
-  <p class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</p>
+  <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</h1>
   <div class = "reminders">
+<<<<<<< HEAD
       <p class = "heading"> Upcoming Lessons </p>
       <br>
       <ul class="class">
@@ -37,6 +41,20 @@
             
         </li>   
     </ul> 
+=======
+    <p class = "heading"><u>Upcoming Lessons</u></p>
+    <br>
+    <br>
+    <ul class="class">
+      <li class='item' v-for="event in this.events" v-bind:key="event.name">
+        <p class="inline" id = "value">  {{ "Name: " + event.name }} </p> 
+        <p class="inline" id = "value">  {{ "Details: " + event.details }} </p> 
+        <p class="inline" id = "value">  {{ "Time: " + event.start + " to " + event.end}} </p> 
+        <br>
+      </li>
+    </ul>  
+    <br>
+>>>>>>> 43c0ed00c760c80d4c31ea7aa56269caef9f5f55
   </div>
   </body>
 </template>
@@ -155,11 +173,17 @@ export default {
 
   .welcome {
     text-align: left;
+<<<<<<< HEAD
     padding-left: 150px;
     padding-top: 50px;
     color: white;
+=======
+    padding-left: 250px;
+    padding-top: 120px;
+    color: black;
+>>>>>>> 43c0ed00c760c80d4c31ea7aa56269caef9f5f55
     font-weight: bold;
-    font-size: 30px;
+    font-size: 64px;
   }
 
   .heading {
@@ -167,6 +191,7 @@ export default {
     font-weight: bold;
     font-size: 25px;
     color: white;
+    font-family: Montserrat;
   }
 
   div {
@@ -230,4 +255,27 @@ ul {
   list-style-type: none;
 }
 
+<<<<<<< HEAD
+=======
+.item {
+  background: linear-gradient(180deg, #80FFE8 0%, rgba(106, 228, 255, 0.71) 100%);
+  border-radius: 35px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 20px 15px 20px 0px;
+}
+
+.item p {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.class li:nth-child(3) a {
+  background: white;
+}
+
+>>>>>>> 43c0ed00c760c80d4c31ea7aa56269caef9f5f55
 </style>
