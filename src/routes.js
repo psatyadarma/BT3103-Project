@@ -33,6 +33,6 @@ export default [
     { path: '/uploadTutor', component: UploadTutor },
     { path: '/uploadStudent', component: UploadStudent },
     { path: '/assignmentStudent', component: AssignmentStudent },
-    { path: '/assignmentTutor_grade', component: AssignmentTutor_ToGrade },
+    { path: '/assignmentTutor', component: AssignmentTutor_ToGrade },
 
 ]
