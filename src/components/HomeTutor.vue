@@ -3,14 +3,15 @@
   <img :src="logo" />
   <nav>
     <ul class="navbar" style="list-style-type: none;">
-      <li><router-link to="/HomeStudent">Home</router-link></li>
+      <li><router-link to="/HomeTutor">Home</router-link></li>
       <li><router-link to="/ProfileTutor">Profile</router-link></li>
       <li><router-link to="/CalendarTutor">Calendar</router-link></li>
       <li><router-link to="/assignmentTutor">Assignment</router-link></li>
       <li><router-link to='/logout'>Logout</router-link></li>
     </ul>
   </nav>
-  <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</h1>
+  <br>
+  <p class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</p>
   <div class = "reminders">
       <p class = "heading"> Upcoming Lessons </p>
       <br>
@@ -161,7 +162,7 @@ export default {
     padding-top: 50px;
     color: white;
     font-weight: bold;
-    font-size: 64px;
+    font-size: 30px;
   }
 
   .heading {
@@ -184,7 +185,7 @@ export default {
     width: 400px;  
     margin: 10px;
     margin-top: 50px;
-    margin-left: 20px;
+    margin-left: 150px;
     padding-top: 30px;
     padding-left: 20px;
     font-family: "Lucida Console", "Courier New", monospace;
@@ -215,6 +216,7 @@ nav {
   padding: 14px 16px;
   text-decoration: none;
   font-weight: bold;
+  position: relative;
 }
 
 nav li {
