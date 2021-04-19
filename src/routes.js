@@ -15,6 +15,8 @@ import UploadTutor from './components/UploadTutor.vue'
 import UploadStudent from './components/UploadStudent.vue'
 import AssignmentStudent from './components/AssignmentStudent.vue'
 import AssignmentTutor_ToGrade from './components/AssignmentTutor_ToGrade.vue'
+import CalendarStudent from './components/CalendarStudent.vue'
+import CalendarTutor from './components/CalendarTutor.vue'
 
 export default [
     { path: '/', component: LandingPage },
@@ -33,6 +35,8 @@ export default [
     { path: '/uploadTutor', component: UploadTutor },
     { path: '/uploadStudent', component: UploadStudent },
     { path: '/assignmentStudent', component: AssignmentStudent },
-    { path: '/assignmentTutor_grade', component: AssignmentTutor_ToGrade },
+    { path: '/assignmentTutor', component: AssignmentTutor_ToGrade },
+    { path: '/calendarStudent', component: CalendarStudent },
+    { path: '/calendarTutor', component: CalendarTutor },
 
 ]

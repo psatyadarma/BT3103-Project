@@ -1,4 +1,16 @@
 <template>
+    <body>
+        <img :src="logo" />
+    <nav>
+    <ul class="navbar" style="list-style-type: none;">
+      <li><router-link to="/HomeStudent">Home</router-link></li>
+      <li><router-link to="/ProfileStudent">Profile</router-link></li>
+      <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+      <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+      <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+    </ul>
+    </nav>
+
     <div id='full'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <button id='assgn'>Assignment</button>
@@ -12,8 +24,8 @@
         </div>
 
         <div id='assignmentList'>
-            <ul>
-                <li v-for="assgn in allAssignments" :key="generateKey(assgn.dueDate, assgn.id)">
+            <ul id='assgnlist'>
+                <li id='listElement' v-for="assgn in sortedAssignments" :key="generateKey(assgn.dueDate, assgn.id)">
                     <span id='dateList'>{{assgn.dueDate}} </span>
                     <span id='subjectList'>{{assgn.subject}} </span>
                     <span id='headerList'>{{assgn.header}} </span>
@@ -25,10 +37,11 @@
         </div>
 
     </div>
+    </body>
 </template>
 
 <script>
-
+import logo from "../assets/logo2.png"
 import firebase from "../firebase"
 var db = firebase.firestore();
 
@@ -36,12 +49,17 @@ export default {
   name: 'AssignmentStudent',
   data() {
       return {
+          logo: logo,
           thisUserId: "z0CCpM0ydJPwz8Q4H6We2fYem7t1", //firebase.auth().currentUser.uid,
           allAssignments: [],
           sorted:[], 
       };
   },
-  
+  computed: {
+      sortedAssignments: function() {
+          return this.allAssignments.slice().sort((a,b) => a.dateObject - b.dateObject)
+      }
+  },
   methods: {
       fetchAssignments: function() {
           db.collection('student_files').where("student", "==", this.thisUserId).get().then((querySnapShot)=> {
@@ -76,23 +94,17 @@ export default {
       },
 
       deleteFile: function(id, link) {
-          this.removeFileFromFirestore(id)
-          this.removeFileFromFirebase(link)
-          location.reload()
-          this.fetchAssignments()
+          db.collection('student_files').doc(id).delete().then(() => {
+            firebase.storage().ref().child(link).delete().then(() => {
+                alert('File deleted successfully')
+
+                location.reload()
+                this.fetchAssignments()
+            })
+          })   
       },
 
-      removeFileFromFirestore: function(id) {
-        db.collection('student_files').doc(id).delete().then(() => {
-            console.log('Document deleted successfully from firestore')
-        })
-      },
-
-      removeFileFromFirebase: function(link) {
-        const storageRef = firebase.storage().ref();
-        storageRef.child(link).delete().then(() => 
-        console.log('File deleted sucessfully from firebase'))
-      },
+      
 
       generateKey(date, id) {
       const uniqueKey = `${date}-${id}`;
@@ -103,7 +115,6 @@ export default {
 
   created() {
       this.fetchAssignments()
-      console.log("all assignments: ", this.allAssignments)
   },
 
 }
@@ -113,13 +124,46 @@ export default {
 
 <style scoped>
 
+img {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+nav {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+  overflow: hidden;
+  color: black;
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav li {
+  float: left;
+}
+nav a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
 #full {
     position: absolute;
     width: 1418px;
     height: 650px;
     left: 114px;
     top: 100px;
-    background: #C1E8F0;
+    background: #55c9c2;
     border-radius: 51px;
 }
 
@@ -214,11 +258,12 @@ input[type=checkbox] {
     font-size: 20px;
 }
 
-ul {
+#assgnlist {
+    max-height: 450px;
     overflow-y:scroll;
 }
 
-ul li {
+#listElement {
     background: #ffffff;
     margin: 10px;
     padding: 5px;
