@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import image from "../assets/stamp.jpg"
+//import image from "../assets/stamp.jpg"
 import profile from "../assets/profile.jpg"
 import firebase from "../firebase"
 var db = firebase.firestore();
@@ -79,7 +79,7 @@ export default {
   },
   data(){
     return {
-        image: image,
+        //image: image,
         profile:profile,
         first_name:null,
         last_name: null,

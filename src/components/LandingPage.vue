@@ -110,6 +110,13 @@ button {
     border-radius: 20px;
     padding: 7px 35px;
     background: #3a938d;
+    cursor: pointer;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
 #button1 {

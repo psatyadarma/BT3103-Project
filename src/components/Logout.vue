@@ -100,12 +100,18 @@ button {
     font-weight: bold;
     font-size: 24px;
     line-height: normal;
-    background: #50cdc5;
     border-radius: 20px;
     padding: 7px 35px;
+    margin: 10px;
     color: #3a938d;
     background: white;
-    margin: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
 nav {
