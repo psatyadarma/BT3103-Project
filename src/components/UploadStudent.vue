@@ -7,8 +7,9 @@
                 <label id='tutorLabel' for="tutor"><strong>Tutor: </strong></label>
                 <select name="tutor" id="tutor" v-model="assignment.tutorId">
                     <!--loop through tutor list here-->
-                    <option v-for="tut in this.tutors" v-bind:key="tut.tutid" v-bind:value="tut.tutid"></option>
+                    <option v-for="tut in this.tutors" v-bind:key="tut.tutid" v-bind:value="tut.tutid">
                         {{tut.first_name}} {{tut.last_name}}
+                    </option>
 
                 </select>
             </div>
@@ -34,7 +35,8 @@ export default {
   name: 'UploadStudent',
   data() {
       return {
-          thisUserId: firebase.auth().currentUser.uid,
+          thisUserId: "z0CCpM0ydJPwz8Q4H6We2fYem7t1", //firebase.auth().currentUser.uid,
+          tutorIds: [],
           tutors: [],
           urlLink: '',
           assignment:{
@@ -75,17 +77,25 @@ export default {
             this.assignment.studentId = this.thisUserId
             db.collection('tutor_files').doc().set(this.assignment);
             alert("Item saved successfully")
-            this.$router.push('/studentAssignment')
+            this.$router.push('/assignmentStudent')
         },
 
     getTutors: function() {
         db.collection('students').doc(this.thisUserId).get().then((querySnapShot) => {
             let student = {}
             student = querySnapShot.data()
-            this.tutors = student.mytutors 
+            this.tutorIds = student.mytutors
+            
+            for (let i = 0; i < this.tutorIds.length; i++) {
+                let tutor = {}
+
+                db.collection('profiles').doc(this.tutorIds[i]).get().then((snapshot) => {
+                    tutor = snapshot.data()
+                    this.tutors.push(tutor)
+                })
+            }
           })
     }
-
     },
   created() {
     this.getTutors();

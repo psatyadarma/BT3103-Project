@@ -13,8 +13,10 @@
                 <label id='subjectLabel' for="subject"><strong>Subject:</strong></label>
                 <select name="subject" id="subject" v-model="assignment.subject">
                     <!--loop through subject list here-->
-                    <option v-for="sub in this.subjects" v-bind:key="sub.id"></option>
-                        <!--{{sub}}-->
+                    <option v-for="sub in this.subjects" v-bind:key="sub">
+                        {{sub}}
+                    </option>
+                        
                     
 
                 </select>
@@ -22,8 +24,10 @@
                 <label id='studentLabel' for="student"><strong>Student:</strong></label>
                 <select name="student" id="student" v-model="assignment.student">
                     <!--loop through student list here-->
-                    <option v-for="stu in this.students" v-bind:key="stu.stuid" v-bind:value="stu.stuid"></option>
-                        <!--{{stu.first_name}} {{stu.last_name}}-->
+                    <option v-for="stu in this.students" v-bind:key="stu.first_name" v-bind:value="stu.stuid">
+                        {{stu.first_name}} {{stu.last_name}}
+                    </option>
+                        
 
                 </select>
             </div>
@@ -49,7 +53,8 @@ export default {
   name: 'UploadTutor',
   data() {
       return {
-          thisUserId: firebase.auth().currentUser.uid,
+          thisUserId: "BKtdsQm4OmQO8UwPe1ktIwUqhgb2", //firebase.auth().currentUser.uid,
+          studentIds: [],
           students: [],
           subjects:[],
           uploadFiles: [],
@@ -77,7 +82,7 @@ export default {
     },
 
     uploadBlob: function(file) {
-        const ref = firebase.storage().ref().child('assignments/forStudents/' + this.assignment.student.stuid + '/' +
+        const ref = firebase.storage().ref().child('assignments/forStudents/' + this.assignment.student + '/' +
                                                                                 this.assignment.dueDate + '_' +
                                                                                 this.assignment.subject + '_' +
                                                                                 this.assignment.header + '.docx');
@@ -93,14 +98,23 @@ export default {
             this.assignment.uploadURL = this.urlLink.fullPath
             db.collection('student_files').doc().set(this.assignment);
             alert("Item saved successfully")
-            this.$router.push('/tutorAssignment')
+            this.$router.push('/assignmentTutor_grade')
         },
 
     getStudents: function() {
         db.collection('profiles').doc(this.thisUserId).get().then((querySnapShot) => {
             let tutor = {}
             tutor = querySnapShot.data()
-            this.students = tutor.mystudents                   
+            this.studentIds = tutor.mystudents         
+            
+            for (let i = 0; i < this.studentIds.length; i++) {
+                let student = {}
+
+                db.collection('students').doc(this.studentIds[i]).get().then((snapshot) => {
+                    student = snapshot.data()
+                    this.students.push(student)
+                })
+            }
           })
     },
 
@@ -108,7 +122,7 @@ export default {
         db.collection('profiles').doc(this.thisUserId).get().then((querySnapShot) => {
             let tutor = {}
             tutor = querySnapShot.data()
-            this.subjects = tutor.subjects
+            this.subjects = tutor.subject
           })
     }
 
@@ -116,10 +130,7 @@ export default {
   created() {
     this.getStudents();
     this.getSubjects();
-    console.log(this.students)
   },
-
-    
 }
     
 </script>
