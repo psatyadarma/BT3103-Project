@@ -75,11 +75,11 @@
         <v-card>
           <v-container>
             <v-form @submit.prevent="addEvent">
-              <v-text-field v-model="name" type="text" label="event name (required)"></v-text-field>
-              <v-text-field v-model="details" type="text" label="detail"></v-text-field>
-              <v-text-field v-model="start" type="date" label="start (required)"></v-text-field>
-              <v-text-field v-model="end" type="date" label="end (required)"></v-text-field>
-              <v-text-field v-model="color" type="color" label="color (click to open color menu)"></v-text-field>              
+              <v-text-field v-model="name" type="text" label="Event Name (Required)"></v-text-field>
+              <v-text-field v-model="details" type="text" label="Details"></v-text-field>
+              <v-text-field v-model="start" type="date" label="Start Date (Required)"></v-text-field>
+              <v-text-field v-model="end" type="date" label="End Date (Required)"></v-text-field>
+              <v-text-field v-model="color" type="color" label="Colour (Click to open color menu)"></v-text-field>              
               <v-btn type="submit" color="primary" class="mr-4" @click.stop="dialog=false">
                 Create Event
               </v-btn>
@@ -162,6 +162,7 @@ import firebase from "../firebase"
 var db = firebase.firestore();
 
   export default {
+    name: "CalendarTutor",
     data: () => ({
       logo: logo,
       today: new Date().toISOString().substr(0, 10),
@@ -253,7 +254,7 @@ var db = firebase.firestore();
             db.collection("calendar").doc(ev).delete();
             this.selectedOpen = false;
             this.getEvents();
-            this.$router.push('/CalendarTutor');
+            this.$router.push('/HomeTutor');
           }
         })
       },
