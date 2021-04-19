@@ -13,7 +13,6 @@
   </nav>
   <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</h1>
   <div class = "reminders">
-<<<<<<< HEAD
       <p class = "heading"> Upcoming Lessons </p>
       <br>
       <ul class="class">
@@ -25,13 +24,9 @@
         </li>
       </ul>  
       <br>
-<<<<<<< HEAD
-   <div class = "requests">
-=======
   </div>
 
     <div class = "requests">
->>>>>>> 5beb59b9470d4403b0ec830bdbfe936ed8dce1d5
     <p class = "heading"> Timeslot Requests </p>
     <ul>
         <li v-for="request in this.requests" :key="request.id">
@@ -45,10 +40,8 @@
             
         </li>   
     </ul> 
-<<<<<<< HEAD
   </div>
-=======
-=======
+  <div>
     <p class = "heading"><u>Upcoming Lessons</u></p>
     <br>
     <br>
@@ -61,8 +54,6 @@
       </li>
     </ul>  
     <br>
->>>>>>> 43c0ed00c760c80d4c31ea7aa56269caef9f5f55
->>>>>>> 5beb59b9470d4403b0ec830bdbfe936ed8dce1d5
   </div>
   </body>
 </template>
@@ -99,11 +90,7 @@ export default {
           " timeslot " + timeStart + " - " + timeEnd +
           " has been accepted"
         });
-<<<<<<< HEAD
         alert("Request accepted!");
-=======
-        alert("Request accepted!")
->>>>>>> 5beb59b9470d4403b0ec830bdbfe936ed8dce1d5
         var user = firebase.auth().currentUser;
         db.collection("requests").doc(user.uid).
         collection("requests").doc(userid).delete();
@@ -116,11 +103,7 @@ export default {
           " timeslot " + timeStart + " - " + timeEnd +
           " has been rejected"
         });
-<<<<<<< HEAD
         alert("Request declined");
-=======
-        alert("Request declined")
->>>>>>> 5beb59b9470d4403b0ec830bdbfe936ed8dce1d5
         var user = firebase.auth().currentUser;
         db.collection("requests").doc(user.uid).
         collection("requests").doc(userid).delete();
@@ -189,15 +172,9 @@ export default {
 
   .welcome {
     text-align: left;
-<<<<<<< HEAD
     padding-left: 150px;
     padding-top: 50px;
     color: white;
-=======
-    padding-left: 250px;
-    padding-top: 120px;
-    color: black;
->>>>>>> 43c0ed00c760c80d4c31ea7aa56269caef9f5f55
     font-weight: bold;
     font-size: 64px;
   }
@@ -270,28 +247,4 @@ nav a {
 ul {
   list-style-type: none;
 }
-
-<<<<<<< HEAD
-=======
-.item {
-  background: linear-gradient(180deg, #80FFE8 0%, rgba(106, 228, 255, 0.71) 100%);
-  border-radius: 35px;
-  box-sizing: border-box;
-  padding: 10px;
-  margin: 20px 15px 20px 0px;
-}
-
-.item p {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 22px;
-}
-
-.class li:nth-child(3) a {
-  background: white;
-}
-
->>>>>>> 43c0ed00c760c80d4c31ea7aa56269caef9f5f55
 </style>
