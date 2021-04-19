@@ -13,7 +13,7 @@
 
         <div id='assignmentList'>
             <ul>
-                <li v-for="assgn in allAssignments" :key="generateKey(assgn.dueDate, assgn.id)">
+                <li v-for="assgn in sortedAssignments" :key="generateKey(assgn.dueDate, assgn.id)">
                     <span id='dateList'>{{assgn.dueDate}} </span>
                     <span id='subjectList'>{{assgn.subject}} </span>
                     <span id='headerList'>{{assgn.header}} </span>
@@ -41,7 +41,11 @@ export default {
           sorted:[], 
       };
   },
-  
+  computed: {
+      sortedAssignments: function() {
+          return this.allAssignments.slice().sort((a,b) => a.dateObject - b.dateObject)
+      }
+  },
   methods: {
       fetchAssignments: function() {
           db.collection('student_files').where("student", "==", this.thisUserId).get().then((querySnapShot)=> {
@@ -76,23 +80,17 @@ export default {
       },
 
       deleteFile: function(id, link) {
-          this.removeFileFromFirestore(id)
-          this.removeFileFromFirebase(link)
-          location.reload()
-          this.fetchAssignments()
+          db.collection('student_files').doc(id).delete().then(() => {
+            firebase.storage().ref().child(link).delete().then(() => {
+                alert('File deleted successfully')
+
+                location.reload()
+                this.fetchAssignments()
+            })
+          })   
       },
 
-      removeFileFromFirestore: function(id) {
-        db.collection('student_files').doc(id).delete().then(() => {
-            console.log('Document deleted successfully from firestore')
-        })
-      },
-
-      removeFileFromFirebase: function(link) {
-        const storageRef = firebase.storage().ref();
-        storageRef.child(link).delete().then(() => 
-        console.log('File deleted sucessfully from firebase'))
-      },
+      
 
       generateKey(date, id) {
       const uniqueKey = `${date}-${id}`;
@@ -103,7 +101,6 @@ export default {
 
   created() {
       this.fetchAssignments()
-      console.log("all assignments: ", this.allAssignments)
   },
 
 }
@@ -215,6 +212,7 @@ input[type=checkbox] {
 }
 
 ul {
+    max-height: 450px;
     overflow-y:scroll;
 }
 
