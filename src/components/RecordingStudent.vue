@@ -8,6 +8,7 @@
       <li><router-link to="/CalendarStudent">Calendar</router-link></li>
       <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
       <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+      <li><router-link to='/logout'>Logout</router-link></li>
     </ul>
     </nav>
 
@@ -17,27 +18,33 @@
         <button id='record'>Recording</button>
         <button id='upload' @click="$router.push('/uploadStudent')">Upload File</button>
         
-        <div id='headings'>
-            <label id='uploadDate'>Upload Date</label>
-            <label id='subject'>Subject</label>
-            <label id='tut'>Tutor</label>
-            <label id='title'>Title</label>
-            <hr id='linebreak'>
-        </div>
+        <div style="height: 300px; overflow: auto;">
+            <table id='assignmentTable' class="table mt-5">
+                <thead>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Upload Date</th>
+                    <th scope='col'>Subject</th>
+                    <th scope='col'>Title</th>
+                    <th scope='col'>Download</th>
+                    <th scope='col'>Delete</th>
+                </thead>
 
-        <div id='assignmentList'>
-            <ul id='assgnlist'>
-                <li id='listElement' v-for="assgn in sortedAssignments" :key="generateKey(assgn.uploadDate, assgn.id)">
-                    <span id='dateList'>{{assgn.uploadDate}} </span>
-                    <span id='tutorList'>{{assgn.tutorName}}</span>
-                    <span id='subjectList'>{{assgn.subject}} </span>
-                    <span id='titleList'>{{assgn.title}} </span>
-                    <button id='downloadBtn' @click.prevent="download(assgn.uploadURL, assgn.title)"><i class="fa fa-download"></i></button>
-                    <button id='trashBtn' @click.prevent="deleteFile(assgn.id,assgn.uploadURL)"><i class="fa fa-trash"></i></button>
-                </li>
-            </ul>
+                <tbody>
+                    <tr v-for="(assgn,i) in sortedAssignments" :key='i'>
+                        <td scope='row'>{{++i}}</td>
+                        <td scope='row'>{{assgn.uploadDate}}</td>
+                        <td scope='row'>{{assgn.subject}}</td>
+                        <td scope='row'>{{assgn.title}}</td>
+                        <td scope='row'>
+                            <button id='downloadBtn' @click.prevent="download(assgn.uploadURL, assgn.title)"><i class="fa fa-download"></i></button>
+                        </td>
+                        <td scope='row'>
+                            <button id='trashBtn' @click.prevent="deleteFile(assgn.id,assgn.uploadURL)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
     </div>
     </body>
 </template>
@@ -70,14 +77,8 @@ export default {
                   assignment = doc.data()
                   assignment.id = doc.id
                   assignment.dateObject = new Date(assignment.uploadDate)
+                  this.allAssignments.push(assignment)
 
-                  db.collection('profiles').doc(assignment.tutor).get().then((snapshot)=> {
-                    let tutor = {}
-                    tutor = snapshot.data()
-                    assignment.tutorName = tutor.first_name + ' ' + tutor.last_name
-
-                    this.allAssignments.push(assignment)
-                    })
                   
             })
           })
@@ -228,81 +229,53 @@ nav a {
     color: #000000;
 }
 
-#headings {
+table {
     position: absolute;
-    top: 100px;
-    left: 45px;
+    width: 100%;
+    top: 90px;
     font-size: 20px;
+    table-layout: fixed;
+    display: block;
+    max-height: 470px;
+    overflow-y: scroll;
 }
 
-#subject {
-    position: absolute;
-    left: 170px;
+th {
+    border-bottom:1px dashed #333333
 }
 
-#tut {
-    position: absolute;
-    left: 370px;
+td {
+  text-align: center;
+  word-wrap: break-word;
 }
 
-#title {
-    position: absolute;
-    left:800px;
+th, td { 
+    padding: 10px;
 }
 
-#linebreak {
-    width: 1750%;
+tr td:nth-child(1) {
+    width: 30px;
 }
 
-#assignmentList {
-    position: absolute;
-    top: 120px;
-    font-size: 20px;
+tr td:nth-child(2) {
+    width: 150px;
 }
 
-#assgnlist {
-    position: absolute;
-    max-height: 450px;
-    overflow-y:scroll;
-    left:20px;
+tr td:nth-child(3) {
+    width: 150px;
 }
 
-#listElement {
-    background: #ffffff;
-    margin: 10px;
-    padding: 5px;
-    border-radius: 20px;
-    width: 1350px;
+tr td:nth-child(4) {
+    min-width: 850px;
+    max-width: 900px;
 }
 
-#dateList {
-    position: absolute;
-    left: 10px;
+tr td:nth-child(5) {
+    width: 30px;    
 }
 
-#tutorList{
-    position: absolute;
-    left: 400px;
-}
-
-#subjectList {
-    position: absolute;
-    left: 170px;
-}
-
-#titleList {
-    position: absolute;
-    left: 800px;
-}
-
-#downloadBtn {
-    position: absolute;
-    right:60px;
-}
-
-#trashBtn {
-    position: absolute;
-    right:20px;
+tr td:nth-child(6) {
+    width: 30px;
 }
 
 </style>
