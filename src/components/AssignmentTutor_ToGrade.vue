@@ -7,6 +7,7 @@
             <li><router-link to="/ProfileTutor">Profile</router-link></li>
             <li><router-link to="/CalendarTutor">Calendar</router-link></li>
             <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+            <li><router-link to='/logout'>Logout</router-link></li>
         </ul>
     </nav>
 
@@ -14,26 +15,34 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <button id='assgn'>To Grade</button>
         <button id='upload' @click="$router.push('/uploadTutor')">Upload File</button>
-        
-        <div id='headings'>
-            <label id='student'>Student</label>
-            <label id='header'>Header</label>
-            <label id='desc'>Description</label>
-            <hr id='linebreak'>
-        </div>
 
-        <div id='assignmentList'>
-            <ul id='assgnlist'>
-                <li id='listElement' v-for="assgn in sortedAssignments" :key="generateKey(assgn.uploadDate, assgn.id)">
-                    <span id='dateList'>{{assgn.uploadDate}} </span>
-                    <span id='headerList'>{{assgn.header}} </span>
-                    <span id='descList'>{{assgn.description}} </span>
-                    <button id='downloadBtn' @click.prevent="download(assgn.uploadURL, assgn.header)"><i class="fa fa-download"></i></button>
-                    <button id='trashBtn' @click.prevent="deleteFile(assgn.id,assgn.uploadURL)"><i class="fa fa-trash"></i></button>
-                </li>
-            </ul>
-        </div>
+        <div style="height: 300px; overflow: auto;">
+            <table id='assignmentTable' class="table mt-5">
+                <thead>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Upload Date</th>
+                    <th scope='col'>Header</th>
+                    <th scope='col'>Description</th>
+                    <th scope='col'>Download</th>  
+                    <th scope='col'>Delete</th> 
+                </thead>
 
+                <tbody>
+                    <tr v-for="(assgn,i) in sortedAssignments" :key='i'>
+                        <td scope='row'>{{++i}}</td>
+                        <td scope='row'>{{assgn.uploadDate}}</td>
+                        <td scope='row'>{{assgn.header}}</td>
+                        <td scope='row'>{{assgn.description}}</td>
+                        <td scope='row'>
+                            <button id='downloadBtn' @click.prevent="download(assgn.uploadURL, assgn.header)"><i class="fa fa-download"></i></button>
+                        </td>
+                        <td scope='row'>
+                            <button id='trashBtn' @click.prevent="deleteFile(assgn.id,assgn.uploadURL)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     </body>
 </template>
@@ -198,71 +207,55 @@ nav a {
     color: #000000;
 }
 
-#headings {
+table {
     position: absolute;
-    top: 100px;
-    left: 45px;
+    width: 100%;
+    top: 90px;
     font-size: 20px;
+    table-layout: fixed;
+    display: block;
+    max-height: 470px;
+    overflow-y: scroll;
 }
 
-#header {
-    position: absolute;
-    left: 450px;
+th {
+    border-bottom:1px dashed #333333
 }
 
-#desc {
-    position: absolute;
-    left: 800px;
+td {
+  text-align: center;
+  word-wrap: break-word;
 }
 
-#linebreak {
-    width: 2200%;
+th, td { 
+    padding: 10px;
 }
 
-#assignmentList {
-    position: absolute;
-    top: 120px;
-    font-size: 20px;
+tr td:nth-child(1) {
+    width: 45px;
 }
 
-#assgnlist {
-    position: absolute;
-    max-height: 450px;
-    overflow-y:scroll;
-    left:20px;
+tr td:nth-child(2) {
+    width: 150px;
 }
 
-#listElement {
-    background: #ffffff;
-    margin: 10px;
-    padding: 5px;
-    border-radius: 20px;
-    width: 1350px;
+tr td:nth-child(3) {
+    min-width: 500px;
+    max-width: 550px;
 }
 
-#subjectList {
-    position: absolute;
-    left: 170px;
+tr td:nth-child(4) {
+    min-width: 500px;
+    max-width: 550px;
 }
 
-#headerList {
-    position: absolute;
-    left: 460px;
+tr td:nth-child(5) {
+    width: 30px;    
 }
 
-#descList {
-    position: absolute;
-    left: 830px;
+tr td:nth-child(6) {
+    width: 30px;
 }
 
-#downloadBtn {
-    position: absolute;
-    right:60px;
-}
-
-#trashBtn {
-    position: absolute;
-    right:20px;
-}
 
 </style>
