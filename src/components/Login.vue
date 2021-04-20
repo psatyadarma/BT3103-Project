@@ -138,14 +138,13 @@ input:focus {
 
 nav {
   list-style-type: none;
-  margin: 10px;
   padding: 0;
   overflow: hidden;
   color: black;
   float: right;
   display: block;
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 36px;
   text-decoration: none;
   font-weight: bold;
 }
@@ -157,7 +156,7 @@ nav li {
 nav a {
   display: block;
   text-align: center;
-  padding: 14px 16px;
+  padding: 24px 16px;
   text-decoration: none;
   font-weight: bold;
 }

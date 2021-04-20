@@ -44,6 +44,11 @@ export default {
     background-color: red;
 }
 
+img {
+  margin-top: 10px;
+  margin: left 10px
+}
+
 #welcome {
     position: absolute;
     width: 505px;
@@ -141,7 +146,7 @@ button:focus {
 
 nav {
   list-style-type: none;
-  margin: 10px;
+  margin: 20px;
   padding: 0;
   overflow: hidden;
   color: black;
