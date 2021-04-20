@@ -14,29 +14,38 @@
     <div id='full'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <button id='assgn'>Assignment</button>
+        <button id='record' @click="$router.push('/recordingStudent')">Recording</button>
         <button id='upload' @click="$router.push('/uploadStudent')">Upload File</button>
-        
-        <div id='headings'>
-            <label id='dueDate'>Due Date</label>
-            <label id='subject'>Subject</label>
-            <label id='header'>Header</label>
-            <label id='desc'>Description</label>
-            <hr id='linebreak'>
-        </div>
 
-        <div id='assignmentList'>
-            <ul id='assgnlist'>
-                <li id='listElement' v-for="assgn in sortedAssignments" :key="generateKey(assgn.dueDate, assgn.id)">
-                    <span id='dateList'>{{assgn.dueDate}} </span>
-                    <span id='subjectList'>{{assgn.subject}} </span>
-                    <span id='headerList'>{{assgn.header}} </span>
-                    <span id='descList'>{{assgn.description}} </span>
-                    <button id='downloadBtn' @click.prevent="download(assgn.uploadURL, assgn.header)"><i class="fa fa-download"></i></button>
-                    <button id='trashBtn' @click.prevent="deleteFile(assgn.id,assgn.uploadURL)"><i class="fa fa-trash"></i></button>
-                </li>
-            </ul>
-        </div>
+        <div style="height: 300px; overflow: auto;">
+            <table id='assignmentTable' class="table mt-5">
+                <thead>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Due Date</th>
+                    <th scope='col'>Subject</th>
+                    <th scope='col'>Header</th>
+                    <th scope='col'>Description</th>
+                    <th scope='col'>Download</th>  
+                    <th scope='col'>Delete</th> 
+                </thead>
 
+                <tbody>
+                    <tr v-for="(assgn,i) in sortedAssignments" :key='i'>
+                        <td scope='row'>{{++i}}</td>
+                        <td>{{ assgn.dueDate }}</td>
+                        <td>{{ assgn.subject }}</td>
+                        <td>{{ assgn.header }}</td>
+                        <td>{{ assgn.description }}</td>
+                        <td>
+                            <button id='downloadBtn' @click.prevent="download(assgn.uploadURL, assgn.header)"><i class="fa fa-download"></i></button>
+                        </td>
+                        <td>
+                            <button id='trashBtn' @click.prevent="deleteFile(assgn.id,assgn.uploadURL)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     </body>
 </template>
@@ -105,10 +114,10 @@ export default {
           })   
       },
 
-      generateKey(date, id) {
+      generateKey: function(date, id) {
       const uniqueKey = `${date}-${id}`;
       return uniqueKey;
-      }
+      },
 
   },
 
@@ -183,6 +192,24 @@ nav a {
     color: #FFFFFF;
 }
 
+#record {
+    position: absolute;
+    width: 230px;
+    height: 52px;
+    left: 290px;
+    top: 25px;
+
+    background: #C4C4C4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 51px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    color: #000000;
+}
+
 #upload {
     position: absolute;
     width: 230px;
@@ -201,76 +228,30 @@ nav a {
     color: #000000;
 }
 
-#headings {
+table {
     position: absolute;
-    top: 100px;
-    left: 45px;
+    width: 100%;
+    top: 90px;
     font-size: 20px;
+    table-layout: fixed;
+    display: block;
+    max-height: 470px;
+    overflow-y: scroll;
 }
 
-#subject {
-    position: absolute;
-    left: 170px;
+th {
+    border-bottom:1px dashed #333333
 }
 
-#header {
-    position: absolute;
-    left: 450px;
+td {
+  text-align: center;
+  word-wrap: break-word;
 }
 
-#desc {
-    position: absolute;
-    left: 800px;
-}
-
-#linebreak {
-    width: 1750%;
-}
-
-#assignmentList {
-    position: absolute;
-    top: 120px;
-    font-size: 20px;
-}
-
-#assgnlist {
-    position: absolute;
-    max-height: 450px;
-    overflow-y:scroll;
-    left:20px;
-}
-
-#listElement {
-    background: #ffffff;
-    margin: 10px;
-    padding: 5px;
-    border-radius: 20px;
-    width: 1350px;
-}
-
-#subjectList {
-    position: absolute;
-    left: 170px;
-}
-
-#headerList {
-    position: absolute;
-    left: 460px;
-}
-
-#descList {
-    position: absolute;
-    left: 830px;
-}
-
-#downloadBtn {
-    position: absolute;
-    right:60px;
-}
-
-#trashBtn {
-    position: absolute;
-    right:20px;
-}
+th, td { 
+    min-width: 50px; 
+    max-width: 450px;
+    padding: 10px;
+    }
 
 </style>
