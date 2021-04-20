@@ -7,6 +7,7 @@
             <li><router-link to="/ProfileTutor">Profile</router-link></li>
             <li><router-link to="/CalendarTutor">Calendar</router-link></li>
             <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+            <li><router-link to='/logout'>Logout</router-link></li>
         </ul>
     </nav>
     <div id='full'>
@@ -46,7 +47,7 @@
             <div id='assignBody'>
                 <strong id='header'>Assignment Header:___________________________</strong> <input id='headerMsg' type='text' v-model.lazy="assignment.header"> <br>
                 <strong id='desc'>Assignment Description: </strong> <textarea id='descMsg' type='text' v-model.lazy="assignment.description"></textarea> <br>
-                <strong id='files'>Additional Files (.docx only): </strong> <input id='fileUpload' type="file" @change="onFileChange">
+                <strong id='files'>Additional Files (.docx/.pdf): </strong> <input id='fileUpload' type="file" @change="onFileChange">
             </div>
 
             <button id='submit' v-on:click.prevent='addItem'> Submit </button>

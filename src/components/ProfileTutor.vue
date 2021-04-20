@@ -116,6 +116,9 @@ export default {
   methods:{
       updateProfile() {
         this.$router.push('/EditProfileTutor');
+      },
+      dashboard() {
+        this.$router.push('/dashboard')
       }
   },
   async created(){
@@ -161,21 +164,27 @@ img {
   }
 
   .profile {
-    background-color: #55C9C2;
     color: black;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     display: inline-block;
     vertical-align: middle;
     box-sizing: border-box;
     border-radius: 35px; 
-    height: 1200px;
+    height: 1800px;
     width: 1000px;  
     margin: 20px;
     padding-top: 20px;
     padding-left: 20px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: Montserrat;
     line-height: 150%;
+
+    background: linear-gradient(180deg, #55C9C2 0%, #1D918A 100%), #DFEEEF;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 51px;
+    
   }
+
+
 
 nav {
   list-style-type: none;
@@ -206,18 +215,36 @@ nav a {
 button {
   width: 150px;
   height: 50px;
-  background-color: white;
+  color: #3a938d;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   border-width: 1px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   border-color: white;
   margin: 10px;
+  font-weight: bold;
+  font-family: Montserrat;
+  line-height: normal;
+}
+
+  button:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
 .inline {
   display: inline;
-  list-style-type: none,
+  list-style-type: none;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFFFFF;
+  margin: 5px 0 10px ;
 }
 
 .profile {
@@ -225,13 +252,21 @@ button {
   }
 
 #value {
+    display: inline;
+    list-style-type: none;
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
     background-color: white;
     border-radius: 10px;
     border-width: 1px;
     border-spacing: 50px;
-    padding: 5px;
+    padding: 10px 0 10px 10px;
     width: 200px;
-
+    color: #2D7C77;
+    font-weight: 600;
 }
 
 .pic {
@@ -245,19 +280,22 @@ button {
 .rating {
   float: right;
   margin-right: -180px;
-  margin-top: 170px;  
+  margin-top: 170px; 
 }
 
 .rates1 {
   float: right;
-  margin-right: -220px;
+  margin-right: -180px;
   margin-top: 200px;  
+  font-family: Montserrat;
+  color: #FFFFFF; 
 }
 
 .rates2 {
   float: right;
   margin-right: -220px;
   margin-top: 250px;  
+
 }
 
 ul {
@@ -268,5 +306,6 @@ ul {
   background-color: white;
   width: 500px;
   border-radius:10px;
+  margin-top: 10px;
 }
 </style>

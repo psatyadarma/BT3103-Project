@@ -16,30 +16,30 @@
     <div class="profile">
       <img class="pic" :src="profile" />  
       <p class="inline">First Name</p>
-      <div class="test">
+      <div class="attributes">
       <p class="value"> {{ this.first_name}} </p>
       </div>
       <br>
       <p class="inline">Last Name</p>
-      <div class="test">
+      <div class="attributes">
       <p class="value"> {{ this.last_name}} </p>
       </div>
       <br>
       <p class="inline">Email</p>
-      <div class="test">
+      <div class="attributes">
       <p class="value"> {{ this.email}} </p>
       </div>
       <br>
       <p class="inline">Phone</p>
-      <div class="test">
+      <div class="attributes">
       <p class="value"> {{ this.phone}} </p>
       </div>
       <br>
       <p class="inline">Education Level</p>
-      <div class="test">
+      <div class="attributes">
       <p class="value"> {{ this.education}} </p>
       </div>
-      <br>
+      <br><br>
       <button v-on:click="updateProfile()">Update Profile</button>
     </div>
   </body>
@@ -113,19 +113,22 @@ export default {
 
   .profile {
     color: black;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     display: inline-block;
     vertical-align: middle;
-    box-sizing: border-box; 
-    height: 780px;
-    width: 85%;  
-    margin: 100px;
-    padding-top: 50px;
+    box-sizing: border-box;
+    border-radius: 35px; 
+    height: 750px;
+    width: 1000px;  
+    margin: 20px;
+    padding-top: 20px;
     padding-left: 20px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: Montserrat;
     line-height: 150%;
     background: linear-gradient(180deg, #55C9C2 0%, #1D918A 100%), #DFEEEF;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     border-radius: 51px;
+    
   }
 
 nav {
@@ -155,21 +158,21 @@ nav a {
 }
 
 button {
-    top: 590px;
-    left: 960px;
-    font-family: Montserrat;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: normal;
-    border-radius: 90px;
-    padding: 15px 35px;
-    margin: 10px;
-    padding-left: 30px;
-    color: #3a938d;
-    background: white;
-    cursor: pointer;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    display: inline;
+  width: 150px;
+  height: 50px;
+  color: #3a938d;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border-width: 1px;
+  font-weight: bold;
+  font-size: 20px;
+  border-color: white;
+  margin: 10px;
+  font-weight: bold;
+  font-family: Montserrat;
+  line-height: normal;
 }
 
 button:hover {
@@ -185,10 +188,8 @@ button:hover {
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  display: flex;
-  align-items: center;
   color: #FFFFFF;
-  margin: 5px 0 10px 100px;
+  margin: 5px 0 10px ;
 }
 
 .profile {
@@ -203,12 +204,11 @@ button:hover {
     font-size: 24px;
     line-height: 29px;
     display: flex;
-    align-items: center;
     background-color: white;
     border-radius: 10px;
     border-width: 1px;
     border-spacing: 50px;
-    padding: 10px 0 10px 50px;
+    padding: 10px 0 10px 10px;
     width: 200px;
     color: #2D7C77;
     font-weight: 600;
@@ -228,11 +228,10 @@ ul {
   list-style-type: none;
 }
 
-.test {
+.attributes {
   background-color: white;
   width: 500px;
   border-radius:10px;
-  margin: 5px 0 5px 100px;
 }
 
 </style>

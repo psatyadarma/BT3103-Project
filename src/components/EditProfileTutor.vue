@@ -10,24 +10,43 @@
       <li><router-link to='/logout'>Logout</router-link></li>
     </ul>
   </nav>
+  <h1 style="text-align:center; color:#55C9C2; font-weight: bold; padding-top:150px;" >EDIT YOUR PROFILE</h1>
   <div class="editProfile">
     <form @submit.prevent="register">
         <img class="pic" :src="profile" />
-        <br><br>
+        <br>
       <p class="inline">  {{"First Name: "}} </p>
-      <input type="text" placeholder="First Name" maxlength="50" v-model="first_name"/><br><br>
+      <div class="attributes">
+      <input type="text" class="value" placeholder="First Name" maxlength="50" v-model="first_name"/><br><br>
+      </div>
+      <br>
       <p class="inline">  {{"Last Name: "}} </p>
-      <input type="text" placeholder="Last Name" maxlength="50" v-model="last_name"/><br><br>
+      <div class="attributes">
+      <input type="text" class="value" placeholder="Last Name" maxlength="50" v-model="last_name"/><br><br>
+      </div>
+      <br>
       <p class="inline">  {{"Phone: "}} </p>
-      <input type="text" placeholder="Phone" maxlength="50" v-model="phone"/><br><br>
+      <div class="attributes">
+      <input type="text" class="value" placeholder="Phone" maxlength="50" v-model="phone"/><br><br>
+      </div>
+      <br>
       <p class="inline">  {{"Qualifications: "}} </p>
-      <input type="text" placeholder="Qualifications" maxlength="50" v-model="qualifications"/><br><br>
+      <div class="attributes">
+      <input type="text" class="value" placeholder="Qualifications" maxlength="50" v-model="qualifications"/><br><br>
+      </div>
+      <br>
       <p class="inline">  {{"Experience: "}} </p>
-      <input type="text" placeholder="Experience" maxlength="50" v-model="experience"/><br><br>
+      <div class="attributes">
+      <input type="text" class="value" placeholder="Experience" maxlength="50" v-model="experience"/><br><br>
+      </div>
+      <br>
       <p class="inline">  {{"Rates: "}} </p>
-      <input type="text" placeholder="Rates" maxlength="50" v-model="rates"/><br><br>
-
+      <div class="attributes">
+      <input type="text" class="value" placeholder="Rates" maxlength="50" v-model="rates"/><br><br>
+      </div>
+      <br>
       <p class="inline">  {{"Subjects: "}} </p>
+      <div class="attributes">
       <input type="checkbox" id="Mathematics" value="Mathematics" v-model="subject" class="check">
       <label for="Mathematics">Mathematics</label>
       <input type="checkbox" id="English" value="English" v-model="subject" class="check">
@@ -39,8 +58,10 @@
       <input type="checkbox" id="Biology" value="Biology" v-model="subject" class="check">
       <label for="Biology">Biology</label>
       <br>
-      <br><br>
+      </div>
+      <br>
       <p class="inline">  {{"Teaching Level: "}} </p>
+      <div class="attributes">
       <input type="checkbox" id="Primary" value="Primary" v-model="level" class="check">
       <label for="Primary">Primary</label>
       <input type="checkbox" id="Secondary" value="Secondary" v-model="level" class="check">
@@ -49,11 +70,13 @@
       <label for="Junior College">Junior College</label>
       <input type="checkbox" id="University" value="University" v-model="level" class="check">
       <label for="University">University</label>
-      <br><br>     
+      </div>
+      <br>     
       <p class="inline">  {{"Availability: "}} </p>
-      <input type="text" placeholder="Availability" maxlength="50" v-model="availability"/><br><br>
-      
-
+      <div class="attributes">
+      <input type="text" class="value" placeholder="Availability" maxlength="50" v-model="availability"/><br><br>
+      </div>
+      <br>
       <button v-on:click="update()">Save Changes</button>
 
             </form>
@@ -149,20 +172,20 @@ img {
   width: 95px;
 }
 
-  div {
-    background-color: #55C9C2;
-    color: black;
+  .editProfile {
+    background: linear-gradient(180deg, #55C9C2 0%, #1D918A 100%), #DFEEEF;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 51px;
     display: inline-block;
     vertical-align: middle;
     box-sizing: border-box;
     border-radius: 35px; 
-    height: 800px;
+    height: 1100px;
     width: 1000px;  
     margin: 120px;
     padding-top: 50px;
     padding-left: 20px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: Montserrat;
     line-height: 150%;
   }
 
@@ -195,16 +218,54 @@ nav a {
 button {
   width: 150px;
   height: 50px;
-  background-color: white;
+  color: #3a938d;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   border-width: 1px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   border-color: white;
+  margin: 10px;
+  font-weight: bold;
+  font-family: Montserrat;
+  line-height: normal;
+}
+
+  button:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
 .inline {
   display: inline;
+  list-style-type: none;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFFFFF;
+  margin: 5px 0 10px ;
+}
+
+.value {
+    display: inline;
+    list-style-type: none;
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    border-width: 1px;
+    border-spacing: 50px;
+    padding: 10px 0 10px 10px;
+    width: 200px;
+    color: #2D7C77;
+    font-weight: 600;
 }
 
 .editProfile {
@@ -226,5 +287,18 @@ input {
   margin-top: 10px;
   height: 150px;
   width: 200px;
+}
+
+.attributes {
+  background-color: white;
+  width: 600px;
+  border-radius:10px;
+  height: 40px;
+  padding-top: 8px;
+}
+
+label {
+  color: #2D7C77;
+  font-weight:bold;
 }
 </style>

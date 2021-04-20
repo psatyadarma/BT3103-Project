@@ -328,7 +328,7 @@ img {
   float: right;
   display: block;
   text-align: center;
-  padding: 4px 26px;
+  padding: 2px 13px;
   text-decoration: none;
   font-weight: bold;
 }
