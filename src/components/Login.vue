@@ -63,8 +63,8 @@ export default {
             }
           });
         })
-        .catch((error) => {
-          alert(error.message);
+        .catch(() => {
+          alert("Wrong input");
         });
     },
   },
