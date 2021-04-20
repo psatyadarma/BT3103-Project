@@ -11,6 +11,7 @@
     </nav>
     <div id='full'>
         <button id='newAssgn'>New Assignment</button>
+        <button id='newRecord' @click="$router.push('/uploadRecordingTutor')">New Recording</button>
         
         <form id='inputs'>
             <div id='dates'>
@@ -45,7 +46,7 @@
             <div id='assignBody'>
                 <strong id='header'>Assignment Header:___________________________</strong> <input id='headerMsg' type='text' v-model.lazy="assignment.header"> <br>
                 <strong id='desc'>Assignment Description: </strong> <textarea id='descMsg' type='text' v-model.lazy="assignment.description"></textarea> <br>
-                <strong id='files'>Additional Files: </strong> <input id='fileUpload' type="file" @change="onFileChange">
+                <strong id='files'>Additional Files (.docx only): </strong> <input id='fileUpload' type="file" @change="onFileChange">
             </div>
 
             <button id='submit' v-on:click.prevent='addItem'> Submit </button>
@@ -75,6 +76,7 @@ export default {
               dueDate:'',
               subject:'',
               student:'',
+              tutor:'',
               header: '',
               description: '',
               uploadURL:''
@@ -88,16 +90,13 @@ export default {
     if (!files.length)
         return false;
     var filesB = files[0]
-    console.log(filesB)
     this.uploadBlob(filesB)
 
     },
 
     uploadBlob: function(file) {
         const ref = firebase.storage().ref().child('assignments/forStudents/' + this.assignment.student + '/' +
-                                                                                this.assignment.dueDate + '_' +
-                                                                                this.assignment.subject + '_' +
-                                                                                this.assignment.header + '.docx');
+                                                                                this.genUniqueId() + '.docx');
         ref.put(file).then(() => {
             this.urlLink = ref
             console.log('Uploaded file');
@@ -108,9 +107,10 @@ export default {
     addItem:  function () {
             //Save item to database
             this.assignment.uploadURL = this.urlLink.fullPath
+            this.assignment.tutor = this.thisUserId
             db.collection('student_files').doc().set(this.assignment);
             alert("Item saved successfully")
-            this.$router.push('/assignmentTutor_grade')
+            this.$router.push('/assignmentTutor')
         },
 
     getStudents: function() {
@@ -136,6 +136,13 @@ export default {
             tutor = querySnapShot.data()
             this.subjects = tutor.subject
           })
+    },
+
+    genUniqueId: function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+        });
     }
 
     },
@@ -209,6 +216,24 @@ nav a {
     color: #FFFFFF;
 }
 
+#newRecord {
+    position: absolute;
+    width: 230px;
+    height: 52px;
+    left: 290px;
+    top: 25px;
+
+    background: #C4C4C4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 51px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    color: #000000;
+}
+
 #dates {
     position: absolute;
     width: 439px;
@@ -280,10 +305,11 @@ nav a {
 
 #headerMsg {
     position: absolute;
-    left: 255px;
+    left: 220px;
     height: 20px;
     top: 15px;
     font-size: 20px;
+    width: 300px;
 }
 
 #desc {
@@ -317,7 +343,7 @@ nav a {
 #fileUpload {
     position: absolute;
     bottom: 15px;
-    left: 150px;
+    left: 253px;
     font-size: 15px;
     font-weight: 500;
 }
