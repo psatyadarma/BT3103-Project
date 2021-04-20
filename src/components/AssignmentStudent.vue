@@ -8,6 +8,7 @@
       <li><router-link to="/CalendarStudent">Calendar</router-link></li>
       <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
       <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+      <li><router-link to='/logout'>Logout</router-link></li>
     </ul>
     </nav>
 
@@ -249,9 +250,37 @@ td {
 }
 
 th, td { 
-    min-width: 50px; 
-    max-width: 450px;
     padding: 10px;
-    }
+}
+
+tr td:nth-child(1) {
+    width: 30px;
+}
+
+tr td:nth-child(2) {
+    width: 150px;
+}
+
+tr td:nth-child(3) {
+    width: 150px;
+}
+
+tr td:nth-child(4) {
+    min-width: 400px;
+    max-width: 450px;
+}
+
+tr td:nth-child(5) {
+    min-width: 400px;
+    max-width: 450px;
+}
+
+tr td:nth-child(6) {
+    width: 30px;    
+}
+
+tr td:nth-child(7) {
+    width: 30px;
+}
 
 </style>
