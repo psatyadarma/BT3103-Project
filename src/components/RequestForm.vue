@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import logo from "../assets/logo2.png"
 import firebase from "../firebase"
 var db = firebase.firestore();
 
@@ -48,7 +49,8 @@ export default {
       first_name:'',
       last_name:'',
       phone:'',
-      requests:[]
+      requests:[],
+      logo:logo
     }
   },
   props: {
