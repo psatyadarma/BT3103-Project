@@ -3,10 +3,10 @@
   <img id="logo" :src="logo" />
     <nav>
       <ul class="navbar" style="list-style-type: none;">
-        <li><router-link to="/HomeTutor">Home</router-link></li>
-        <li><router-link to="/ProfileTutor">Profile</router-link></li>
-        <li><router-link to="/CalendarTutor">Calendar</router-link></li>
-        <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+        <li><router-link to="/homeStudent">Home</router-link></li>
+        <li><router-link to="/profileStudent">Profile</router-link></li>
+        <li><router-link to="/calendarStudent">Calendar</router-link></li>
+        <li><router-link to="/assignmentStudent">Assignment</router-link></li>
         <li><router-link to='/logout'>Logout</router-link></li>
       </ul>
     </nav>
