@@ -24,7 +24,7 @@
         type="time"
         v-model="start"
       required /><br><br>
-      <label for="end" style="font-size:16pt">Start Time</label><br>
+      <label for="end" style="font-size:16pt">End Time</label><br>
       <input
         type="time"
         v-model="end"
