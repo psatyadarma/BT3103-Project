@@ -1,13 +1,15 @@
 <template>
     <body>
           <img :src="logo" />
-        <nav>
-          <ul style="list-style-type: none;">
-          <li><router-link to="/HomeTutor">Home</router-link></li>
-          <li><router-link to="/ProfileTutor">Profile</router-link></li>
-          <li><router-link to="/CalendarTutor">Calendar</router-link></li>
-          </ul>
-        </nav>
+  <nav>
+    <ul class="navbar" style="list-style-type: none;">
+      <li><router-link to="/HomeTutor">Home</router-link></li>
+      <li><router-link to="/ProfileTutor">Profile</router-link></li>
+      <li><router-link to="/CalendarTutor">Calendar</router-link></li>
+      <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+      <li><router-link to='/logout'>Logout</router-link></li>
+    </ul>
+  </nav>
   <div class="editProfile">
     <form @submit.prevent="register">
         <img class="pic" :src="profile" />

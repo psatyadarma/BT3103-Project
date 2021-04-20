@@ -12,8 +12,10 @@ import RequestForm from './components/RequestForm.vue'
 import Dashboard from './components/Dashboard.vue'
 import LogoutPage from './components/Logout.vue'
 import UploadTutor from './components/UploadTutor.vue'
+import UploadRecordingTutor from './components/UploadRecordingTutor.vue'
 import UploadStudent from './components/UploadStudent.vue'
 import AssignmentStudent from './components/AssignmentStudent.vue'
+import RecordingStudent from './components/RecordingStudent.vue'
 import AssignmentTutor_ToGrade from './components/AssignmentTutor_ToGrade.vue'
 import CalendarStudent from './components/CalendarStudent.vue'
 import CalendarTutor from './components/CalendarTutor.vue'
@@ -35,8 +37,10 @@ export default [
     { path: '/requestForm', name:'requestForm',component: RequestForm,props:true },
     { path: '/dashboard', component: Dashboard },
     { path: '/uploadTutor', component: UploadTutor },
+    { path: '/uploadRecordingTutor', component: UploadRecordingTutor },
     { path: '/uploadStudent', component: UploadStudent },
     { path: '/assignmentStudent', component: AssignmentStudent },
+    { path: '/recordingStudent', component: RecordingStudent },
     { path: '/assignmentTutor', component: AssignmentTutor_ToGrade },
     { path: '/calendarStudent', component: CalendarStudent },
     { path: '/calendarTutor', component: CalendarTutor },

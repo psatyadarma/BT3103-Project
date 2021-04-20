@@ -3,13 +3,15 @@
   <img :src="logo" />
   <div>
     <div class="navbar">
-        <nav>
-          <ul style="list-style-type: none;">
-          <li><router-link to="/HomeTutor">Home</router-link></li>
-          <li><router-link to="/ProfileTutor">Profile</router-link></li>
-          <li><router-link to="/CalendarTutor">Calendar</router-link></li>
-          </ul>
-        </nav>
+  <nav>
+    <ul class="navbar" style="list-style-type: none;">
+      <li><router-link to="/HomeTutor">Home</router-link></li>
+      <li><router-link to="/ProfileTutor">Profile</router-link></li>
+      <li><router-link to="/CalendarTutor">Calendar</router-link></li>
+      <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+      <li><router-link to='/logout'>Logout</router-link></li>
+    </ul>
+  </nav>
     </div>
   </div>
   <div class="cal">
@@ -43,9 +45,9 @@
             color="grey darken-2"
             @click="prev"
           >
-            <v-icon small>
-              mdi-chevron-left
-            </v-icon>
+            <button>
+              PREV
+            </button>
           </v-btn>
           <v-btn
             fab
@@ -54,9 +56,9 @@
             color="grey darken-2"
             @click="next"
           >
-            <v-icon small>
-              mdi-chevron-right
-            </v-icon>
+            <button>
+              NEXT
+            </button>
           </v-btn>
           <v-toolbar-title v-if="$refs.calendar">
             {{ $refs.calendar.title }}
@@ -107,7 +109,7 @@
           <v-card color="grey lighten-4" min-width="350px" flat>
             <v-toolbar :color="selectedEvent.color" dark>
               <v-btn @click="deleteEvent(selectedEvent.id)" icon>
-                <v-icon>mdi-delete</v-icon>
+                <button>DELETE</button>
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>

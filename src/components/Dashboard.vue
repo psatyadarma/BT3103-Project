@@ -1,32 +1,37 @@
 <template>
     <div>
-        <img :src="logo" />
+        <img id='logo' :src="logo" />
         <nav>
             <ul class="navbar" style="list-style-type: none;">
-                <li><router-link to="/HomeStudent">Home</router-link></li>
-                <li><router-link to="/ProfileStudent">Profile</router-link></li>
-                <li><router-link to="/CalendarStudent">Calendar</router-link></li>
-                <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+                <li><router-link to="/HomeTutor">Home</router-link></li>
+                <li><router-link to="/ProfileTutor">Profile</router-link></li>
+                <li><router-link to="/CalendarTutor">Calendar</router-link></li>
+                <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+                <li><router-link to='/logout'>Logout</router-link></li>
             </ul>
         </nav>
         <h1>Welcome to your Dashboard, {{ tutor.last_name }}</h1>
 
-        <div class='row'>
-            <div class='column clickMetrics'>
-                <p class='clickMetricTitle'>Total Profile Views</p>
-                <div class='clickMetricsText'>{{ profileViews }}</div>
+        <div>
+            <button type='button' id='backButton' class='liButton' v-on:click='navigateBack()'>Back</button>
+        </div>
+
+        <div id='clickMetrics' class='row'>
+            <div class='box'>
+                <p class='boxTitle'>Total Profile Views</p>
+                <div class='boxText'>{{ profileViews }}</div>
             </div>
-            <div class='column clickMetrics'>
-                <p class='clickMetricTitle'>Avg. Daily Profile Views</p>
-                <div class='clickMetricsText'>{{ avgDailyProfileViews[0] }} - {{ avgDailyProfileViews[1] }}</div>
+            <div class='box'>
+                <p class='boxTitle'>Avg. Daily Profile Views</p>
+                <div class='boxText'>{{ avgDailyProfileViews }}</div>
             </div>
-            <div class='column clickMetrics'>
-                <p class='clickMetricTitle'>Total Contact Clicks</p>
-                <div class='clickMetricsText'>{{ contactClicks }}</div>
+            <div class='box'>
+                <p class='boxTitle'>Total Contact Clicks</p>
+                <div class='boxText'>{{ contactClicks }}</div>
             </div>
-            <div class='column clickMetrics'>
-                <p class='clickMetricTitle'>Contact Click : Profile View</p>
-                <div class='clickMetricsText'>{{ contactToProfileRatio[0] }} : {{ contactToProfileRatio[1] }}</div>
+            <div class='box'>
+                <p class='boxTitle'>Contact Click : Profile View</p>
+                <div class='boxText'>{{ contactToProfileRatio[0] }} : {{ contactToProfileRatio[1] }}</div>
                 <div id='ratioPercent'>({{ ratioPercent }}%)</div>
             </div>
         </div>
@@ -35,30 +40,27 @@
             <line-chart></line-chart>
         </div>
 
-        <div class='row'>
-            <div class='column'><radar-chart></radar-chart></div>
-            <div class='column'>
-                <div class='row'>
-                    <div class='column avgRating'>
-                        <h2>Engaging</h2>
-                        <div class='avgRatingText'>{{ avgScores[0] }}</div>
-                    </div>
-                    <div class='column avgRating'>
-                        <h2>Communication</h2>
-                        <div class='avgRatingText'>{{ avgScores[1] }}</div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class='column avgRating'>
-                        <h2>Listening</h2>
-                        <div class='avgRatingText'>{{ avgScores[2] }}</div>
-                    </div>
-                    <div class='column avgRating'>
-                        <h2>Patience</h2>
-                        <div class='avgRatingText'>{{ avgScores[3] }}</div>
-                    </div>
-                </div>
+        <div id='avgRating' class='row'>
+            <div class='box'>
+                <p class='boxTitle'>Engaging</p>
+                <div class='boxText'>{{ avgScores[0] }}</div>
             </div>
+            <div class='box'>
+                <p class='boxTitle'>Communication</p>
+                <div class='boxText'>{{ avgScores[1] }}</div>
+            </div>
+            <div class='box'>
+                <p class='boxTitle'>Listening</p>
+                <div class='boxText'>{{ avgScores[2] }}</div>
+            </div>
+            <div class='box'>
+                <p class='boxTitle'>Patience</p>
+                <div class='boxText'>{{ avgScores[3] }}</div>
+            </div>
+        </div>
+        
+        <div class='row'>
+            <radar-chart width='872' height='872' style='display:block; box-sizing:border-box; height:700px; width:700px; margin: 10px auto;'></radar-chart>
         </div>
 
         <div class='row'>
@@ -76,6 +78,7 @@
 <script>
 
 import logo from "../assets/logo2.png"
+import profile from "../assets/profile.jpg"
 import engagingbarchart from '../engagingbarchart.js'
 import communicationbarchart from '../communicationbarchart.js'
 import listeningbarchart from '../listeningbarchart.js'
@@ -94,9 +97,10 @@ export default {
             avgScores: [],
             profileViews: 0,
             contactClicks: 0,
-            avgDailyProfileViews: [],
+            avgDailyProfileViews: 0.0,
             contactToProfileRatio: [],
-            logo: logo
+            logo: logo,
+            profile: profile
         }
     },
 
@@ -130,7 +134,7 @@ export default {
                 var today = new Date();
                 var timeDiff = Math.abs(today - tutor.createDate.toDate());
                 var dayDiff = Math.ceil(timeDiff / (1000*60*60*24));
-                this.avgDailyProfileViews = [Math.floor(tutor.profileViews / dayDiff), Math.ceil(tutor.profileViews / dayDiff)];
+                this.avgDailyProfileViews = Math.floor(tutor.profileViews / dayDiff);
             })
         },
 
@@ -147,6 +151,10 @@ export default {
                 b = r;
             }
             return a;
+        },
+
+        navigateBack: function() {
+            this.$router.push('profileTutor');
         },
 
     },
@@ -196,9 +204,41 @@ nav a {
   font-weight: bold;
 }
 
+#logo {
+  float: left;
+  padding-left:20px;
+  padding-top: 15px;
+  height: 100px;
+  width: 95px;
+  top:50px;
+}
+
 h1 {
     text-align: center;
     font-size: 64px;
+    padding-top: 150px;
+}
+
+#backButton {
+    margin: 10px 20px 10px 40px;
+}
+
+.liButton {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: normal;
+    border-radius: 20px;
+    padding: 7px 35px;
+    background: #3a938d;
+    cursor: pointer;
+    box-shadow: 0 4px rgba(0, 0, 0, 0.25);
+    margin: 10px auto;
+}
+
+.liButton:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
 .row {
@@ -209,32 +249,17 @@ h1 {
   flex: 50%;
 }
 
-.avgRating {
-    height: 300px;
-    width: 300px;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #222;
-    margin: 20px 20px 10px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+#avgRating {
+  margin: 40px 20px 0;
 }
 
-.avgRating:hover {
-    transform: scale(1.01,1.01);
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
+#clickMetrics {
+  margin: 40px 20px 0;
 }
 
-.avgRatingText {
-    font-size: 8rem;
-    margin-top: 30px;
-    font-family: Montserrat;
-}
-
-.clickMetrics {
+.box {
     height: 240px;
-    width: 300px;
+    flex: 20%;
     text-align: center;
     padding: 10px;
     border: 1px solid #222;
@@ -249,9 +274,9 @@ h1 {
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
-.clickMetricsText {
-    font-size: 3rem;
-    margin-top: 50px;
+.boxText {
+    font-size: 5rem;
+    margin-top: 40px;
     font-family: Montserrat;
 }
 
@@ -267,7 +292,7 @@ h1 {
     font-family: Montserrat;
 }
 
-.clickMetricTitle {
+.boxTitle {
     color: grey;
     font-weight: 900;
     font-family: Montserrat;
@@ -277,6 +302,5 @@ h1 {
 #lineChart {
     margin: 50px 0;
 }
-
 
 </style>
