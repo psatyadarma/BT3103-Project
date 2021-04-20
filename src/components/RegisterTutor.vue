@@ -39,6 +39,7 @@
         <textarea
           v-model="qualifications"
           placeholder="Your qualifications"
+          required
         ></textarea
         ><br />
         <p >Teaching Level</p>
@@ -84,6 +85,7 @@
           min="0"
           max="60"
           oninput="validity.valid||(value='');"
+          required
         /><br /><br />
         <p >Teaching Subjects</p>
         <input
@@ -134,6 +136,7 @@
           placeholder="Hourly Rate"
           min="0"
           oninput="validity.valid||(value='');"
+          required
         /><br /><br />
         <label for="qualifications" 
           >Your Available Days</label
