@@ -19,6 +19,12 @@
         placeholder="Subject"
         v-model="subject"
       required /><br><br>
+      <label for="day" style="font-size:16pt">Day</label><br>
+      <input
+        type="text"
+        placeholder="Day"
+        v-model="day"
+      required /><br><br>
       <label for="start" style="font-size:16pt">Start Time</label><br>
       <input
         type="time"
@@ -52,7 +58,8 @@ export default {
       last_name:'',
       phone:'',
       requests:[],
-      logo:logo
+      logo:logo,
+      day:''
     }
   },
   props: {
@@ -72,7 +79,8 @@ export default {
           stdid: user.uid,
           phone: this.phone,
           first_name: this.first_name,
-          last_name: this.last_name
+          last_name: this.last_name,
+          day:this.day
         })
         .then(function() {
         console.log("Document successfully written!");

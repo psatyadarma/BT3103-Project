@@ -35,10 +35,11 @@
                 {{request.first_name}} {{request.last_name}}
                 requested <br>
                 Subject: {{request.subject}} <br>
+                Day: {{request.day}} <br>
                 Timeslot: {{request.start}} - {{request.end}}
               </p>
-                <button v-on:click="acceptRequest(request.stdid, request.start, request.end, request.subject)">Accept</button><br>
-                <button v-on:click="declineRequest(request.stdid, request.start, request.end, request.subject)">Decline</button>
+                <button v-on:click="acceptRequest(request.stdid, request.start, request.end, request.subject, request.day)">Accept</button><br>
+                <button v-on:click="declineRequest(request.stdid, request.start, request.end, request.subject, request.day)">Decline</button>
           </li>   
       </ul> 
     </div>
@@ -70,12 +71,12 @@ export default {
     }
   },
   methods: {
-    acceptRequest(userid, timeStart, timeEnd, subject) {
+    acceptRequest(userid, timeStart, timeEnd, subject, day) {
         db.collection("results").doc(userid)
         .collection("results").doc(firebase.auth().currentUser.uid).set({
           message: "Congratulations! your request for tutor " + this.first_name + 
           " " + this.last_name + " subject " + subject +
-          " timeslot " + timeStart + " - " + timeEnd +
+          " timeslot " + day + " " + daytimeStart + " - " + timeEnd +
           " has been accepted"
         });
         alert("Request accepted!");
@@ -83,12 +84,12 @@ export default {
         db.collection("requests").doc(user.uid).
         collection("requests").doc(userid).delete();
       },
-      declineRequest(userid, timeStart, timeEnd, subject) {
+      declineRequest(userid, timeStart, timeEnd, subject, day) {
         db.collection("results").doc(userid)
         .collection("results").doc(firebase.auth().currentUser.uid).set({
           message: "Unfortunately your request for tutor " + this.first_name + 
           " " + this.last_name + " subject " + subject +
-          " timeslot " + timeStart + " - " + timeEnd +
+          " timeslot " + day + " " + timeStart + " - " + timeEnd +
           " has been rejected"
         });
         alert("Request declined");
