@@ -7,6 +7,8 @@
                 <li><router-link to="/ProfileStudent">Profile</router-link></li>
                 <li><router-link to="/CalendarStudent">Calendar</router-link></li>
                 <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+                <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+                <li><router-link to='/logout'>Logout</router-link></li>
             </ul>
         </nav>
         <h1 id='heading'>My Tutors</h1>
