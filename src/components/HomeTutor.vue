@@ -134,6 +134,11 @@ export default {
                   this.first_name = data.first_name;
                   this.last_name = data.last_name; 
               })
+              db.collection('requests').doc(firebase.auth().currentUser.uid).collection('requests').get().then(snapshot => {
+               snapshot.docs.forEach(doc => {
+              this.requests.push(doc.data());
+          });
+      });
           } else {
             // No user is signed in.
           }
