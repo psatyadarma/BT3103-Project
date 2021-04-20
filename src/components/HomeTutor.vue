@@ -76,7 +76,7 @@ export default {
         .collection("results").doc(firebase.auth().currentUser.uid).set({
           message: "Congratulations! your request for tutor " + this.first_name + 
           " " + this.last_name + " subject " + subject +
-          " timeslot " + day + " " + daytimeStart + " - " + timeEnd +
+          " timeslot " + day + " " + timeStart + " - " + timeEnd +
           " has been accepted"
         });
         alert("Request accepted!");
