@@ -3,9 +3,11 @@
   <img id="logo" :src="logo" />
     <nav>
       <ul class="navbar" style="list-style-type: none;">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/login">Login</router-link></li>
-        <li><router-link to="/logout">Logout</router-link></li>
+        <li><router-link to="/HomeTutor">Home</router-link></li>
+        <li><router-link to="/ProfileTutor">Profile</router-link></li>
+        <li><router-link to="/CalendarTutor">Calendar</router-link></li>
+        <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+        <li><router-link to='/logout'>Logout</router-link></li>
       </ul>
     </nav>
   <div style="text-align:center" class="formdiv">
@@ -196,6 +198,24 @@ nav a {
   height: 100px;
   width: 95px;
   top:50px;
+}
+
+button {
+  width: 200px;
+  height: 20px;
+  color: #3a938d;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border-width: 1px;
+  font-weight: bold;
+  font-size: 15px;
+  border-color: white;
+  margin: 10px;
+  font-weight: bold;
+  font-family: Montserrat;
+  line-height: normal;
 }
 
 </style>
