@@ -177,7 +177,7 @@ var db = firebase.firestore();
         '4day': '4 Days',
       },
       name: null,
-      details: null,
+      details: "",
       start: null,
       end: null,
       color: "#1976D2",

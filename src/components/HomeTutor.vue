@@ -30,15 +30,15 @@
       <div class = "box">
       <p class = "heading"> Timeslot Requests </p>
       <ul>
-          <li v-for="request in this.requests" :key="request.id">
+          <li class="item" v-for="request in this.requests" :key="request.id">
               <p>
                 {{request.first_name}} {{request.last_name}}
-                requested subject {{request.subject}} 
-                timeslot {{request.start}} - {{request.end}}
+                requested <br>
+                Subject: {{request.subject}} <br>
+                Timeslot: {{request.start}} - {{request.end}}
               </p>
-                <button v-on:click="acceptRequest(request.stdid, request.start, request.end, request.subject)">Accept</button>
+                <button v-on:click="acceptRequest(request.stdid, request.start, request.end, request.subject)">Accept</button><br>
                 <button v-on:click="declineRequest(request.stdid, request.start, request.end, request.subject)">Decline</button>
-              
           </li>   
       </ul> 
     </div>
@@ -259,5 +259,28 @@ ul {
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
+}
+
+button {
+  width: 80px;
+  height: 20px;
+  color: #3a938d;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border-width: 1px;
+  font-weight: bold;
+  font-size: 15px;
+  border-color: white;
+  margin: 10px;
+  font-weight: bold;
+  font-family: Montserrat;
+  line-height: normal;
+}
+
+  button:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 </style>
