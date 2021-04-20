@@ -7,6 +7,7 @@
             <li><router-link to="/ProfileTutor">Profile</router-link></li>
             <li><router-link to="/CalendarTutor">Calendar</router-link></li>
             <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+            <li><router-link to='/logout'>Logout</router-link></li>
         </ul>
     </nav>
     <div id='full'>
