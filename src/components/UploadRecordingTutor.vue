@@ -104,6 +104,9 @@ export default {
             //Save item to database
             this.assignment.tutor = this.thisUserId
             this.assignment.uploadDate = new Date().toISOString().slice(0, 10)
+            if (!this.assignment.uploadURL) {
+                alert('Please upload a recording')
+            }
             db.collection('student_recordings').doc().set(this.assignment);
             alert("Item saved successfully")
             this.$router.push('/assignmentTutor')

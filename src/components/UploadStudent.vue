@@ -89,6 +89,9 @@ export default {
     addItem:  function () {
             //Save item to database
             this.assignment.uploadURL = this.urlLink.fullPath
+            if (!this.assignment.uploadURL) {
+                alert('Please upload a document')
+            }
             this.assignment.studentId = this.thisUserId
             this.assignment.uploadDate = new Date().toISOString().slice(0, 10)
             db.collection('tutor_files').doc().set(this.assignment);

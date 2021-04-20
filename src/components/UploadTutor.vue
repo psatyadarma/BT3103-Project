@@ -107,6 +107,10 @@ export default {
     addItem:  function () {
             //Save item to database
             this.assignment.uploadURL = this.urlLink.fullPath
+            if (!this.assignment.uploadURL) {
+                alert('Please upload a document')
+            }
+
             this.assignment.tutor = this.thisUserId
             db.collection('student_files').doc().set(this.assignment);
             alert("Item saved successfully")
