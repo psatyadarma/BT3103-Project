@@ -12,11 +12,13 @@
             </ul>
         </nav>
         <h1 id='heading'>Browse Through Our Tutors!</h1>
+        <div>
+            <button type="button" class='liButton' id='myTutors' v-on:click='myTutors()'>My Tutors</button>
+        </div>
         
         <div id='searching'>
             <input type="search" v-model='searchQuery' spellcheck=true 
             placeholder='Keywords such as Subject, Level, Rates...'>
-            <button type="button" id='myTutors' v-on:click='myTutors()'>My Tutors</button>
         </div>
         
         <div id='dropdowns'>
@@ -54,9 +56,10 @@
         <div id='tutorCarousel'>
             <ul id='tutorList'>
                 <li id='tutorCard' v-for='tutor in filteredTutors' :key='tutor.id' v-on:mouseover='incrementProfileView(tutor.id)'>
-                    <img id='tutorimg' v-bind:src='tutor.image' alt='Tutor Image'>
+                    <img id='tutorimg' v-bind:src='profile' alt='Tutor Image'>
                     <p id='tutorName'>{{ tutor.first_name }} {{ tutor.last_name }}</p>
                     <p id='tutorQualifications'>{{ tutor.qualifications }}</p>
+                    <hr id='line'>
                     <p id='tutorSubject'>Subjects: {{ tutor.subject[0] }} 
                                                    {{ tutor.subject[1] }} 
                                                    {{ tutor.subject[2] }}
@@ -111,6 +114,7 @@
 <script>
 
 import logo from "../assets/logo2.png"
+import profile from "../assets/profile.jpg"
 import firebase from "../firebase.js"
 var database = firebase.firestore();
 
@@ -125,7 +129,8 @@ export default {
           levelKey: 'select',
           subjectKey: 'select',
           addTutorId: '',
-          logo: logo
+          logo: logo,
+          profile: profile
       };
   },
   methods: {
@@ -366,6 +371,7 @@ nav a {
 h1 {
     text-align: center;
     font-size: 64px;
+    padding-top: 150px;
 }
 
 #logo {
@@ -383,11 +389,16 @@ h1 {
     border-radius: 50%;
 }
 
+#tutorCarousel {
+    margin-bottom: 70px;
+}
+
 #tutorList {
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;
-    padding: 0;
+    padding: 0 auto;
+    margin: 0 auto;
 }
 
 #tutorCard {
@@ -396,7 +407,7 @@ h1 {
     text-align: center;
     padding: 10px;
     border: 1px solid #222;
-    margin: 40px 40px 20px;
+    margin: 40px 50px 20px;
     box-sizing: border-box;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
     border-radius: 46px;
@@ -409,17 +420,29 @@ h1 {
     box-shadow: 0 12px 12px rgba(0, 0, 0, 0.472);
 }
 
+p {
+    margin: 10px;
+}
+
 #tutorName {
     font-family: Montserrat;
-    font-weight: bold;
+    font-weight: 900;
     color: black;
     font-size: 28px;
 }
 
 #tutorQualifications {
     font-family: Montserrat;
+    font-weight: 600;
     color: grey;
     font-size: 20px;
+}
+
+#line {
+    width: 90%;
+    margin: 10px auto 20px;
+    text-align: center;
+    border-top: 1px solid black;
 }
 
 #searching {
@@ -427,23 +450,13 @@ h1 {
 }
 
 #dropdowns {
-    position: absolute;
-    right: 70px;
-    padding: 20px;
+    text-align: right;
+    margin-right: 70px;
+    position: relative;
 }
 
 #myTutors {
-    font-family: Montserrat;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: normal;
-    background: #50cdc5;
-    border-radius: 20px;
-    padding: 7px 35px;
-    position: absolute;
-    right: 70px;
-    top: 400px;
-    background: #3a938d;
+    margin: 10px 20px 10px 40px;
 }
 
 .liButton {
@@ -451,27 +464,32 @@ h1 {
     font-weight: bold;
     font-size: 24px;
     line-height: normal;
-    background: #50cdc5;
     border-radius: 20px;
     padding: 7px 35px;
     background: #3a938d;
+    cursor: pointer;
+    box-shadow: 0 4px rgba(0, 0, 0, 0.25);
+}
+
+.liButton:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.472);
 }
 
 input {
+    border: 2px solid black;
     display: block;
     margin: 0 auto;
     width: 33%;
     padding: 13px;
     border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0px 10px 4px rgba(0, 0, 0, 0.25);
 }
 
 #searchButton {
     display: block;
     margin: 20px 33% 0 auto;
-}
-
-#tutorCarousel {
-    margin-top: 150px;
 }
 
 label {
