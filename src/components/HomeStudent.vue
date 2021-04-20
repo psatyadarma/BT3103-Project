@@ -1,40 +1,43 @@
 <template>
   <body>
-    <img :src="logo" />
-    <nav>
-      <ul class="navbar" style="list-style-type: none;">
-        <li><router-link to="/HomeStudent">Home</router-link></li>
-        <li><router-link to="/ProfileStudent">Profile</router-link></li>
-        <li><router-link to="/CalendarStudent">Calendar</router-link></li>
-        <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
-        <li><router-link to="/assignmentStudent">Assignment</router-link></li>
-        <li><router-link to='/logout'>Logout</router-link></li>
-      </ul>
-    </nav>
-    <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}} </h1>
-    <div class = "reminders">
-      <p class = "heading"><u>Upcoming Lessons</u></p>
-      <br><br>
-      <ul class="class">
-        <li class='item' v-for="event in this.events" v-bind:key="event.name">
-          <p class="inline" id = "value">  {{ "Name: " + event.name }} </p> 
-          <p class="inline" id = "value">  {{ "Details: " + event.details }} </p> 
-          <p class="inline" id = "value">  {{ "Time: " + event.start + " to " + event.end}} </p> 
-          <br>
-        </li>
-      </ul>  
+    <div id = "wrapper">
+      <img :src="logo" />
+      <nav>
+        <ul class="navbar" style="list-style-type: none;">
+          <li><router-link to="/HomeStudent">Home</router-link></li>
+          <li><router-link to="/ProfileStudent">Profile</router-link></li>
+          <li><router-link to="/CalendarStudent">Calendar</router-link></li>
+          <li><router-link to="/browseTutor">Browse Tutors</router-link></li>
+          <li><router-link to="/assignmentStudent">Assignment</router-link></li>
+          <li><router-link to='/logout'>Logout</router-link></li>
+        </ul>
+      </nav>
+      <h1 class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}} </h1>
       <br>
-    </div>
+      <div class = "box">
+        <p class = "heading"><u>Upcoming Lessons</u></p>
+        <br><br>
+        <ul class="class">
+          <li class='item' v-for="event in this.events" v-bind:key="event.name">
+            <p class="inline" id = "value">  {{ "Name: " + event.name }} </p> 
+            <p class="inline" id = "value">  {{ "Details: " + event.details }} </p> 
+            <p class="inline" id = "value">  {{ "Time: " + event.start + " to " + event.end}} </p> 
+            <br>
+          </li>
+        </ul>  
+        <br>
+      </div>
 
-    <div class = "results">
-      <p class = "heading"><u>Results</u></p>
-      <ul>
-        <li class='item' v-for="result in this.results" :key="result.id">
-          <p>
-            {{result.message}}
-          </p>
-        </li>   
-      </ul> 
+      <div class = "box">
+        <p class = "heading"><u>Results</u></p>
+        <ul>
+          <li class='item' v-for="result in this.results" :key="result.id">
+            <p>
+              {{result.message}}
+            </p>
+          </li>   
+        </ul> 
+      </div>
     </div>  
   </body>
 </template>
@@ -55,8 +58,8 @@ export default {
     return {
       logo: logo,
       events: [],
-      first_name: null,
-      last_name: null,
+      first_name: "",
+      last_name: "",
       today: new Date().toISOString().substr(0, 10),
       yesterday: new Date(new Date().setDate(new Date().getDate()-1)),
       results:[]
@@ -93,12 +96,6 @@ export default {
     this.getEvents();
   },
     created(){
-      console.log(firebase.auth().currentUser.uid)
-      db.collection('results').doc(firebase.auth().currentUser.uid).collection('results').get().then(snapshot => {
-          snapshot.docs.forEach(doc => {
-              this.results.push(doc.data());
-          });
-      });
       firebase.auth().onAuthStateChanged(user => {
           if (user!=null) {
             db.collection('students').doc(user.uid).get().then((querySnapShot)=>
@@ -106,7 +103,13 @@ export default {
                   var data = querySnapShot.data();
                   this.first_name = data.first_name;
                   this.last_name = data.last_name; 
-              })
+              })            
+            console.log(firebase.auth().currentUser.uid)
+            db.collection('results').doc(firebase.auth().currentUser.uid).collection('results').get().then(snapshot => {
+              snapshot.docs.forEach(doc => {
+              this.results.push(doc.data());
+          });
+      });
           } else {
             // No user is signed in.
           }
@@ -121,13 +124,27 @@ export default {
   box-sizing: border-box;
   }
 
+  body {
+    background-image: url("../assets/background1.jpg");
+    background-size: cover;
+    height:100vh;
+    overflow: hidden;
+    //background-color: pink;
+    //min-width: 80%;
+    min-height: 800px;
+  }
+
+  #wrapper {
+    text-align: center;
+  }
+
   .welcome {
     text-align: left;
-    padding-left: 250px;
-    padding-top: 120px;
-    color: black;
+    padding-left: 150px;
+    padding-top: 50px;
+    color: white;
     font-weight: bold;
-    font-size: 64px;
+    font-size: 30px;
   }
 
   .heading {
@@ -138,23 +155,25 @@ export default {
     font-family: Montserrat;
   }
 
-  div {
+  .box {
     background-color: #55C9C2;
     color: black;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
     display: inline-block;
     vertical-align: middle;
     box-sizing: border-box;
-    border-radius: 80px; 
-    height: 600px;
-    width: 800px;  
-    margin: 100px;
+    border-radius: 35px; 
+    height: 500px;
+    width: 400px;  
+    margin: 50px;
     margin-top: 50px;
-    margin-left: 250px;
+    margin-left: 60px;
     padding-top: 30px;
-    padding-left: 20px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    padding-left: 30px;
+    font-family: Montserrat;
     line-height: 150%;
+    font-size: 12px;
+    overflow: auto;
   }
 
 img {

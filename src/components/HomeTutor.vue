@@ -1,45 +1,47 @@
 <template>
 <body>
-  <img :src="logo" />
-  <nav>
-    <ul class="navbar" style="list-style-type: none;">
-      <li><router-link to="/HomeTutor">Home</router-link></li>
-      <li><router-link to="/ProfileTutor">Profile</router-link></li>
-      <li><router-link to="/CalendarTutor">Calendar</router-link></li>
-      <li><router-link to="/assignmentTutor">Assignment</router-link></li>
-      <li><router-link to='/logout'>Logout</router-link></li>
-    </ul>
-  </nav>
-  <br>
-  <p class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</p>
-  <div class = "reminders">
-      <p class = "heading"> Upcoming Lessons </p>
-      <br>
-      <ul class="class">
-        <li v-for="event in this.events" v-bind:key="event.name">
-          <p class="inline" id = "value">  {{ "Name: " + event.name }} </p> 
-          <p class="inline" id = "value">  {{ "Details: " + event.details }} </p> 
-          <p class="inline" id = "value">  {{ "Time: " + event.start + " to " + event.end}} </p> 
-          <br>
-        </li>
-      </ul>  
-      <br>
-  </div>
+  <div id="wrapper">
+    <img :src="logo" />
+    <nav>
+      <ul class="navbar" style="list-style-type: none;">
+        <li><router-link to="/HomeTutor">Home</router-link></li>
+        <li><router-link to="/ProfileTutor">Profile</router-link></li>
+        <li><router-link to="/CalendarTutor">Calendar</router-link></li>
+        <li><router-link to="/assignmentTutor">Assignment</router-link></li>
+        <li><router-link to='/logout'>Logout</router-link></li>
+      </ul>
+    </nav>
+    <br>
+    <p class = "welcome"> {{"Welcome back, " + this.first_name + " " + this.last_name + "!"}}</p>
+    <div class = "box">
+        <p class = "heading"> Upcoming Lessons </p>
+        <br>
+        <ul class="class">
+          <li class="item" v-for="event in this.events" v-bind:key="event.name">
+            <p class="inline" id = "value">  {{ "Name: " + event.name }} </p> 
+            <p class="inline" id = "value">  {{ "Details: " + event.details }} </p> 
+            <p class="inline" id = "value">  {{ "Time: " + event.start + " to " + event.end}} </p> 
+            <br>
+          </li>
+        </ul>  
+        <br>
+    </div>
 
-    <div class = "requests">
-    <p class = "heading"> Timeslot Requests </p>
-    <ul>
-        <li v-for="request in this.requests" :key="request.id">
-            <p>
-              {{request.first_name}} {{request.last_name}}
-              requested subject {{request.subject}} 
-              timeslot {{request.start}} - {{request.end}}
-            </p>
-              <button v-on:click="acceptRequest(request.stdid, request.start, request.end, request.subject)">Accept</button>
-              <button v-on:click="declineRequest(request.stdid, request.start, request.end, request.subject)">Decline</button>
-            
-        </li>   
-    </ul> 
+      <div class = "box">
+      <p class = "heading"> Timeslot Requests </p>
+      <ul>
+          <li v-for="request in this.requests" :key="request.id">
+              <p>
+                {{request.first_name}} {{request.last_name}}
+                requested subject {{request.subject}} 
+                timeslot {{request.start}} - {{request.end}}
+              </p>
+                <button v-on:click="acceptRequest(request.stdid, request.start, request.end, request.subject)">Accept</button>
+                <button v-on:click="declineRequest(request.stdid, request.start, request.end, request.subject)">Decline</button>
+              
+          </li>   
+      </ul> 
+    </div>
   </div>
   </body>
 </template>
@@ -156,6 +158,10 @@ export default {
     min-height: 800px;
   }
 
+  #wrapper {
+    text-align: center;
+  }
+
   .welcome {
     text-align: left;
     padding-left: 150px;
@@ -173,7 +179,7 @@ export default {
     font-family: Montserrat;
   }
 
-  div {
+  .box {
     background-color: #55C9C2;
     color: black;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
@@ -183,16 +189,15 @@ export default {
     border-radius: 35px; 
     height: 500px;
     width: 400px;  
-    margin: 10px;
+    margin: 50px;
     margin-top: 50px;
-    margin-left: 150px;
+    margin-left: 60px;
     padding-top: 30px;
-    padding-left: 20px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    padding-left: 30px;
+    font-family: Montserrat;
     line-height: 150%;
     font-size: 12px;
     overflow: auto;
-    
   }
 
 img {
@@ -233,5 +238,21 @@ nav a {
 
 ul {
   list-style-type: none;
+}
+
+.item {
+  background: linear-gradient(180deg, #80FFE8 0%, rgba(106, 228, 255, 0.71) 100%);
+  border-radius: 35px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 20px 15px 20px 0px;
+}
+
+.item p {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
 }
 </style>

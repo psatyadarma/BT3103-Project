@@ -46,9 +46,9 @@
             color="grey darken-2"
             @click="prev"
           >
-            <v-icon small>
-              mdi-chevron-left
-            </v-icon>
+            <button>
+              PREV
+            </button>
           </v-btn>
           <v-btn
             fab
@@ -57,9 +57,9 @@
             color="grey darken-2"
             @click="next"
           >
-            <v-icon small>
-              mdi-chevron-right
-            </v-icon>
+            <button>
+              NEXT
+            </button>
           </v-btn>
           <v-toolbar-title v-if="$refs.calendar">
             {{ $refs.calendar.title }}
@@ -110,7 +110,7 @@
           <v-card color="grey lighten-4" min-width="350px" flat>
             <v-toolbar :color="selectedEvent.color" dark>
               <v-btn @click="deleteEvent(selectedEvent.id)" icon>
-                <v-icon>mdi-delete</v-icon>
+                <button>DELETE</button>
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
