@@ -3,7 +3,7 @@
   <img :src="logo" />
   <nav>
     <ul class="navbar" style="list-style-type: none;">
-      <li><router-link to="/HomeStudent">Home</router-link></li>
+      <li><router-link to="/HomeTutor">Home</router-link></li>
       <li><router-link to="/ProfileTutor">Profile</router-link></li>
       <li><router-link to="/CalendarTutor">Calendar</router-link></li>
       <li><router-link to="/assignmentTutor">Assignment</router-link></li>
