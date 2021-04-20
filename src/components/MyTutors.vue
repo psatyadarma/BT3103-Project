@@ -547,4 +547,9 @@ select:hover {
     opacity: 1;
 }
 
+#removeTutorConfirm {
+    margin: 18px 88px 18px 88px;
+    text-align: center;
+}
+
 </style>
