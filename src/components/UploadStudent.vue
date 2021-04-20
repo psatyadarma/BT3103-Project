@@ -78,8 +78,7 @@ export default {
 
     uploadBlob: function(file) {
         const ref = firebase.storage().ref().child('assignments/forTutors/' + this.assignment.tutorId + '/' +
-                                                                              this.assignment.studentId + '_' +
-                                                                              this.assignment.header + '.docx');
+                                                                              this.genUniqueId() + '.docx');
         ref.put(file).then(() => {
             this.urlLink = ref
             console.log('Uploaded file');
@@ -112,6 +111,13 @@ export default {
                 })
             }
           })
+    },
+
+    genUniqueId: function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+        });
     }
     },
   created() {
