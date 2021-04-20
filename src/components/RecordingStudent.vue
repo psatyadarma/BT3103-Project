@@ -119,17 +119,6 @@ export default {
       return uniqueKey;
       },
 
-      getTutor:function(id) {
-          db.collection('profiles').doc(id).get().then((querySnapShot)=> {
-              console.log("id:" ,id)
-              let tutor = {}
-              tutor = querySnapShot.data()
-              var name = tutor.first_name
-              console.log("name: ",name)
-              return name
-          })
-      }
-
   },
 
   created() {
