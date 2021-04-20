@@ -31,7 +31,7 @@
                 <strong id='header'>Assignment Header:___________________________
                     </strong> <input id='headerMsg' type='text' v-model.lazy="assignment.header"> <br>
                 <strong id='desc'>Assignment Description: </strong> <textarea id='descMsg' type='text' v-model.lazy="assignment.description"></textarea> <br>
-                <strong id='files'>Additional Files: (in .docx) </strong> <input id='fileUpload' type="file" @change="onFileChange">
+                <strong id='files'>Additional Files (.docx/.pdf): </strong> <input id='fileUpload' type="file" @change="onFileChange">
             </div>
 
             <button id='submit' v-on:click.prevent='addItem'> Submit </button>
@@ -278,7 +278,7 @@ nav a {
 #fileUpload {
     position: absolute;
     bottom: 15px;
-    left: 240px;
+    left: 250px;
     font-size: 15px;
     font-weight: 500;
 }
